@@ -1,4 +1,4 @@
-package net.minecraft.src;
+package com.sirolf2009.necromancy.client.model;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
