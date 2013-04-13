@@ -1,0 +1,81 @@
+package com.sirolf2009.necromancy.entity.necroapi;
+
+import net.minecraft.entity.Entity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.MathHelper;
+
+import com.sirolf2009.necroapi.BodyPart;
+import com.sirolf2009.necroapi.NecroEntityBase;
+import com.sirolf2009.necromancy.client.model.ModelMinion;
+import com.sirolf2009.necromancy.item.ItemBodyPart;
+
+public class NecroEntityCreeper extends NecroEntityBase {
+
+    public NecroEntityCreeper() {
+        super("creeper");
+        headItem = new ItemStack(Item.skull, 1, 4);
+        torsoItem = ItemBodyPart.getItemStackFromName("Creeper Torso", 1);
+        legItem = ItemBodyPart.getItemStackFromName("Creeper Legs", 1);
+        texture = "/mob/creeper.png";
+        hasArms = false;
+    }
+
+    @Override
+    public BodyPart[] initHead(ModelMinion model) {
+        BodyPart head = new BodyPart(this, model, 0, 0);
+        head.addBox(-4, -4, -4, 8, 8, 8, 0.0F);
+        head.setTextureSize(textureWidth, textureHeight);
+        return new BodyPart[] { head };
+    }
+
+    @Override
+    public BodyPart[] initTorso(ModelMinion model) {
+        float[] headPos = { 4.0F, -4.0F, 2.0F };
+        float[] armLeftPos = { -4F, 0.0F, 2.0F };
+        float[] armRightPos = { 8F, 0.0F, 2.0F };
+        BodyPart torso = new BodyPart(this, armLeftPos, armRightPos, headPos, model, 16, 16);
+        torso.addBox(0.0F, 0.0F, 0.0F, 8, 12, 4, 0.0F);
+        torso.setTextureSize(textureWidth, textureHeight);
+        return new BodyPart[] { torso };
+    }
+
+    @Override
+    public BodyPart[] initLegs(ModelMinion model) {
+        float[] torsoPos = { -4F, 4F, -2F };
+        BodyPart leg1 = new BodyPart(this, torsoPos, model, 0, 16);
+        leg1.addBox(0.0F, 16.0F, 2.0F, 4, 6, 4, 0.0F);
+        BodyPart leg2 = new BodyPart(this, torsoPos, model, 0, 16);
+        leg2.addBox(-4.0F, 16.0F, 2.0F, 4, 6, 4, 0.0F);
+        BodyPart leg3 = new BodyPart(this, torsoPos, model, 0, 16);
+        leg3.addBox(-4.0F, 16.0F, -6.0F, 4, 6, 4, 0.0F);
+        BodyPart leg4 = new BodyPart(this, torsoPos, model, 0, 16);
+        leg4.addBox(0.0F, 16.0F, -6.0F, 4, 6, 4, 0.0F);
+        return new BodyPart[] { leg1, leg2, leg3, leg4 };
+    }
+
+    @Override
+    public BodyPart[] initArmLeft(ModelMinion model) {
+        return null;
+    }
+
+    @Override
+    public BodyPart[] initArmRight(ModelMinion model) {
+        return null;
+    }
+
+    @Override
+    public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity par7Entity, BodyPart[] bodypart, String string) {
+        if (string.equals("head")) {
+            bodypart[0].rotateAngleY = par4 / (180F / (float) Math.PI);
+            bodypart[0].rotateAngleX = par5 / (180F / (float) Math.PI);
+        }
+        if (string.equals("legs")) {
+            bodypart[0].rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 1.4F * par2;
+            bodypart[1].rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float) Math.PI) * 1.4F * par2;
+            bodypart[0].rotateAngleY = 0.0F;
+            bodypart[1].rotateAngleY = 0.0F;
+        }
+    }
+
+}

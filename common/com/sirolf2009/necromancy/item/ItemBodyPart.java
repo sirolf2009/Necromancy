@@ -1,0 +1,81 @@
+package com.sirolf2009.necromancy.item;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.Icon;
+
+import com.sirolf2009.necromancy.Necromancy;
+
+public class ItemBodyPart extends Item {
+
+    public ItemBodyPart(int par1) {
+        super(par1);
+        setHasSubtypes(true);
+        setMaxDamage(0);
+        setCreativeTab(Necromancy.tabNecromancy);
+        addParts("Cow", "Torso", "Head", "Arm", "Legs");
+        addParts("Creeper", "Torso", "Legs");
+        addParts("Enderman", "Head", "Torso", "Arm", "Legs");
+        addParts("Pig", "Head", "Torso", "Arm", "Legs");
+        addParts("Pigzombie", "Head", "Torso", "Arm", "Legs");
+        addParts("Skeleton", "Torso", "Arm", "Legs");
+        // addParts("Small Slime", "Head", "Torso", "Arm", "Legs");
+        addParts("Spider", "Head", "Torso", "Legs");
+        addParts("Zombie", "Torso", "Arm", "Legs");
+        textures = new Icon[necroEntities.size()];
+    }
+
+    @Override
+    public String getItemDisplayName(ItemStack par1ItemStack) {
+        return necroEntities.get(par1ItemStack.getItemDamageForDisplay());
+    }
+
+    public void addParts(String entity, String... parts) {
+        for (String part : parts) {
+            necroEntities.add(entity + " " + part);
+        }
+    }
+
+    public static ItemStack getItemStackFromName(String name, int amount) {
+        Iterator<String> itr = necroEntities.iterator();
+        int i = 0;
+        while (itr.hasNext()) {
+            String part = itr.next();
+            if (part.equals(name))
+                return new ItemStack(Necromancy.bodyparts.itemID, amount, i);
+            i++;
+        }
+        return null;
+    }
+
+    @Override
+    public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List) {
+        for (int i = 0; i < necroEntities.size(); i++) {
+            par3List.add(new ItemStack(par1, 1, i));
+        }
+    }
+
+    @Override
+    public void updateIcons(IconRegister iconRegister) {
+        String name, path;
+        for (int index = 0; index < necroEntities.size(); index++) {
+            name = necroEntities.get(index);
+            path = name.replaceAll(" ", "/");
+            textures[index] = iconRegister.registerIcon("necromancy:bodypart/" + path);
+        }
+    }
+
+    @Override
+    public Icon getIconFromDamage(int par1) {
+        return textures[par1];
+    }
+
+    public static List<String> necroEntities = new ArrayList<String>();
+    public static Icon[] textures;
+}
