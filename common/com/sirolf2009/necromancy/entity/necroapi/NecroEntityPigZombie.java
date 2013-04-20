@@ -10,7 +10,7 @@ import com.sirolf2009.necromancy.item.ItemBodyPart;
 public class NecroEntityPigZombie extends NecroEntityBiped implements ISkull {
 
     public NecroEntityPigZombie() {
-        super("PIGZOMBIE");
+        super("Pigzombie");
         headItem = ItemBodyPart.getItemStackFromName("Pigzombie Head", 1);
         torsoItem = ItemBodyPart.getItemStackFromName("Pigzombie Torso", 1);
         armItem = ItemBodyPart.getItemStackFromName("Pigzombie Arm", 1);
@@ -36,7 +36,12 @@ public class NecroEntityPigZombie extends NecroEntityBiped implements ISkull {
     }
 
     @Override
-    public String getSkullTexture() {
-        return "mob/pigzombie.png";
+    public String getSkullModelTexture() {
+        return "/mob/pigzombie.png";
+    }
+
+    @Override
+    public String getSkullIconTexture() {
+        return "necromancy:bodypart/Pigzombie/Head";
     }
 }

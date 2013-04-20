@@ -1,11 +1,11 @@
 package com.sirolf2009.necromancy.entity.necroapi;
 
+import net.minecraft.client.model.ModelBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import com.sirolf2009.necroapi.BodyPart;
 import com.sirolf2009.necroapi.NecroEntityQuadruped;
-import com.sirolf2009.necromancy.client.model.ModelMinion;
 import com.sirolf2009.necromancy.item.ItemBodyPart;
 
 public class NecroEntityPig extends NecroEntityQuadruped {
@@ -20,7 +20,7 @@ public class NecroEntityPig extends NecroEntityQuadruped {
     }
 
     @Override
-    public BodyPart[] initHead(ModelMinion model) {
+    public BodyPart[] initHead(ModelBase model) {
         BodyPart head = new BodyPart(this, model, 0, 0);
         head.addBox(-4.0F, -4.0F, -4.0F, 8, 8, 8, 0.0F);
         head.setTextureSize(textureWidth, textureHeight);

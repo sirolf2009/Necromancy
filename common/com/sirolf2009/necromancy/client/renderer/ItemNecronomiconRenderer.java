@@ -23,8 +23,7 @@ public class ItemNecronomiconRenderer implements IItemRenderer {
     public ModelNecronomicon modelInteractive = new ModelNecronomicon();
     public ModelNecronomicon modelStatic = new ModelNecronomicon();
 
-    public String[] leftPageContent = { "TO DO", "Fix the altar", "add more mobs", "sort out texture sizes for minions", "scrollable necronomicon" },
-            rightPageContent = {};
+    public String[] leftPageContent = {}, rightPageContent = {};
 
     FontRenderer font = Minecraft.getMinecraft().fontRenderer;
 
@@ -50,15 +49,9 @@ public class ItemNecronomiconRenderer implements IItemRenderer {
                 break;
             case EQUIPPED:
                 if (ClientProxy.mc.gameSettings.thirdPersonView == 0 && !(ClientProxy.mc.currentScreen instanceof InventoryEffectRenderer)) {
-                    renderNecronomiconInteractive(0.8F, 1F, -1F, 20F, 100F, 160F, 0.01F, (ItemNecronomicon) item.getItem()); // first
-                                                                                                                             // person
+                    renderNecronomiconInteractive(0.8F, 1F, -1F, 20F, 100F, 160F, 0.01F, (ItemNecronomicon) item.getItem());
                 } else {
-                    renderNecronomiconInteractive(0.8F, 1.3F, 0.6F, 180F, 180F, 0F, 0.009F, (ItemNecronomicon) item.getItem()); // third
-                                                                                                                                // person
-                                                                                                                                // or
-                                                                                                                                // inventory
-                                                                                                                                // is
-                                                                                                                                // open
+                    renderNecronomiconInteractive(0.8F, 1.3F, 0.6F, 180F, 180F, 0F, 0.009F, (ItemNecronomicon) item.getItem());
                 }
                 break;
             case INVENTORY:

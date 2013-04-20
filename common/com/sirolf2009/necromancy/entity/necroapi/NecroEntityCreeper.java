@@ -1,5 +1,6 @@
 package com.sirolf2009.necromancy.entity.necroapi;
 
+import net.minecraft.client.model.ModelBase;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -7,7 +8,6 @@ import net.minecraft.util.MathHelper;
 
 import com.sirolf2009.necroapi.BodyPart;
 import com.sirolf2009.necroapi.NecroEntityBase;
-import com.sirolf2009.necromancy.client.model.ModelMinion;
 import com.sirolf2009.necromancy.item.ItemBodyPart;
 
 public class NecroEntityCreeper extends NecroEntityBase {
@@ -22,7 +22,7 @@ public class NecroEntityCreeper extends NecroEntityBase {
     }
 
     @Override
-    public BodyPart[] initHead(ModelMinion model) {
+    public BodyPart[] initHead(ModelBase model) {
         BodyPart head = new BodyPart(this, model, 0, 0);
         head.addBox(-4, -4, -4, 8, 8, 8, 0.0F);
         head.setTextureSize(textureWidth, textureHeight);
@@ -30,7 +30,7 @@ public class NecroEntityCreeper extends NecroEntityBase {
     }
 
     @Override
-    public BodyPart[] initTorso(ModelMinion model) {
+    public BodyPart[] initTorso(ModelBase model) {
         float[] headPos = { 4.0F, -4.0F, 2.0F };
         float[] armLeftPos = { -4F, 0.0F, 2.0F };
         float[] armRightPos = { 8F, 0.0F, 2.0F };
@@ -41,7 +41,7 @@ public class NecroEntityCreeper extends NecroEntityBase {
     }
 
     @Override
-    public BodyPart[] initLegs(ModelMinion model) {
+    public BodyPart[] initLegs(ModelBase model) {
         float[] torsoPos = { -4F, 4F, -2F };
         BodyPart leg1 = new BodyPart(this, torsoPos, model, 0, 16);
         leg1.addBox(0.0F, 16.0F, 2.0F, 4, 6, 4, 0.0F);
@@ -55,12 +55,12 @@ public class NecroEntityCreeper extends NecroEntityBase {
     }
 
     @Override
-    public BodyPart[] initArmLeft(ModelMinion model) {
+    public BodyPart[] initArmLeft(ModelBase model) {
         return null;
     }
 
     @Override
-    public BodyPart[] initArmRight(ModelMinion model) {
+    public BodyPart[] initArmRight(ModelBase model) {
         return null;
     }
 

@@ -4,6 +4,10 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
+/**
+ * @author Fabiulu Permission to use this model has been lend to sirolf2009 for
+ *         the necromancy mod
+ */
 public class ModelNightCrawler extends ModelBase {
 
     ModelRenderer midBody;
@@ -177,7 +181,6 @@ public class ModelNightCrawler extends ModelBase {
 
     @Override
     public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
-        System.out.println("test render");
         super.render(entity, f, f1, f2, f3, f4, f5);
         setRotationAngles(f, f1, f2, f3, f4, f5, entity);
         midBody.render(f5);

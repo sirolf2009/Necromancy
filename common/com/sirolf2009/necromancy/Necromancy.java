@@ -2,13 +2,17 @@ package com.sirolf2009.necromancy;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemSkull;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.AchievementPage;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
@@ -27,8 +31,10 @@ import com.sirolf2009.necromancy.block.BlockSewing;
 import com.sirolf2009.necromancy.block.BlockSkullWall;
 import com.sirolf2009.necromancy.core.handler.EventHandler;
 import com.sirolf2009.necromancy.core.handler.PacketHandler;
+import com.sirolf2009.necromancy.core.proxy.ClientProxy;
 import com.sirolf2009.necromancy.core.proxy.CommonProxy;
 import com.sirolf2009.necromancy.creativetab.CreativeTabNecro;
+import com.sirolf2009.necromancy.entity.EntityIsaacBlood;
 import com.sirolf2009.necromancy.entity.EntityIsaacNormal;
 import com.sirolf2009.necromancy.entity.EntityMinion;
 import com.sirolf2009.necromancy.entity.EntityNightCrawler;
@@ -41,10 +47,12 @@ import com.sirolf2009.necromancy.entity.necroapi.NecroEntityPigZombie;
 import com.sirolf2009.necromancy.entity.necroapi.NecroEntitySkeleton;
 import com.sirolf2009.necromancy.entity.necroapi.NecroEntitySlimeSmall;
 import com.sirolf2009.necromancy.entity.necroapi.NecroEntitySpider;
+import com.sirolf2009.necromancy.entity.necroapi.NecroEntityWither;
 import com.sirolf2009.necromancy.entity.necroapi.NecroEntityZombie;
 import com.sirolf2009.necromancy.generation.WorldGenerator;
 import com.sirolf2009.necromancy.item.ItemBodyPart;
 import com.sirolf2009.necromancy.item.ItemBucketBlood;
+import com.sirolf2009.necromancy.item.ItemNecroSkull;
 import com.sirolf2009.necromancy.item.ItemNecromancy;
 import com.sirolf2009.necromancy.item.ItemNecronomicon;
 import com.sirolf2009.necromancy.item.ItemOrgans;
@@ -53,10 +61,12 @@ import com.sirolf2009.necromancy.tileentity.TileEntityAltar;
 import com.sirolf2009.necromancy.tileentity.TileEntitySewing;
 import com.sirolf2009.necromancy.tileentity.TileEntitySkullWall;
 
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.ServerStarting;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkMod;
@@ -81,6 +91,7 @@ public class Necromancy {
     public static int NecronomiconID;
     public static int ScytheID;
     public static int BodyPartID;
+    public static int SkullID;
     public static int AltarID;
     public static int AltarBlockID;
     public static int SewingID;
@@ -90,9 +101,10 @@ public class Necromancy {
     public static int BucketBloodID;
     public static int NecroVillagerID;
     public static int TeddyID;
-    public static int NightCrawlerID;
 
     public static String SoulName = "Soul in a Jar";
+    
+    public static Logger logger;
 
     public static boolean Christmas = false;
 
@@ -114,6 +126,7 @@ public class Necromancy {
     public static Item bucketBlood;
     public static Item organs;
     public static Item bodyparts;
+    public static Item skull;
     public static Block altar;
     public static Block altarBlock;
     public static Block sewing;
@@ -125,6 +138,9 @@ public class Necromancy {
 
     @Mod.PreInit
     public void preInit(FMLPreInitializationEvent event) {
+        logger = Logger.getLogger("necromancy");
+        logger.setParent(FMLLog.getLogger());
+        
         Configuration config = new Configuration(event.getSuggestedConfigurationFile());
         config.load();
 
@@ -149,11 +165,13 @@ public class Necromancy {
         }
 
         NecroEntityBase.organID = OrgansID;
+
+        MinecraftForge.EVENT_BUS.register(eventHandler);
     }
 
     @Mod.Init
-    public void load(FMLInitializationEvent event) {
-        LanguageRegistry.instance().addStringLocalization("itemGroup.Necromancy", "en_US", "Necromantic Items");
+    public void init(FMLInitializationEvent event) {
+        LanguageRegistry.instance().addStringLocalization("itemGroup.Necromancy", "en_US", "Necromancy");
         initItems();
         initEntities();
         initBlocks();
@@ -173,9 +191,13 @@ public class Necromancy {
         achievePage = new AchievementPage("Necromancy", new Achievement[] { NecronomiconAchieve, SpawnAchieve, AltarAchieve, SewingAchieve });
         AchievementPage.registerAchievementPage(achievePage);
 
-        MinecraftForge.EVENT_BUS.register(eventHandler);
-
         GameRegistry.registerWorldGenerator(new WorldGenerator());
+    }
+    
+    @Mod.PostInit
+    public void postInit(FMLPostInitializationEvent event) {
+        ItemNecroSkull.initSkulls();
+        ClientProxy.mc.renderEngine.refreshTextures();
     }
 
     @ServerStarting
@@ -191,19 +213,26 @@ public class Necromancy {
         EntityRegistry.registerGlobalEntityID(EntityTeddy.class, "teddyNecro", TeddyID, new Color(99, 69, 29).getRGB(), Color.red.getRGB());
         LanguageRegistry.instance().addStringLocalization("entity.teddyNecro.name", "en_US", "Teddy Bear");
 
-        // NightCrawlerID = EntityRegistry.findGlobalUniqueEntityId();
         EntityRegistry.registerGlobalEntityID(EntityNightCrawler.class, "NightCrawler", EntityRegistry.findGlobalUniqueEntityId(), new Color(6, 6, 6).getRGB(), new Color(13, 13, 13).getRGB());
+        EntityRegistry.registerModEntity(EntityNightCrawler.class, "NightCrawler", 1, this, 80, 1, true);
         LanguageRegistry.instance().addStringLocalization("entity.NightCrawler.name", "en_US", "Night Crawler");
+        EntityRegistry.addSpawn(EntityNightCrawler.class, 1, 1, 1, EnumCreatureType.monster, BiomeGenBase.beach, BiomeGenBase.extremeHills, BiomeGenBase.extremeHillsEdge, BiomeGenBase.forest, BiomeGenBase.forestHills, BiomeGenBase.jungle, BiomeGenBase.jungleHills, BiomeGenBase.mushroomIsland, BiomeGenBase.mushroomIslandShore, BiomeGenBase.ocean, BiomeGenBase.plains, BiomeGenBase.river, BiomeGenBase.swampland);
 
         EntityRegistry.registerGlobalEntityID(EntityIsaacNormal.class, "IsaacNormal", EntityRegistry.findGlobalUniqueEntityId(), new Color(6, 6, 6).getRGB(), new Color(204, 153, 153).getRGB());
+        EntityRegistry.registerModEntity(EntityIsaacNormal.class, "IsaacNormal", 2, this, 80, 1, true);
         LanguageRegistry.instance().addStringLocalization("entity.IsaacNormal.name", "en_US", "Isaac");
+        EntityRegistry.addSpawn(EntityIsaacNormal.class, 1, 1, 3, EnumCreatureType.monster, BiomeGenBase.beach, BiomeGenBase.extremeHills, BiomeGenBase.extremeHillsEdge, BiomeGenBase.forest, BiomeGenBase.forestHills, BiomeGenBase.jungle, BiomeGenBase.jungleHills, BiomeGenBase.mushroomIsland, BiomeGenBase.mushroomIslandShore, BiomeGenBase.ocean, BiomeGenBase.plains, BiomeGenBase.river, BiomeGenBase.swampland);
+
+        EntityRegistry.registerGlobalEntityID(EntityIsaacBlood.class, "IsaacBlood", EntityRegistry.findGlobalUniqueEntityId(), new Color(16, 6, 6).getRGB(), new Color(214, 153, 153).getRGB());
+        LanguageRegistry.instance().addStringLocalization("entity.IsaacBlood.name", "en_US", "Isaac Blood");
 
         NecroVillagerID = EntityRegistry.findGlobalUniqueEntityId();
         VillagerRegistry.instance().registerVillagerType(NecroVillagerID, rscPath + "/entity/villagerNecro.png");
         VillagerRegistry.instance().registerVillageTradeHandler(NecroVillagerID, packetHandler);
 
-        NecroEntityRegistry.RegisterEntity(new NecroEntityZombie());
         NecroEntityRegistry.RegisterEntity(new NecroEntitySkeleton());
+        NecroEntityRegistry.RegisterEntity(new NecroEntityWither());
+        NecroEntityRegistry.RegisterEntity(new NecroEntityZombie());
         NecroEntityRegistry.RegisterEntity(new NecroEntityPig());
         NecroEntityRegistry.RegisterEntity(new NecroEntityCow());
         NecroEntityRegistry.RegisterEntity(new NecroEntityPigZombie());
@@ -247,6 +276,8 @@ public class Necromancy {
     }
 
     private void initItems() {
+        int skullID = Item.skull.itemID;
+        Item.itemsList[skullID] = null;
         necromanticItems = new ItemNecromancy(ItemID).setUnlocalizedName("ItemNecromancy");
         necronomicon = new ItemNecronomicon(NecronomiconID).setUnlocalizedName("Necronomicon");
         for (int x = 0; x < ItemNecromancy.names.length; x++) {
@@ -262,6 +293,7 @@ public class Necromancy {
             LanguageRegistry.addName(new ItemStack(organs, 1, x), ItemOrgans.names[x]);
         }
         bodyparts = new ItemBodyPart(BodyPartID).setUnlocalizedName("BodyParts");
+        skull = new ItemNecroSkull(skullID);
     }
 
     private void initRecipes() {
@@ -270,6 +302,7 @@ public class Necromancy {
         GameRegistry.addRecipe(new ItemStack(scythe, 1), new Object[] { "IH", " S", " B", Character.valueOf('I'), Block.obsidian, 'H', Item.hoeSteel, 'S', Item.stick, 'B', new ItemStack(necromanticItems, 1, 6) });
         GameRegistry.addRecipe(new ItemStack(sewing, 1), new Object[] { "III", "ISB", "III", 'I', Item.ingotIron, 'S', Item.silk, 'B', ItemNecromancy.getItemStackFromName("Bone Needle") });
         GameRegistry.addRecipe(ItemNecromancy.getItemStackFromName("Brain on a Stick"), new Object[] { "# ", " X", '#', Item.fishingRod, 'X', new ItemStack(organs, 1, 0) });
+        GameRegistry.addRecipe(new ItemStack(skullWall, 4), new Object[] { "#S#", "SSS", "#S#", '#', Block.obsidian, 'S', skull });
         GameRegistry.addShapelessRecipe(ItemNecromancy.getItemStackFromName("Jar of Blood", 8), new Object[] { new ItemStack(bucketBlood), Item.glassBottle, Item.glassBottle, Item.glassBottle, Item.glassBottle, Item.glassBottle, Item.glassBottle, Item.glassBottle, Item.glassBottle });
         GameRegistry.addShapelessRecipe(new ItemStack(bucketBlood), new Object[] { Item.bucketEmpty, ItemNecromancy.getItemStackFromName("Jar of Blood"), ItemNecromancy.getItemStackFromName("Jar of Blood"), ItemNecromancy.getItemStackFromName("Jar of Blood"), ItemNecromancy.getItemStackFromName("Jar of Blood"), ItemNecromancy.getItemStackFromName("Jar of Blood"), ItemNecromancy.getItemStackFromName("Jar of Blood"), ItemNecromancy.getItemStackFromName("Jar of Blood"), ItemNecromancy.getItemStackFromName("Jar of Blood") });
     }

@@ -41,6 +41,7 @@ public class EntityMinion extends EntityTameable {
         super(par1World);
         getNavigator().setAvoidsWater(true);
         this.getNavigator().setAvoidsWater(true);
+        setSize(0.6F, 1.8F);
         ticksExisted = 0;
         moveSpeed = 0.3F;
         tasks.addTask(0, aiMinion);
@@ -98,7 +99,6 @@ public class EntityMinion extends EntityTameable {
     @Override
     public void onUpdate() {
         super.onUpdate();
-        System.out.println("pos y: " + posY);
         if (rand.nextInt(100) == 0 || ticksExisted < 10) {
             if (!worldObj.isRemote) {
                 dataWatcherUpdate();

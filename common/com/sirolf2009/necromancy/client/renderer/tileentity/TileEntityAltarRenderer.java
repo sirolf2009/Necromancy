@@ -2,16 +2,23 @@ package com.sirolf2009.necromancy.client.renderer.tileentity;
 
 import java.util.Random;
 
+import net.minecraft.block.Block;
+import net.minecraft.client.model.ModelBook;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 import net.minecraftforge.client.IItemRenderer;
 
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 
 import com.sirolf2009.necromancy.Necromancy;
 import com.sirolf2009.necromancy.client.model.ModelAltar;
+import com.sirolf2009.necromancy.core.proxy.ClientProxy;
 import com.sirolf2009.necromancy.entity.EntityMinion;
 import com.sirolf2009.necromancy.tileentity.TileEntityAltar;
 
@@ -22,6 +29,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class TileEntityAltarRenderer extends TileEntitySpecialRenderer implements IItemRenderer {
 
+    RenderBlocks renderBlocks = new RenderBlocks();
+    private ModelBook book = new ModelBook();
+    
     public TileEntityAltarRenderer() {
         entity = null;
         model = new ModelAltar();
@@ -113,9 +123,90 @@ public class TileEntityAltarRenderer extends TileEntitySpecialRenderer implement
             }
             GL11.glRotatef(j, 0.0F, 1.0F, 0.0F);
             model.render();
-            GL11.glDisable(32826);
-            GL11.glPopMatrix();
+            GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+            GL11.glPushMatrix();
+            GL11.glTranslatef(.3F, -.1F, -0.3F);
+            float f1 = 0.5F;
+            f1 *= 1.0F;
+            GL11.glScalef(-f1, -f1, f1);
+            int i1 = 1000000000;
+            int j1 = i1 % 65536;
+            int k = i1 / 65536;
+            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)j1 / 1.0F, (float)k / 1.0F);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+            GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+            bindTextureByName("/terrain.png");
+            this.renderBlocks.renderBlockAsItem(Block.torchWood, 0, 1.0F);
+            bindTextureByName("/item/book.png");
+            GL11.glScalef(0.1F, 0.1F, 0.1F);
+            GL11.glRotatef(90, 0, 0, 1);
+            GL11.glTranslatef(-4F, -8F, 8F);
+            GL11.glColor3f(0.9F, 0.9F, 0.9F);
+            book.render(null, 1F, 0F, 0F, 1.22F, 0F, 1F);
+            if(rand.nextInt(100)==0)
+                randomDisplayTick(ClientProxy.mc.theWorld, entity.xCoord, entity.yCoord+1, entity.zCoord, rand, i);
+            GL11.glPopMatrix();
+            GL11.glPopMatrix();
+        }
+    }
+
+    /**
+     * A randomly called display update to be able to add particles or other items for display
+     * also shameless copying
+     */
+    public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random, int metadata)
+    {
+        int l = par1World.getBlockMetadata(par2, par3, par4);
+        double d0 = 0;
+        double d1 = 0;
+        double d2 = 0;
+        if(metadata==0) {
+            d0 = (double)((float)par2 + .2F);
+            d1 = (double)((float)par3 + 0.7F);
+            d2 = (double)((float)par4 + .8F);
+        }
+        if(metadata==1) {
+            d0 = (double)((float)par2 + .2F);
+            d1 = (double)((float)par3 + 0.7F);
+            d2 = (double)((float)par4 + 0.5F);
+        }
+        if(metadata==2) {
+            d0 = (double)((float)par2 + .2F);
+            d1 = (double)((float)par3 + 0.7F);
+            d2 = (double)((float)par4 + 0.5F);
+        }
+        if(metadata==3) {
+            d0 = (double)((float)par2 + .2F);
+            d1 = (double)((float)par3 + 0.7F);
+            d2 = (double)((float)par4 + 0.5F);
+        }
+        double d3 = 0.5D;
+        double d4 = 0.27000001072883606D;
+
+        if (l == 1)
+        {
+            par1World.spawnParticle("smoke", d0 - d4, d1 + d3, d2, 0.0D, 0.0D, 0.0D);
+            par1World.spawnParticle("flame", d0 - d4, d1 + d3, d2, 0.0D, 0.0D, 0.0D);
+        }
+        else if (l == 2)
+        {
+            par1World.spawnParticle("smoke", d0 + d4, d1 + d3, d2, 0.0D, 0.0D, 0.0D);
+            par1World.spawnParticle("flame", d0 + d4, d1 + d3, d2, 0.0D, 0.0D, 0.0D);
+        }
+        else if (l == 3)
+        {
+            par1World.spawnParticle("smoke", d0, d1 + d3, d2 - d4, 0.0D, 0.0D, 0.0D);
+            par1World.spawnParticle("flame", d0, d1 + d3, d2 - d4, 0.0D, 0.0D, 0.0D);
+        }
+        else if (l == 4)
+        {
+            par1World.spawnParticle("smoke", d0, d1 + d3, d2 + d4, 0.0D, 0.0D, 0.0D);
+            par1World.spawnParticle("flame", d0, d1 + d3, d2 + d4, 0.0D, 0.0D, 0.0D);
+        }
+        else
+        {
+            par1World.spawnParticle("smoke", d0, d1, d2, 0.0D, 0.0D, 0.0D);
+            par1World.spawnParticle("flame", d0, d1, d2, 0.0D, 0.0D, 0.0D);
         }
     }
 

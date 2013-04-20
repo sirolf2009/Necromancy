@@ -71,6 +71,12 @@ public class PacketHandler implements IPacketHandler, IGuiHandler, ICraftingHand
         if (item != null && item.itemID == ItemNecromancy.getItemStackFromName("Jar of Blood").itemID && item.getItemDamage() == ItemNecromancy.getItemStackFromName("Jar of Blood").getItemDamage()) {
             player.inventory.addItemStackToInventory(new ItemStack(net.minecraft.item.Item.bucketEmpty));
         }
+        if (item != null && item.getItemName().equals("tile.skullWall")) {
+            player.addStat(Necromancy.SewingAchieve, 1);
+            item.stackTagCompound.setString("Skull1", "");
+            for(int i=0;i<8;i++)
+                System.out.println("slot "+i+": "+craftMatrix.getStackInSlot(i));
+        }
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.sirolf2009.necromancy.entity.necroapi;
 
+import net.minecraft.client.model.ModelBase;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -8,7 +9,6 @@ import net.minecraft.util.MathHelper;
 import com.sirolf2009.necroapi.BodyPart;
 import com.sirolf2009.necroapi.ISaddleAble;
 import com.sirolf2009.necroapi.NecroEntityBase;
-import com.sirolf2009.necromancy.client.model.ModelMinion;
 import com.sirolf2009.necromancy.item.ItemBodyPart;
 
 public class NecroEntitySpider extends NecroEntityBase implements ISaddleAble {
@@ -24,14 +24,14 @@ public class NecroEntitySpider extends NecroEntityBase implements ISaddleAble {
     }
 
     @Override
-    public BodyPart[] initHead(ModelMinion model) {
+    public BodyPart[] initHead(ModelBase model) {
         BodyPart spiderHead = new BodyPart(this, model, 32, 4);
         spiderHead.addBox(-4.0F, -4.0F, -4.0F, 8, 8, 8, 0.0F);
         return new BodyPart[] { spiderHead };
     }
 
     @Override
-    public BodyPart[] initTorso(ModelMinion model) {
+    public BodyPart[] initTorso(ModelBase model) {
         float[] headPos = { 4.0F, 8, -10.0F };
         float[] armLeftPos = { -1.0F, 12.0F, -10.0F };
         float[] armRightPos = { 5F, 12.0F, -10.0F };
@@ -43,7 +43,7 @@ public class NecroEntitySpider extends NecroEntityBase implements ISaddleAble {
     }
 
     @Override
-    public BodyPart[] initLegs(ModelMinion model) {
+    public BodyPart[] initLegs(ModelBase model) {
         float[] torsoPos = { -4F, -2F, 0F };
         BodyPart spiderLeg1 = new BodyPart(this, torsoPos, model, 18, 0);
         spiderLeg1.addBox(-15.0F, -1.0F, -1.0F, 16, 2, 2, 0.0F);
@@ -73,12 +73,12 @@ public class NecroEntitySpider extends NecroEntityBase implements ISaddleAble {
     }
 
     @Override
-    public BodyPart[] initArmLeft(ModelMinion model) {
+    public BodyPart[] initArmLeft(ModelBase model) {
         return null;
     }
 
     @Override
-    public BodyPart[] initArmRight(ModelMinion model) {
+    public BodyPart[] initArmRight(ModelBase model) {
         return null;
     }
 

@@ -20,7 +20,7 @@ public class ItemNecromancy extends Item {
 
     public ItemNecromancy(int par1) {
         super(par1);
-        itemCount = names.length;
+        icons = new Icon[names.length];
         setHasSubtypes(true);
         setMaxDamage(0);
         setCreativeTab(Necromancy.tabNecromancy);
@@ -32,8 +32,8 @@ public class ItemNecromancy extends Item {
             if (stack.getItemDamage() == 0)
                 if (player.inventory.consumeInventoryItem(Item.glassBottle.itemID)) {
                     stack.stackSize--;
-                    if (!player.inventory.addItemStackToInventory(new ItemStack(Necromancy.necromanticItems, 1, 3))) {
-                        player.dropPlayerItem(new ItemStack(Necromancy.necromanticItems, 1, 3));
+                    if (!player.inventory.addItemStackToInventory(new ItemStack(Necromancy.necromanticItems, 1, 2))) {
+                        player.dropPlayerItem(new ItemStack(Necromancy.necromanticItems, 1, 2));
                     }
                     return true;
                 }
@@ -66,7 +66,7 @@ public class ItemNecromancy extends Item {
 
     @Override
     public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List) {
-        for (int var4 = 0; var4 < itemCount; var4++) {
+        for (int var4 = 0; var4 < names.length; var4++) {
             par3List.add(new ItemStack(par1, 1, var4));
         }
     }
@@ -85,18 +85,21 @@ public class ItemNecromancy extends Item {
         return null;
     }
 
-    @SideOnly(Side.CLIENT)
-    public void func_94332_a(IconRegister par1IconRegister) {
-        icons = new Icon[names.length];
-        icons[0] = par1IconRegister.registerIcon("necromancy:needleBone");
-        icons[1] = par1IconRegister.registerIcon("necromancy:soul");
-        icons[2] = par1IconRegister.registerIcon("necromancy:blood");
-        icons[3] = par1IconRegister.registerIcon("necromancy:brainOnAStick");
+    @Override
+    public void updateIcons(IconRegister iconRegister) {
+        for (int index = 0; index < names.length; index++) {
+            String path = names[index].replace(" ", "");
+            icons[index] = iconRegister.registerIcon("necromancy:" + path);
+        }
+    }
+
+    @Override
+    public Icon getIconFromDamage(int par1) {
+        return icons[par1];
     }
 
     @SideOnly(Side.CLIENT)
     private Icon[] icons;
-    public static String names[] = { "Bone Needle", Necromancy.SoulName, "Jar of Blood", "Brain on a Stick" };
-    public int itemCount;
+    public static String names[] = { "Bone Needle", "Soul in a Jar", "Jar of Blood", "Brain on a Stick", "Blood Tear", "Tear" };
 
 }

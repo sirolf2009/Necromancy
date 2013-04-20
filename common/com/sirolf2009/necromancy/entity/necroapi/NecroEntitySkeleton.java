@@ -1,18 +1,20 @@
 package com.sirolf2009.necromancy.entity.necroapi;
 
-import net.minecraft.item.Item;
+import net.minecraft.client.model.ModelBase;
 import net.minecraft.item.ItemStack;
 
 import com.sirolf2009.necroapi.BodyPart;
+import com.sirolf2009.necroapi.ISkull;
 import com.sirolf2009.necroapi.NecroEntityBiped;
-import com.sirolf2009.necromancy.client.model.ModelMinion;
+import com.sirolf2009.necroapi.NecroEntityRegistry;
+import com.sirolf2009.necromancy.Necromancy;
 import com.sirolf2009.necromancy.item.ItemBodyPart;
 
-public class NecroEntitySkeleton extends NecroEntityBiped {
+public class NecroEntitySkeleton extends NecroEntityBiped implements ISkull {
 
     public NecroEntitySkeleton() {
-        super("SKELETON");
-        headItem = new ItemStack(Item.skull, 1, 0);
+        super("Skeleton");
+        headItem = new ItemStack(Necromancy.skull, 1, NecroEntityRegistry.registeredSkullEntities.size());
         torsoItem = ItemBodyPart.getItemStackFromName("Skeleton Torso", 1);
         armItem = ItemBodyPart.getItemStackFromName("Skeleton Arm", 1);
         legItem = ItemBodyPart.getItemStackFromName("Skeleton Legs", 1);
@@ -24,7 +26,7 @@ public class NecroEntitySkeleton extends NecroEntityBiped {
     }
 
     @Override
-    public BodyPart[] initArmLeft(ModelMinion model) {
+    public BodyPart[] initArmLeft(ModelBase model) {
         BodyPart armLeft = new BodyPart(this, model, 40, 16);
         armLeft.addBox(2.0F, 0.0F, -1.0F, 2, 12, 2, 0.0F);
         armLeft.mirror = true;
@@ -32,14 +34,14 @@ public class NecroEntitySkeleton extends NecroEntityBiped {
     }
 
     @Override
-    public BodyPart[] initArmRight(ModelMinion model) {
+    public BodyPart[] initArmRight(ModelBase model) {
         BodyPart armRight = new BodyPart(this, model, 40, 16);
         armRight.addBox(0.0F, 0.0F, -1.0F, 2, 12, 2, 0.0F);
         return new BodyPart[] { armRight };
     }
 
     @Override
-    public BodyPart[] initLegs(ModelMinion model) {
+    public BodyPart[] initLegs(ModelBase model) {
         float[] torsoPos = { -4F, -2F, -2F };
         BodyPart legLeft = new BodyPart(this, torsoPos, model, 0, 16);
         legLeft.addBox(-3.0F, -2.0F, -1.0F, 2, 12, 2, 0.0F);
@@ -49,6 +51,16 @@ public class NecroEntitySkeleton extends NecroEntityBiped {
         legRight.setRotationPoint(0.0F, 12.0F, 0.0F);
         legLeft.mirror = true;
         return new BodyPart[] { legLeft, legRight };
+    }
+
+    @Override
+    public String getSkullModelTexture() {
+        return "/mob/skeleton.png";
+    }
+
+    @Override
+    public String getSkullIconTexture() {
+        return "skull_skeleton";
     }
 
 }

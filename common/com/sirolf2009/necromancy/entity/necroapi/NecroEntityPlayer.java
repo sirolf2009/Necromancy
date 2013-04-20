@@ -1,12 +1,12 @@
 package com.sirolf2009.necromancy.entity.necroapi;
 
+import net.minecraft.client.model.ModelBase;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import com.sirolf2009.necroapi.BodyPart;
 import com.sirolf2009.necroapi.NecroEntityBiped;
-import com.sirolf2009.necromancy.client.model.ModelMinion;
 import com.sirolf2009.necromancy.entity.EntityMinion;
 
 /**
@@ -24,7 +24,7 @@ public class NecroEntityPlayer extends NecroEntityBiped {
     }
 
     @Override
-    public void preRender(Entity entity, BodyPart[] parts, String location, ModelMinion model) {
+    public void preRender(Entity entity, BodyPart[] parts, String location, ModelBase model) {
         texture = ((EntityMinion) entity).isAltarMob() ? ((EntityMinion) entity).altar.lastUser != null ? ((EntityMinion) entity).altar.lastUser.skinUrl : "/mob/char.png" : "/mob/char.png";
     }
 }

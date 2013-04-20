@@ -1,5 +1,6 @@
 package com.sirolf2009.necromancy.entity.necroapi;
 
+import net.minecraft.client.model.ModelBase;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -8,7 +9,6 @@ import org.lwjgl.opengl.GL11;
 
 import com.sirolf2009.necroapi.BodyPart;
 import com.sirolf2009.necroapi.NecroEntityBase;
-import com.sirolf2009.necromancy.client.model.ModelMinion;
 import com.sirolf2009.necromancy.item.ItemBodyPart;
 
 public class NecroEntityEnderman extends NecroEntityBase {
@@ -23,7 +23,7 @@ public class NecroEntityEnderman extends NecroEntityBase {
     }
 
     @Override
-    public BodyPart[] initHead(ModelMinion model) {
+    public BodyPart[] initHead(ModelBase model) {
         BodyPart head = new BodyPart(this, model, 0, 0);
         head.addBox(-4, -7, -4, 8, 8, 8, 0.0F);
         head.setTextureSize(textureWidth, textureHeight);
@@ -33,7 +33,7 @@ public class NecroEntityEnderman extends NecroEntityBase {
     }
 
     @Override
-    public BodyPart[] initTorso(ModelMinion model) {
+    public BodyPart[] initTorso(ModelBase model) {
         float[] headPos = { 4.0F, -4.0F, 2.0F };
         float[] armLeftPos = { -4F, 0.0F, 2.0F };
         float[] armRightPos = { 8F, 0.0F, 2.0F };
@@ -43,7 +43,7 @@ public class NecroEntityEnderman extends NecroEntityBase {
     }
 
     @Override
-    public BodyPart[] initLegs(ModelMinion model) {
+    public BodyPart[] initLegs(ModelBase model) {
         float[] torsoPos = { -4F, -18F, 0F };
         BodyPart legRight = new BodyPart(this, torsoPos, model, 56, 0);
         legRight.addBox(-1.0F, -4.0F, 1.0F, 2, 30, 2, 0.0F);
@@ -56,15 +56,15 @@ public class NecroEntityEnderman extends NecroEntityBase {
     }
 
     @Override
-    public BodyPart[] initArmLeft(ModelMinion model) {
+    public BodyPart[] initArmLeft(ModelBase model) {
         BodyPart bipedLeftArm = new BodyPart(this, model, 56, 0);
         bipedLeftArm.mirror = true;
-        bipedLeftArm.addBox(0.0F, 0.0F, 0.0F, 2, 30, 2, 0.0F);
+        bipedLeftArm.addBox(2.0F, 0.0F, -1.0F, 2, 30, 2, 0.0F);
         return new BodyPart[] { bipedLeftArm };
     }
 
     @Override
-    public BodyPart[] initArmRight(ModelMinion model) {
+    public BodyPart[] initArmRight(ModelBase model) {
         BodyPart bipedRightArm = new BodyPart(this, model, 56, 0);
         bipedRightArm.addBox(0.0F, 0.0F, -1.0F, 2, 30, 2, 0.0F);
         return new BodyPart[] { bipedRightArm };
@@ -87,7 +87,7 @@ public class NecroEntityEnderman extends NecroEntityBase {
     }
 
     @Override
-    public void preRender(Entity entity, BodyPart[] parts, String location, ModelMinion model) {
+    public void preRender(Entity entity, BodyPart[] parts, String location, ModelBase model) {
         GL11.glTranslatef(0, 10, 0);
     }
 

@@ -1,36 +1,32 @@
 package com.sirolf2009.necromancy.entity.necroapi;
 
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import com.sirolf2009.necroapi.ISkull;
 import com.sirolf2009.necroapi.NecroEntityBiped;
+import com.sirolf2009.necroapi.NecroEntityRegistry;
+import com.sirolf2009.necromancy.Necromancy;
 import com.sirolf2009.necromancy.item.ItemBodyPart;
 
-public class NecroEntityZombie extends NecroEntityBiped implements ISkull {
+public class NecroEntityWither extends NecroEntityBiped implements ISkull {
 
-    public NecroEntityZombie() {
-        super("Zombie");
-        headItem = new ItemStack(Item.skull, 1, 2);
+    public NecroEntityWither() {
+        super("Wither");
+        headItem = new ItemStack(Necromancy.skull, 1, NecroEntityRegistry.registeredSkullEntities.size());
         torsoItem = ItemBodyPart.getItemStackFromName("Zombie Torso", 1);
         armItem = ItemBodyPart.getItemStackFromName("Zombie Arm", 1);
         legItem = ItemBodyPart.getItemStackFromName("Zombie Legs", 1);
-        texture = "/mob/zombie.png";
-        textureHeight = 64;
-    }
-
-    @Override
-    public void initRecipes() {
-        initDefaultRecipes(Item.rottenFlesh);
+        texture = "/mob/wither.png";
     }
 
     @Override
     public String getSkullModelTexture() {
-        return "/mob/zombie.png";
+        return "/mob/wither.png";
     }
 
     @Override
     public String getSkullIconTexture() {
-        return "skull_zombie";
+        return "skull_wither";
     }
+
 }

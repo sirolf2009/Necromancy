@@ -1,11 +1,11 @@
 package com.sirolf2009.necromancy.entity.necroapi;
 
+import net.minecraft.client.model.ModelBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import com.sirolf2009.necroapi.BodyPart;
 import com.sirolf2009.necroapi.NecroEntityBase;
-import com.sirolf2009.necromancy.client.model.ModelMinion;
 import com.sirolf2009.necromancy.item.ItemBodyPart;
 
 public class NecroEntitySlimeSmall extends NecroEntityBase {
@@ -20,7 +20,7 @@ public class NecroEntitySlimeSmall extends NecroEntityBase {
     }
 
     @Override
-    public BodyPart[] initHead(ModelMinion model) {
+    public BodyPart[] initHead(ModelBase model) {
         BodyPart slimeBodies = new BodyPart(this, model, 0, 0);
         slimeBodies.addBox(-4.0F, 16.0F, -4.0F, 8, 8, 8);
         BodyPart head = new BodyPart(this, model, 0, 16);
@@ -36,7 +36,7 @@ public class NecroEntitySlimeSmall extends NecroEntityBase {
     }
 
     @Override
-    public BodyPart[] initTorso(ModelMinion model) {
+    public BodyPart[] initTorso(ModelBase model) {
         float[] headPos = { 4.0F, 16, -14.0F };
         float[] armLeftPos = { -1.0F, 12.0F, -10.0F };
         float[] armRightPos = { 5F, 12.0F, -10.0F };

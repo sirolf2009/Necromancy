@@ -2,10 +2,12 @@ package com.sirolf2009.necromancy.core.handler;
 
 import java.util.Random;
 
+import net.minecraft.client.audio.SoundManager;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import net.minecraftforge.event.Event.Result;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -82,6 +84,13 @@ public class EventHandler {
             return new ItemStack(Necromancy.bucketBlood);
         } else
             return null;
+    }
+
+    @ForgeSubscribe
+    public void onSoundsLoaded(SoundLoadEvent event) {
+        SoundManager manager = event.manager;
+        manager.soundPoolSounds.addSound("nightcrawler/say1.ogg", this.getClass().getResource("/mods/necromancy/sounds/nightcrawler/say1.ogg"));
+        manager.soundPoolSounds.addSound("nightcrawler/say2.ogg", this.getClass().getResource("/mods/necromancy/sounds/nightcrawler/say2.ogg"));
     }
 
     Random rand = new Random();
