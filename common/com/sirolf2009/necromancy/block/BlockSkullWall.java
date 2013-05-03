@@ -3,7 +3,6 @@ package com.sirolf2009.necromancy.block;
 import java.util.ArrayList;
 import java.util.Random;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -13,7 +12,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntitySkull;
-import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 
 import com.sirolf2009.necromancy.Necromancy;
@@ -113,14 +111,5 @@ public class BlockSkullWall extends BlockContainer {
     @SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister par1IconRegister) {
         par1IconRegister.registerIcon("obsidian");
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    /**
-     * From the specified side and block metadata retrieves the blocks texture. Args: side, metadata
-     */
-    public Icon getBlockTextureFromSideAndMetadata(int par1, int par2) {
-        return Block.cloth.getBlockTextureFromSideAndMetadata(par1, 15);
     }
 }

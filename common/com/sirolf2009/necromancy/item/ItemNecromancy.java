@@ -64,6 +64,7 @@ public class ItemNecromancy extends Item {
         return new StringBuilder().append("").append(names[par1ItemStack.getItemDamageForDisplay()]).toString();
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List) {
         for (int var4 = 0; var4 < names.length; var4++) {
@@ -86,11 +87,13 @@ public class ItemNecromancy extends Item {
     }
 
     @Override
-    public void updateIcons(IconRegister iconRegister) {
+    public void registerIcons(IconRegister iconRegister) {
         for (int index = 0; index < names.length; index++) {
             String path = names[index].replace(" ", "");
             icons[index] = iconRegister.registerIcon("necromancy:" + path);
         }
+        tearBlood = iconRegister.registerIcon("necromancy:BloodTear");
+        tearNormal = iconRegister.registerIcon("necromancy:Tear");
     }
 
     @Override
@@ -98,8 +101,8 @@ public class ItemNecromancy extends Item {
         return icons[par1];
     }
 
-    @SideOnly(Side.CLIENT)
     private Icon[] icons;
-    public static String names[] = { "Bone Needle", "Soul in a Jar", "Jar of Blood", "Brain on a Stick", "Blood Tear", "Tear" };
-
+    public static String names[] = { "Bone Needle", "Soul in a Jar", "Jar of Blood", "Brain on a Stick" };
+    public static Icon tearNormal;
+    public static Icon tearBlood;
 }

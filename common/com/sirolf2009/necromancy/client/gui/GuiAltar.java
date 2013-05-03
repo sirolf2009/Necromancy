@@ -5,8 +5,8 @@ import net.minecraft.entity.player.InventoryPlayer;
 
 import org.lwjgl.opengl.GL11;
 
-import com.sirolf2009.necromancy.Necromancy;
 import com.sirolf2009.necromancy.inventory.ContainerAltar;
+import com.sirolf2009.necromancy.lib.Reference;
 import com.sirolf2009.necromancy.tileentity.TileEntityAltar;
 
 public class GuiAltar extends GuiContainer {
@@ -25,7 +25,7 @@ public class GuiAltar extends GuiContainer {
     @Override
     protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3) {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        mc.renderEngine.bindTexture(Necromancy.rscPath + "/gui/altarGui.png");
+        mc.renderEngine.bindTexture(Reference.LOC_RESOURCES_TEXTURES_GUIS + "/altarGui.png");
         int var5 = (width - xSize) / 2;
         int var6 = (height - ySize) / 2;
         drawTexturedModalRect(var5, var6, 0, 0, xSize, ySize);

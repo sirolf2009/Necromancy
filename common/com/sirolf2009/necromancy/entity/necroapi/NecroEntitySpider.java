@@ -13,8 +13,8 @@ import com.sirolf2009.necromancy.item.ItemBodyPart;
 
 public class NecroEntitySpider extends NecroEntityBase implements ISaddleAble {
 
-    public NecroEntitySpider() {
-        super("SPIDER");
+    public NecroEntitySpider(String name) {
+        super(name);
         headItem = ItemBodyPart.getItemStackFromName("Spider Head", 1);
         torsoItem = ItemBodyPart.getItemStackFromName("Spider Torso", 1);
         armItem = ItemBodyPart.getItemStackFromName("Spider Arm", 1);
@@ -23,18 +23,22 @@ public class NecroEntitySpider extends NecroEntityBase implements ISaddleAble {
         hasArms = false;
     }
 
+    public NecroEntitySpider() {
+        this("Spider");
+    }
+
     @Override
     public BodyPart[] initHead(ModelBase model) {
         BodyPart spiderHead = new BodyPart(this, model, 32, 4);
-        spiderHead.addBox(-4.0F, -4.0F, -4.0F, 8, 8, 8, 0.0F);
+        spiderHead.addBox(-4.0F, -4.0F, -6.0F, 8, 8, 8, 0.0F);
         return new BodyPart[] { spiderHead };
     }
 
     @Override
     public BodyPart[] initTorso(ModelBase model) {
-        float[] headPos = { 4.0F, 8, -10.0F };
-        float[] armLeftPos = { -1.0F, 12.0F, -10.0F };
-        float[] armRightPos = { 5F, 12.0F, -10.0F };
+        float[] headPos = { 4.0F, 8, -7.0F };
+        float[] armLeftPos = { -1.0F, 10.0F, -6.0F };
+        float[] armRightPos = { 5F, 10.0F, -6.0F };
         BodyPart spiderNeck = new BodyPart(this, armLeftPos, armRightPos, headPos, model, 0, 0);
         spiderNeck.addBox(1.0F, 5.0F, -6.0F, 6, 6, 6, 0.0F);
         BodyPart spiderBody = new BodyPart(this, armLeftPos, armRightPos, headPos, model, 0, 12);
@@ -44,7 +48,7 @@ public class NecroEntitySpider extends NecroEntityBase implements ISaddleAble {
 
     @Override
     public BodyPart[] initLegs(ModelBase model) {
-        float[] torsoPos = { -4F, -2F, 0F };
+        float[] torsoPos = { -4F, 6F, 3F };
         BodyPart spiderLeg1 = new BodyPart(this, torsoPos, model, 18, 0);
         spiderLeg1.addBox(-15.0F, -1.0F, -1.0F, 16, 2, 2, 0.0F);
         spiderLeg1.setRotationPoint(-4.0F, 15.0F, 2.0F);

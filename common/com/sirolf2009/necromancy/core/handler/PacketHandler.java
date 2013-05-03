@@ -24,6 +24,7 @@ import com.sirolf2009.necromancy.generation.villagecomponent.ComponentVillageCem
 import com.sirolf2009.necromancy.inventory.ContainerAltar;
 import com.sirolf2009.necromancy.inventory.ContainerNecronomiconCrafting;
 import com.sirolf2009.necromancy.inventory.ContainerSewing;
+import com.sirolf2009.necromancy.item.ItemNecroSkull;
 import com.sirolf2009.necromancy.item.ItemNecromancy;
 import com.sirolf2009.necromancy.tileentity.TileEntityAltar;
 import com.sirolf2009.necromancy.tileentity.TileEntitySewing;
@@ -57,6 +58,7 @@ public class PacketHandler implements IPacketHandler, IGuiHandler, ICraftingHand
         return null;
     }
 
+    @SuppressWarnings("static-access")
     @Override
     public void onCrafting(EntityPlayer player, ItemStack item, IInventory craftMatrix) {
         if (item != null && item.getItemName().equals("item.Necronomicon")) {
@@ -72,10 +74,12 @@ public class PacketHandler implements IPacketHandler, IGuiHandler, ICraftingHand
             player.inventory.addItemStackToInventory(new ItemStack(net.minecraft.item.Item.bucketEmpty));
         }
         if (item != null && item.getItemName().equals("tile.skullWall")) {
-            player.addStat(Necromancy.SewingAchieve, 1);
-            item.stackTagCompound.setString("Skull1", "");
-            for(int i=0;i<8;i++)
-                System.out.println("slot "+i+": "+craftMatrix.getStackInSlot(i));
+            Necromancy.logger.info(craftMatrix.getStackInSlot(0) + " is in " + craftMatrix.getStackInSlot(0).getItemName());
+            item.stackTagCompound.setString("Base", craftMatrix.getStackInSlot(1).getItemName());
+            item.stackTagCompound.setString("Skull1", ((ItemNecroSkull) craftMatrix.getStackInSlot(1).getItem()).skullTypes[craftMatrix.getStackInSlot(1).getItemDamage()]);
+            item.stackTagCompound.setString("Skull2", ((ItemNecroSkull) craftMatrix.getStackInSlot(4).getItem()).skullTypes[craftMatrix.getStackInSlot(4).getItemDamage()]);
+            item.stackTagCompound.setString("Skull3", ((ItemNecroSkull) craftMatrix.getStackInSlot(5).getItem()).skullTypes[craftMatrix.getStackInSlot(5).getItemDamage()]);
+
         }
     }
 
@@ -98,11 +102,12 @@ public class PacketHandler implements IPacketHandler, IGuiHandler, ICraftingHand
     }
 
     @Override
-    public Object buildComponent(StructureVillagePieceWeight villagePiece, ComponentVillageStartPiece startPiece, List pieces, Random random, int p1, int p2, int p3, int p4, int p5) {
+    public Object buildComponent(StructureVillagePieceWeight villagePiece, ComponentVillageStartPiece startPiece, @SuppressWarnings("rawtypes") List pieces, Random random, int p1, int p2, int p3, int p4, int p5) {
         ComponentVillageCemetery cemetery = ComponentVillageCemetery.func_74919_a(startPiece, pieces, random, p1, p2, p3, p4, p5);
         return cemetery;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void manipulateTradesForVillager(EntityVillager villager, MerchantRecipeList recipeList, Random random) {
         recipeList.add(new MerchantRecipe(new ItemStack(net.minecraft.item.Item.emerald, 6), new ItemStack(net.minecraft.item.Item.book), new ItemStack(Necromancy.necronomicon)));

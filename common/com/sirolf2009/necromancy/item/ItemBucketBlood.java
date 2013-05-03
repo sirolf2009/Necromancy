@@ -10,8 +10,8 @@ public class ItemBucketBlood extends ItemBucket {
     }
 
     @Override
-    public void updateIcons(IconRegister iconRegister) {
-        iconIndex = iconRegister.registerIcon("necromancy:bucketBlood");
+    public void registerIcons(IconRegister iconRegister) {
+        itemIcon = iconRegister.registerIcon("necromancy:bucketBlood");
     }
 
 }

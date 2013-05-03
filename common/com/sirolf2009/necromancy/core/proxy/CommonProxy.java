@@ -11,4 +11,10 @@ public class CommonProxy {
         NetworkRegistry.instance().registerGuiHandler(Necromancy.instance, Necromancy.packetHandler);
         GameRegistry.registerCraftingHandler(Necromancy.packetHandler);
     }
+
+    public int addArmour(String path) {
+        return 0;
+    }
+    
+    public void refreshTextures() {};
 }

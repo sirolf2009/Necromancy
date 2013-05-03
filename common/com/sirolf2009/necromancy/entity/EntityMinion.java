@@ -51,11 +51,11 @@ public class EntityMinion extends EntityTameable {
         targetTasks.addTask(1, new EntityAIOwnerHurtByTarget(this));
         targetTasks.addTask(2, new EntityAIOwnerHurtTarget(this));
         targetTasks.addTask(3, new EntityAIHurtByTarget(this, true));
-        dataWatcher.addObject(20, "ZOMBIE");
-        dataWatcher.addObject(21, "ZOMBIE");
-        dataWatcher.addObject(22, "ZOMBIE");
-        dataWatcher.addObject(23, "ZOMBIE");
-        dataWatcher.addObject(24, "ZOMBIE");
+        dataWatcher.addObject(20, "UNDEFINED");
+        dataWatcher.addObject(21, "UNDEFINED");
+        dataWatcher.addObject(22, "UNDEFINED");
+        dataWatcher.addObject(23, "UNDEFINED");
+        dataWatcher.addObject(24, "UNDEFINED");
         dataWatcher.addObject(25, Byte.valueOf((byte) 0));
         onBodyChange();
     }

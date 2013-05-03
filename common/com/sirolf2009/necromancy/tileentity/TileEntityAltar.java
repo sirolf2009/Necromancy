@@ -75,6 +75,7 @@ public class TileEntityAltar extends TileEntity implements IInventory {
             EntityMinion minionTemp = new EntityMinion(worldObj, types, user.username);
             minionTemp.setPosition(xCoord, yCoord + 1, zCoord);
             worldObj.spawnEntityInWorld(minionTemp);
+            Necromancy.logger.info(minionTemp.toString());
             user.addStat(Necromancy.SpawnAchieve, 1);
             if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
                 Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage("<Minion> Craft me Thy dark command.");

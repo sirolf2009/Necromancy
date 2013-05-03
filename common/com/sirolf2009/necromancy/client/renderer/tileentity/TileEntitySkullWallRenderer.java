@@ -4,19 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.minecraft.client.model.ModelSkeletonHead;
-import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.client.IItemRenderer;
 
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
 import org.lwjgl.util.vector.Vector3f;
 
-import com.sirolf2009.necromancy.Necromancy;
-import com.sirolf2009.necromancy.core.proxy.ClientProxy;
 import com.sirolf2009.necromancy.tileentity.TileEntitySkullWall;
 
 import cpw.mods.fml.relauncher.Side;
@@ -45,43 +40,35 @@ public class TileEntitySkullWallRenderer extends TileEntitySpecialRenderer imple
     }
 
     public void render(float xPos, float yPos, float zPos, int meta, String type, TileEntitySkullWall entity) {
-        // NecroEntityBase entity =
-        // NecroEntityRegistry.registeredEntities.get(type);
-        // if (!(entity instanceof ISkull))
-        // return;
-        // bindTextureByName(((ISkull) entity).getSkullTexture());
-        updateLocs();
-        bindTextureByName("/mob/skeleton.png");
-
-        GL11.glPushMatrix();
-        GL11.glDisable(GL11.GL_CULL_FACE);
-        GL11.glDisable(GL11.GL_LIGHTING);
-
-        WorldClient world = ClientProxy.mc.theWorld;
-        float f4 = 0.0625F;
-        GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-        GL11.glScalef(-1.0F, -1.0F, -1.0F);
-        GL11.glTranslatef(-xPos, -yPos, -zPos);
-        GL11.glEnable(GL11.GL_ALPHA_TEST);
-        GL11.glColor3f(200, 200, 200);
-
-        // x positive side
-        if (world.getBlockId(entity.xCoord + 1, entity.yCoord, entity.zCoord) == 0) {
-            translate(xPositivePositions.get("middle"));
-            skull.render((Entity) null, 0.0F, 0.0F, 0.0F, 90.0F, 0.0F, f4);
-            if (world.getBlockId(entity.xCoord + 1, entity.yCoord + 1, entity.zCoord) == 0 && world.getBlockId(entity.xCoord, entity.yCoord + 1, entity.zCoord) == Necromancy.skullWall.blockID) {
-                translate(xPositivePositions.get("top1"));
-                skull.render((Entity) null, 0.0F, 0.0F, 0.0F, 90.0F, 0.0F, f4);
-                translate(xPositivePositions.get("top2"));
-                skull.render((Entity) null, 0.0F, 0.0F, 0.0F, 90.0F, 0.0F, f4);
-            }
-            if (world.getBlockId(entity.xCoord + 1, entity.yCoord, entity.zCoord + 1) == 0 && world.getBlockId(entity.xCoord, entity.yCoord, entity.zCoord + 1) == Necromancy.skullWall.blockID) {
-                translate(xPositivePositions.get("left"));
-                skull.render((Entity) null, 0.0F, 0.0F, 0.0F, 90.0F, 0.0F, f4);
-            }
-        }
-        GL11.glEnable(GL11.GL_LIGHTING);
-        GL11.glPopMatrix();
+        /*
+         * updateLocs(); bindTextureByName("/mob/skeleton.png");
+         * 
+         * GL11.glPushMatrix(); GL11.glDisable(GL11.GL_CULL_FACE);
+         * GL11.glDisable(GL11.GL_LIGHTING);
+         * 
+         * WorldClient world = ClientProxy.mc.theWorld; float f4 = 0.0625F;
+         * GL11.glEnable(GL12.GL_RESCALE_NORMAL); GL11.glScalef(-1.0F, -1.0F,
+         * -1.0F); GL11.glTranslatef(-xPos, -yPos, -zPos);
+         * GL11.glEnable(GL11.GL_ALPHA_TEST); GL11.glColor3f(200, 200, 200);
+         * 
+         * // x positive side if (world.getBlockId(entity.xCoord + 1,
+         * entity.yCoord, entity.zCoord) == 0) {
+         * translate(xPositivePositions.get("middle")); skull.render((Entity)
+         * null, 0.0F, 0.0F, 0.0F, 90.0F, 0.0F, f4); if
+         * (world.getBlockId(entity.xCoord + 1, entity.yCoord + 1,
+         * entity.zCoord) == 0 && world.getBlockId(entity.xCoord, entity.yCoord
+         * + 1, entity.zCoord) == Necromancy.skullWall.blockID) {
+         * translate(xPositivePositions.get("top1")); skull.render((Entity)
+         * null, 0.0F, 0.0F, 0.0F, 90.0F, 0.0F, f4);
+         * translate(xPositivePositions.get("top2")); skull.render((Entity)
+         * null, 0.0F, 0.0F, 0.0F, 90.0F, 0.0F, f4); } if
+         * (world.getBlockId(entity.xCoord + 1, entity.yCoord, entity.zCoord +
+         * 1) == 0 && world.getBlockId(entity.xCoord, entity.yCoord,
+         * entity.zCoord + 1) == Necromancy.skullWall.blockID) {
+         * translate(xPositivePositions.get("left")); skull.render((Entity)
+         * null, 0.0F, 0.0F, 0.0F, 90.0F, 0.0F, f4); } }
+         * GL11.glEnable(GL11.GL_LIGHTING); GL11.glPopMatrix();
+         */
     }
 
     public void translate(Vector3f vector) {

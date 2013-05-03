@@ -18,7 +18,7 @@ public class ItemBodyPart extends Item {
         super(par1);
         setHasSubtypes(true);
         setMaxDamage(0);
-        setCreativeTab(Necromancy.tabNecromancy);
+        setCreativeTab(Necromancy.tabNecromancyBodyParts);
         addParts("Cow", "Torso", "Head", "Arm", "Legs");
         addParts("Creeper", "Torso", "Legs");
         addParts("Enderman", "Head", "Torso", "Arm", "Legs");
@@ -28,12 +28,19 @@ public class ItemBodyPart extends Item {
         // addParts("Small Slime", "Head", "Torso", "Arm", "Legs");
         addParts("Spider", "Head", "Torso", "Legs");
         addParts("Zombie", "Torso", "Arm", "Legs");
+        addParts("Chicken", "Head", "Torso", "Arm", "Legs");
+        addParts("Mooshroom", "Head", "Torso", "Arm", "Legs");
+        addParts("Villager", "Head", "Torso", "Arm", "Legs");
+        addParts("Witch", "Head", "Torso", "Arm", "Legs");
+        addParts("Squid", "Head", "Torso", "Legs");
+        addParts("Cave_Spider", "Head", "Torso", "Legs");
+        addParts("Sheep", "Head", "Torso", "Arm", "Legs");
         textures = new Icon[necroEntities.size()];
     }
 
     @Override
     public String getItemDisplayName(ItemStack par1ItemStack) {
-        return necroEntities.get(par1ItemStack.getItemDamageForDisplay());
+        return necroEntities.get(par1ItemStack.getItemDamage());
     }
 
     public void addParts(String entity, String... parts) {
@@ -54,6 +61,7 @@ public class ItemBodyPart extends Item {
         return null;
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List) {
         for (int i = 0; i < necroEntities.size(); i++) {
@@ -62,12 +70,13 @@ public class ItemBodyPart extends Item {
     }
 
     @Override
-    public void updateIcons(IconRegister iconRegister) {
+    public void registerIcons(IconRegister iconRegister) {
         String name, path;
         for (int index = 0; index < necroEntities.size(); index++) {
             name = necroEntities.get(index);
             path = name.replaceAll(" ", "/");
-            textures[index] = iconRegister.registerIcon("necromancy:bodypart/" + path);
+            path = path.replaceAll("_", " ");
+            textures[index] = iconRegister.registerIcon("necromancy:bodyparts/" + path);
         }
     }
 

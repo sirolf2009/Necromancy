@@ -7,10 +7,10 @@ import net.minecraft.entity.Entity;
 public class ModelIsaacHead extends ModelBase {
     // fields
     ModelRenderer neck4;
-    ModelRenderer Neck3;
-    ModelRenderer Neck2;
+    ModelRenderer neck3;
+    ModelRenderer neck2;
     ModelRenderer head;
-    ModelRenderer Neck1;
+    ModelRenderer neck1;
 
     public ModelIsaacHead() {
         textureWidth = 64;
@@ -22,30 +22,30 @@ public class ModelIsaacHead extends ModelBase {
         neck4.setTextureSize(64, 32);
         neck4.mirror = true;
         setRotation(neck4, 0F, 0F, 0F);
-        Neck3 = new ModelRenderer(this, 0, 0);
-        Neck3.addBox(0F, 0F, 0F, 1, 1, 1);
-        Neck3.setRotationPoint(0F, 2F, 1F);
-        Neck3.setTextureSize(64, 32);
-        Neck3.mirror = true;
-        setRotation(Neck3, 0F, 0F, 0F);
-        Neck2 = new ModelRenderer(this, 0, 0);
-        Neck2.addBox(0F, 0F, 0F, 1, 1, 1);
-        Neck2.setRotationPoint(0F, 2F, 0F);
-        Neck2.setTextureSize(64, 32);
-        Neck2.mirror = true;
-        setRotation(Neck2, 0F, 0F, 0F);
+        neck3 = new ModelRenderer(this, 0, 0);
+        neck3.addBox(0F, 0F, 0F, 1, 1, 1);
+        neck3.setRotationPoint(0F, 2F, 1F);
+        neck3.setTextureSize(64, 32);
+        neck3.mirror = true;
+        setRotation(neck3, 0F, 0F, 0F);
+        neck2 = new ModelRenderer(this, 0, 0);
+        neck2.addBox(0F, 0F, 0F, 1, 1, 1);
+        neck2.setRotationPoint(0F, 2F, 0F);
+        neck2.setTextureSize(64, 32);
+        neck2.mirror = true;
+        setRotation(neck2, 0F, 0F, 0F);
         head = new ModelRenderer(this, 0, 0);
         head.addBox(-4F, -8F, -4F, 10, 9, 8);
         head.setRotationPoint(0F, 1F, 0F);
         head.setTextureSize(64, 32);
         head.mirror = true;
         setRotation(head, 0F, 0F, 0F);
-        Neck1 = new ModelRenderer(this, 0, 0);
-        Neck1.addBox(0F, 0F, 0F, 1, 1, 1);
-        Neck1.setRotationPoint(1F, 2F, -1F);
-        Neck1.setTextureSize(64, 32);
-        Neck1.mirror = true;
-        setRotation(Neck1, 0F, 0F, 0F);
+        neck1 = new ModelRenderer(this, 0, 0);
+        neck1.addBox(0F, 0F, 0F, 1, 1, 1);
+        neck1.setRotationPoint(1F, 2F, -1F);
+        neck1.setTextureSize(64, 32);
+        neck1.mirror = true;
+        setRotation(neck1, 0F, 0F, 0F);
     }
 
     @Override
@@ -53,10 +53,10 @@ public class ModelIsaacHead extends ModelBase {
         super.render(entity, f, f1, f2, f3, f4, f5);
         setRotationAngles(f, f1, f2, f3, f4, f5, entity);
         neck4.render(f5);
-        Neck3.render(f5);
-        Neck2.render(f5);
+        neck3.render(f5);
+        neck2.render(f5);
         head.render(f5);
-        Neck1.render(f5);
+        neck1.render(f5);
     }
 
     private void setRotation(ModelRenderer model, float x, float y, float z) {

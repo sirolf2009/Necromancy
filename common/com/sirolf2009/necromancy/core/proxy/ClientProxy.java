@@ -1,12 +1,13 @@
 package com.sirolf2009.necromancy.core.proxy;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraftforge.client.MinecraftForgeClient;
 
 import com.sirolf2009.necromancy.Necromancy;
+import com.sirolf2009.necromancy.client.model.ModelIsaacHead;
 import com.sirolf2009.necromancy.client.model.ModelIsaacNormal;
+import com.sirolf2009.necromancy.client.model.ModelIsaacSevered;
 import com.sirolf2009.necromancy.client.model.ModelNightCrawler;
 import com.sirolf2009.necromancy.client.model.ModelTeddy;
 import com.sirolf2009.necromancy.client.renderer.ItemNecronomiconRenderer;
@@ -21,12 +22,15 @@ import com.sirolf2009.necromancy.client.renderer.tileentity.TileEntityAltarRende
 import com.sirolf2009.necromancy.client.renderer.tileentity.TileEntityNecroSkullRenderer;
 import com.sirolf2009.necromancy.client.renderer.tileentity.TileEntitySewingRenderer;
 import com.sirolf2009.necromancy.client.renderer.tileentity.TileEntitySkullWallRenderer;
+import com.sirolf2009.necromancy.core.handler.KeyHandlerNecro;
 import com.sirolf2009.necromancy.entity.EntityIsaacBlood;
+import com.sirolf2009.necromancy.entity.EntityIsaacBody;
+import com.sirolf2009.necromancy.entity.EntityIsaacHead;
 import com.sirolf2009.necromancy.entity.EntityIsaacNormal;
 import com.sirolf2009.necromancy.entity.EntityMinion;
 import com.sirolf2009.necromancy.entity.EntityNecroFX;
 import com.sirolf2009.necromancy.entity.EntityNightCrawler;
-import com.sirolf2009.necromancy.entity.EntityTearNormal;
+import com.sirolf2009.necromancy.entity.EntityTear;
 import com.sirolf2009.necromancy.entity.EntityTeddy;
 import com.sirolf2009.necromancy.tileentity.TileEntityAltar;
 import com.sirolf2009.necromancy.tileentity.TileEntitySewing;
@@ -34,6 +38,7 @@ import com.sirolf2009.necromancy.tileentity.TileEntitySkullWall;
 
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.client.registry.KeyBindingRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -48,19 +53,23 @@ public class ClientProxy extends CommonProxy {
         mc = FMLClientHandler.instance().getClient();
         RenderingRegistry.registerEntityRenderingHandler(EntityMinion.class, new RenderMinion());
         RenderingRegistry.registerEntityRenderingHandler(EntityTeddy.class, new RenderTeddy(new ModelTeddy(), 0.3F));
-        RenderingRegistry.registerEntityRenderingHandler(EntityNightCrawler.class, new RenderNightCrawler(new ModelNightCrawler(), 0.3F));
+        RenderingRegistry.registerEntityRenderingHandler(EntityNightCrawler.class, new RenderNightCrawler(new ModelNightCrawler(), 0.3F));/*
         RenderingRegistry.registerEntityRenderingHandler(EntityIsaacNormal.class, new RenderIsaacNormal(new ModelIsaacNormal(), 0.3F));
         RenderingRegistry.registerEntityRenderingHandler(EntityIsaacBlood.class, new RenderIsaacBlood(new ModelIsaacNormal(), 0.3F));
-        RenderingRegistry.registerEntityRenderingHandler(EntityTearNormal.class, new RenderTear(Necromancy.necromanticItems, 5));
+        RenderingRegistry.registerEntityRenderingHandler(EntityIsaacHead.class, new RenderIsaacBlood(new ModelIsaacHead(), 0.3F));
+        RenderingRegistry.registerEntityRenderingHandler(EntityIsaacBody.class, new RenderIsaacBlood(new ModelIsaacSevered(), 0.3F));*/
+        RenderingRegistry.registerEntityRenderingHandler(EntityTear.class, new RenderTear());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityAltar.class, new TileEntityAltarRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySewing.class, new TileEntitySewingRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySkullWall.class, new TileEntitySkullWallRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySkull.class, new TileEntityNecroSkullRenderer());
         MinecraftForgeClient.registerItemRenderer(Necromancy.AltarID, new TileEntityAltarRenderer());
         MinecraftForgeClient.registerItemRenderer(Necromancy.SewingID, new TileEntitySewingRenderer());
-        MinecraftForgeClient.registerItemRenderer(Necromancy.SkullWallID, new TileEntitySkullWallRenderer());
+        // MinecraftForgeClient.registerItemRenderer(Necromancy.SkullWallID, new
+        // TileEntitySkullWallRenderer());
         MinecraftForgeClient.registerItemRenderer(Necromancy.scythe.itemID, new ItemScytheRenderer());
         MinecraftForgeClient.registerItemRenderer(Necromancy.necronomicon.itemID, new ItemNecronomiconRenderer());
+        KeyBindingRegistry.registerKeyBinding(new KeyHandlerNecro());
     }
 
     public static void spawnParticle(String name, double posX, double posY, double posZ, double motionX, double motionY, double motionZ) {
@@ -71,7 +80,13 @@ public class ClientProxy extends CommonProxy {
         }
     }
 
-    public void log(Object msg) {
-        System.out.println(this.getClass() + "	" + msg);
+    @Override
+    public int addArmour(String path) {
+        return RenderingRegistry.addNewArmourRendererPrefix(path);
+    }
+    
+    @Override
+    public void refreshTextures() {
+        mc.renderEngine.refreshTextures();
     }
 }

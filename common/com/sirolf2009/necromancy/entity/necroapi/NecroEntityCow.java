@@ -5,12 +5,17 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import com.sirolf2009.necroapi.BodyPart;
+import com.sirolf2009.necroapi.NecroEntityQuadruped;
 import com.sirolf2009.necromancy.item.ItemBodyPart;
 
-public class NecroEntityCow extends com.sirolf2009.necroapi.NecroEntityQuadruped {
+public class NecroEntityCow extends NecroEntityQuadruped {
 
     public NecroEntityCow() {
-        super("COW", 12);
+        this("Cow", 12);
+    }
+
+    public NecroEntityCow(String name, int size) {
+        super(name, size);
         headItem = ItemBodyPart.getItemStackFromName("Cow Head", 1);
         torsoItem = ItemBodyPart.getItemStackFromName("Cow Torso", 1);
         armItem = ItemBodyPart.getItemStackFromName("Cow Arm", 1);
@@ -38,6 +43,21 @@ public class NecroEntityCow extends com.sirolf2009.necroapi.NecroEntityQuadruped
         body.setTextureOffset(52, 0).addBox(2.0F, 2.0F, -13.0F, 4, 6, 1);
         body.setTextureSize(textureWidth, textureHeight);
         return new BodyPart[] { body };
+    }
+
+    @Override
+    public BodyPart[] initLegs(ModelBase model) {
+        float[] torsoPos = { -4F, -2F, 0F };
+        BodyPart legLeft = new BodyPart(this, torsoPos, model, 0, 16);
+        legLeft.addBox(-2.0F, 0.0F, -2.0F, 4, size, 4, 0.0F);
+        legLeft.setRotationPoint(-4.0F, (float) 22 - size, 2.0F);
+        BodyPart legRight = new BodyPart(this, torsoPos, model, 0, 16);
+        legRight.addBox(-2.0F, 0.0F, -2.0F, 4, size, 4, 0.0F);
+        legRight.setRotationPoint(4.0F, (float) 22 - size, 2.0F);
+        legLeft.setTextureSize(textureWidth, textureHeight);
+        legRight.setTextureSize(textureWidth, textureHeight);
+        legLeft.mirror = true;
+        return new BodyPart[] { legLeft, legRight };
     }
 
     @Override

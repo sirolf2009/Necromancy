@@ -7,19 +7,23 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
-import com.sirolf2009.necromancy.Necromancy;
+import com.sirolf2009.necromancy.lib.Reference;
 
 public class EntityNightCrawler extends EntityMob {
 
     public EntityNightCrawler(World par1World) {
         super(par1World);
         setSize(0.6F, 1F);
-        texture = Necromancy.rscPath + "/entity/nightcrawler.png";
+        texture = Reference.LOC_RESOURCES_TEXTURES_ENTITIES + "/nightcrawler.png";
     }
 
     @Override
     public void onUpdate() {
         super.onUpdate();
+        if (entityToAttack != null && rand.nextInt(50) == 0) {
+            worldObj.playSoundEffect(posX, posY, posZ, "nightcrawler.scream", 1.0F, 1.0F);
+            worldObj.playSoundEffect(posX, posY, posZ, "nightcrawler.howl", 1.0F, 1.0F);
+        }
         findPlayerToAttack();
         if (entityToAttack != null && worldObj.isRemote) {
             ((EntityLiving) entityToAttack).getLookHelper().setLookPositionWithEntity(this, 10.0F, ((EntityLiving) entityToAttack).getVerticalFaceSpeed());
@@ -27,7 +31,6 @@ public class EntityNightCrawler extends EntityMob {
             ((EntityLiving) entityToAttack).getLookHelper().onUpdateLook();
             worldObj.spawnParticle("portal", entityToAttack.posX + (rand.nextDouble() - 0.5D) / 2, entityToAttack.posY + (rand.nextDouble() - 2D) / 2, entityToAttack.posZ + (rand.nextDouble() - 0.5D) / 2, (entityToAttack.posX - posX) * 0.01, (entityToAttack.posY - posY) * 0.01, (entityToAttack.posZ - posZ) * 0.01);
             worldObj.spawnParticle("portal", posX + (rand.nextDouble() - 0.5D) / 2, posY + (rand.nextDouble() - 2D) / 2, posZ + (rand.nextDouble() - 0.5D) / 2, (posX - entityToAttack.posX) * 0.01, (posY - entityToAttack.posY) * 0.01, (posZ - entityToAttack.posZ) * 0.01);
-            worldObj.playSoundEffect(posX, posY, posZ, "nightcrawler.say1", 1.0F, 1.0F);
         }
     }
 

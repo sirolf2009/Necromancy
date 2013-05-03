@@ -6,7 +6,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 
 import com.sirolf2009.necromancy.entity.EntityIsaacBlood;
-import com.sirolf2009.necromancy.entity.EntityIsaacNormal;
 
 public class RenderIsaacBlood extends RenderLiving {
 

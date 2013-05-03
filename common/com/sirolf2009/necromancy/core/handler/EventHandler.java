@@ -16,8 +16,11 @@ import net.minecraftforge.event.entity.player.FillBucketEvent;
 import com.sirolf2009.necromancy.Necromancy;
 import com.sirolf2009.necromancy.client.model.ModelMinion;
 import com.sirolf2009.necromancy.command.CommandRemodel;
+import com.sirolf2009.necromancy.lib.Reference;
 
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class EventHandler {
 
@@ -87,10 +90,11 @@ public class EventHandler {
     }
 
     @ForgeSubscribe
+    @SideOnly(Side.CLIENT)
     public void onSoundsLoaded(SoundLoadEvent event) {
         SoundManager manager = event.manager;
-        manager.soundPoolSounds.addSound("nightcrawler/say1.ogg", this.getClass().getResource("/mods/necromancy/sounds/nightcrawler/say1.ogg"));
-        manager.soundPoolSounds.addSound("nightcrawler/say2.ogg", this.getClass().getResource("/mods/necromancy/sounds/nightcrawler/say2.ogg"));
+        manager.soundPoolSounds.addSound("nightcrawler/scream.ogg", this.getClass().getResource(Reference.LOC_RESOURCES_SOUNDS + "/nightcrawler/scream.ogg"));
+        manager.soundPoolSounds.addSound("nightcrawler/howl.ogg", this.getClass().getResource(Reference.LOC_RESOURCES_SOUNDS + "/nightcrawler/howl.ogg"));
     }
 
     Random rand = new Random();

@@ -8,10 +8,10 @@ import net.minecraft.item.ItemStack;
 import org.lwjgl.opengl.GL11;
 
 import com.sirolf2009.necroapi.BodyPart;
-import com.sirolf2009.necroapi.NecroEntityBase;
+import com.sirolf2009.necroapi.NecroEntityBiped;
 import com.sirolf2009.necromancy.item.ItemBodyPart;
 
-public class NecroEntityEnderman extends NecroEntityBase {
+public class NecroEntityEnderman extends NecroEntityBiped {
 
     public NecroEntityEnderman() {
         super("ENDERMAN");
@@ -93,5 +93,56 @@ public class NecroEntityEnderman extends NecroEntityBase {
 
     @Override
     public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity entity, BodyPart[] part, String location) {
+        super.setRotationAngles(par1, par2, par3, par4, par5, par6, entity, part, location);
+        if (location.equals("head")) {
+            part[0].rotationPointZ = -0.0F;
+            part[0].rotationPointY = -0.0F;
+            part[1].rotationPointX = part[0].rotationPointX;
+            part[1].rotationPointY = part[0].rotationPointY;
+            part[1].rotationPointZ = part[0].rotationPointZ;
+            part[1].rotateAngleX = part[0].rotateAngleX;
+            part[1].rotateAngleY = part[0].rotateAngleY;
+            part[1].rotateAngleZ = part[0].rotateAngleZ;
+        }
+        if (location.equals("legs")) {
+            part[0].rotateAngleX -= 0.0F;
+            part[1].rotateAngleX -= 0.0F;
+            part[0].rotateAngleX = (float) (part[0].rotateAngleX * 0.5D);
+            part[1].rotateAngleX = (float) (part[1].rotateAngleX * 0.5D);
+            if (part[0].rotateAngleX > 0.4F) {
+                part[0].rotateAngleX = 0.4F;
+            }
+            if (part[0].rotateAngleX < -0.4F) {
+                part[0].rotateAngleX = -0.4F;
+            }
+            if (part[1].rotateAngleX > 0.4F) {
+                part[1].rotateAngleX = 0.4F;
+            }
+            if (part[1].rotateAngleX < -0.4F) {
+                part[1].rotateAngleX = -0.4F;
+            }
+        }
+        if (location.equals("armRight")) {
+            part[0].rotateAngleX = (float) (part[0].rotateAngleX * 0.5D);
+            if (part[0].rotateAngleX > 0.4F) {
+                part[0].rotateAngleX = 0.4F;
+            }
+            if (part[0].rotateAngleX < -0.4F) {
+                part[0].rotateAngleX = -0.4F;
+            }
+        }
+        if (location.equals("armLeft")) {
+            part[0].rotateAngleX = (float) (part[0].rotateAngleX * 0.5D);
+            if (part[0].rotateAngleX > 0.4F) {
+                part[0].rotateAngleX = 0.4F;
+            }
+            if (part[0].rotateAngleX < -0.4F) {
+                part[0].rotateAngleX = -0.4F;
+            }
+        }
+        /*
+         * this.bipedRightLeg.rotationPointY = 9.0F + f6;
+         * this.bipedLeftLeg.rotationPointY = 9.0F + f6;
+         */
     }
 }

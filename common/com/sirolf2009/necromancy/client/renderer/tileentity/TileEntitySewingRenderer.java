@@ -7,8 +7,8 @@ import net.minecraftforge.client.IItemRenderer;
 
 import org.lwjgl.opengl.GL11;
 
-import com.sirolf2009.necromancy.Necromancy;
 import com.sirolf2009.necromancy.client.model.ModelSewing;
+import com.sirolf2009.necromancy.lib.Reference;
 import com.sirolf2009.necromancy.tileentity.TileEntitySewing;
 
 import cpw.mods.fml.client.FMLClientHandler;
@@ -68,7 +68,7 @@ public class TileEntitySewingRenderer extends TileEntitySpecialRenderer implemen
     }
 
     private void renderSewing(TileEntitySewing entity, double x, double y, double z, float f) {
-        bindTextureByName(Necromancy.rscPath + "/model/sewingTexture.png");
+        bindTextureByName(Reference.LOC_RESOURCES_TEXTURES_MODELS + "/sewingTexture.png");
         GL11.glPushMatrix();
         GL11.glEnable(32826);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -128,7 +128,7 @@ public class TileEntitySewingRenderer extends TileEntitySpecialRenderer implemen
     }
 
     private void renderSewing(float posX, float posY, float posZ, float rotX, float rotY, float rotZ, float scale) {
-        FMLClientHandler.instance().getClient().renderEngine.bindTexture(Necromancy.rscPath + "/model/sewingTexture.png");
+        FMLClientHandler.instance().getClient().renderEngine.bindTexture(Reference.LOC_RESOURCES_TEXTURES_MODELS + "/sewingTexture.png");
         GL11.glPushMatrix(); // start
         GL11.glTranslatef(posX, posY, posZ); // size
         GL11.glRotatef(rotX, 1, 0, 0);

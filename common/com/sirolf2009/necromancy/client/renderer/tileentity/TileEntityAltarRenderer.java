@@ -16,10 +16,10 @@ import net.minecraftforge.client.IItemRenderer;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-import com.sirolf2009.necromancy.Necromancy;
 import com.sirolf2009.necromancy.client.model.ModelAltar;
 import com.sirolf2009.necromancy.core.proxy.ClientProxy;
 import com.sirolf2009.necromancy.entity.EntityMinion;
+import com.sirolf2009.necromancy.lib.Reference;
 import com.sirolf2009.necromancy.tileentity.TileEntityAltar;
 
 import cpw.mods.fml.client.FMLClientHandler;
@@ -31,7 +31,7 @@ public class TileEntityAltarRenderer extends TileEntitySpecialRenderer implement
 
     RenderBlocks renderBlocks = new RenderBlocks();
     private ModelBook book = new ModelBook();
-    
+
     public TileEntityAltarRenderer() {
         entity = null;
         model = new ModelAltar();
@@ -99,7 +99,7 @@ public class TileEntityAltarRenderer extends TileEntitySpecialRenderer implement
     }
 
     private void renderAltar(TileEntityAltar entity, double x, double y, double z, float f) {
-        bindTextureByName(Necromancy.rscPath + "/model/altarTexture.png");
+        bindTextureByName(Reference.LOC_RESOURCES_TEXTURES_MODELS + "/altarTexture.png");
         GL11.glPushMatrix();
         GL11.glEnable(32826);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -132,79 +132,70 @@ public class TileEntityAltarRenderer extends TileEntitySpecialRenderer implement
             int i1 = 1000000000;
             int j1 = i1 % 65536;
             int k = i1 / 65536;
-            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)j1 / 1.0F, (float)k / 1.0F);
+            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, j1 / 1.0F, k / 1.0F);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             bindTextureByName("/terrain.png");
-            this.renderBlocks.renderBlockAsItem(Block.torchWood, 0, 1.0F);
+            renderBlocks.renderBlockAsItem(Block.torchWood, 0, 1.0F);
             bindTextureByName("/item/book.png");
             GL11.glScalef(0.1F, 0.1F, 0.1F);
             GL11.glRotatef(90, 0, 0, 1);
             GL11.glTranslatef(-4F, -8F, 8F);
             GL11.glColor3f(0.9F, 0.9F, 0.9F);
             book.render(null, 1F, 0F, 0F, 1.22F, 0F, 1F);
-            if(rand.nextInt(100)==0)
-                randomDisplayTick(ClientProxy.mc.theWorld, entity.xCoord, entity.yCoord+1, entity.zCoord, rand, i);
+            if (rand.nextInt(100) == 0) {
+                randomDisplayTick(ClientProxy.mc.theWorld, entity.xCoord, entity.yCoord + 1, entity.zCoord, rand, i);
+            }
             GL11.glPopMatrix();
             GL11.glPopMatrix();
         }
     }
 
     /**
-     * A randomly called display update to be able to add particles or other items for display
-     * also shameless copying
+     * A randomly called display update to be able to add particles or other
+     * items for display also shameless copying
      */
-    public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random, int metadata)
-    {
+    public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random, int metadata) {
         int l = par1World.getBlockMetadata(par2, par3, par4);
         double d0 = 0;
         double d1 = 0;
         double d2 = 0;
-        if(metadata==0) {
-            d0 = (double)((float)par2 + .2F);
-            d1 = (double)((float)par3 + 0.7F);
-            d2 = (double)((float)par4 + .8F);
+        if (metadata == 0) {
+            d0 = par2 + .2F;
+            d1 = par3 + 0.7F;
+            d2 = par4 + .8F;
         }
-        if(metadata==1) {
-            d0 = (double)((float)par2 + .2F);
-            d1 = (double)((float)par3 + 0.7F);
-            d2 = (double)((float)par4 + 0.5F);
+        if (metadata == 1) {
+            d0 = par2 + .2F;
+            d1 = par3 + 0.7F;
+            d2 = par4 + 0.5F;
         }
-        if(metadata==2) {
-            d0 = (double)((float)par2 + .2F);
-            d1 = (double)((float)par3 + 0.7F);
-            d2 = (double)((float)par4 + 0.5F);
+        if (metadata == 2) {
+            d0 = par2 + .2F;
+            d1 = par3 + 0.7F;
+            d2 = par4 + 0.5F;
         }
-        if(metadata==3) {
-            d0 = (double)((float)par2 + .2F);
-            d1 = (double)((float)par3 + 0.7F);
-            d2 = (double)((float)par4 + 0.5F);
+        if (metadata == 3) {
+            d0 = par2 + .2F;
+            d1 = par3 + 0.7F;
+            d2 = par4 + 0.5F;
         }
         double d3 = 0.5D;
         double d4 = 0.27000001072883606D;
 
-        if (l == 1)
-        {
+        if (l == 1) {
             par1World.spawnParticle("smoke", d0 - d4, d1 + d3, d2, 0.0D, 0.0D, 0.0D);
             par1World.spawnParticle("flame", d0 - d4, d1 + d3, d2, 0.0D, 0.0D, 0.0D);
-        }
-        else if (l == 2)
-        {
+        } else if (l == 2) {
             par1World.spawnParticle("smoke", d0 + d4, d1 + d3, d2, 0.0D, 0.0D, 0.0D);
             par1World.spawnParticle("flame", d0 + d4, d1 + d3, d2, 0.0D, 0.0D, 0.0D);
-        }
-        else if (l == 3)
-        {
+        } else if (l == 3) {
             par1World.spawnParticle("smoke", d0, d1 + d3, d2 - d4, 0.0D, 0.0D, 0.0D);
             par1World.spawnParticle("flame", d0, d1 + d3, d2 - d4, 0.0D, 0.0D, 0.0D);
-        }
-        else if (l == 4)
-        {
+        } else if (l == 4) {
             par1World.spawnParticle("smoke", d0, d1 + d3, d2 + d4, 0.0D, 0.0D, 0.0D);
             par1World.spawnParticle("flame", d0, d1 + d3, d2 + d4, 0.0D, 0.0D, 0.0D);
-        }
-        else
-        {
+        } else {
             par1World.spawnParticle("smoke", d0, d1, d2, 0.0D, 0.0D, 0.0D);
             par1World.spawnParticle("flame", d0, d1, d2, 0.0D, 0.0D, 0.0D);
         }
@@ -243,7 +234,7 @@ public class TileEntityAltarRenderer extends TileEntitySpecialRenderer implement
     }
 
     private void renderAltar(float posX, float posY, float posZ, float rotX, float rotY, float rotZ, float scale) {
-        FMLClientHandler.instance().getClient().renderEngine.bindTexture(Necromancy.rscPath + "/model/altarTexture.png");
+        FMLClientHandler.instance().getClient().renderEngine.bindTexture(Reference.LOC_RESOURCES_TEXTURES_MODELS + "/altarTexture.png");
         GL11.glPushMatrix(); // start
         GL11.glTranslatef(posX, posY, posZ); // size
         GL11.glRotatef(rotX, 1, 0, 0);

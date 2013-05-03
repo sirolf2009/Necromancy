@@ -39,9 +39,12 @@ public class ModelMinion extends ModelBase {
         if (legs != null) {
             GL11.glPushMatrix();
             bindTexByPart(parts[4]);
+            NecroEntityBase mob = NecroEntityRegistry.registeredEntities.get(legs[0].name);
+            mob.preRender(minion, legs, "legs", this);
             for (BodyPart part : legs) {
                 part.render(par7);
             }
+            mob.postRender(minion, legs, "legs", this);
             GL11.glPopMatrix();
         }
         if (torso != null) {
@@ -49,6 +52,7 @@ public class ModelMinion extends ModelBase {
             if (torso[0] != null) {
                 GL11.glTranslatef(torsoPos[0] / 16, torsoPos[1] / 16, torsoPos[2] / 16);
                 NecroEntityBase mob = NecroEntityRegistry.registeredEntities.get(torso[0].name);
+                mob.preRender(minion, torso, "torso", this);
                 for (BodyPart part : torso) {
                     part.render(par7);
                 }
@@ -58,24 +62,31 @@ public class ModelMinion extends ModelBase {
                         part.render(par7);
                     }
                 }
+                mob.postRender(minion, torso, "torso", this);
             }
         }
         if (armLeft != null) {
             GL11.glPushMatrix();
             bindTexByPart(parts[2]);
             GL11.glTranslatef(armLeftPos[0] / 16, armLeftPos[1] / 16, armLeftPos[2] / 16);
+            NecroEntityBase mob = NecroEntityRegistry.registeredEntities.get(armLeft[0].name);
+            mob.preRender(minion, armLeft, "armLeft", this);
             for (BodyPart part : armLeft) {
                 part.render(par7);
             }
+            mob.postRender(minion, armLeft, "armLeft", this);
             GL11.glPopMatrix();
         }
         if (armRight != null) {
             GL11.glPushMatrix();
             GL11.glTranslatef(armRightPos[0] / 16, armRightPos[1] / 16, armRightPos[2] / 16);
             bindTexByPart(parts[3]);
+            NecroEntityBase mob = NecroEntityRegistry.registeredEntities.get(armLeft[0].name);
+            mob.preRender(minion, armLeft, "armLeft", this);
             for (BodyPart part : armRight) {
                 part.render(par7);
             }
+            mob.postRender(minion, armRight, "armRight", this);
             GL11.glPopMatrix();
         }
         if (head != null) {
@@ -88,9 +99,12 @@ public class ModelMinion extends ModelBase {
                 santahat.render(par7 + 0.001F);
             }
             bindTexByPart(parts[0]);
+            NecroEntityBase mob = NecroEntityRegistry.registeredEntities.get(head[0].name);
+            mob.preRender(minion, head, "head", this);
             for (BodyPart part : head) {
                 part.render(par7);
             }
+            mob.postRender(minion, head, "head", this);
             GL11.glPopMatrix();
         }
     }
