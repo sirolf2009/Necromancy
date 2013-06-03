@@ -2,10 +2,15 @@ package com.sirolf2009.necromancy.block;
 
 import net.minecraft.block.BlockFlowing;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.Icon;
 import net.minecraftforge.liquids.IBlockLiquid;
 
 import com.sirolf2009.necromancy.Necromancy;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockBloodFlowing extends BlockFlowing implements IBlockLiquid {
 
@@ -56,4 +61,19 @@ public class BlockBloodFlowing extends BlockFlowing implements IBlockLiquid {
     public String getLiquidBlockTextureFile() {
         return "necromancy:blood";
     }
+
+    @Override
+    public void registerIcons(IconRegister par1IconRegister) {
+        theIcon = new Icon[] { par1IconRegister.registerIcon("necromancy:blood"), par1IconRegister.registerIcon("necromancy:blood_flow") };
+        iconForWorldRender = theIcon;
+        iconForInvRender = iconForWorldRender[0];
+    }
+
+    @SideOnly(Side.CLIENT)
+    public static Icon func_94424_b(String par0Str) {
+        return par0Str == "blood" ? Necromancy.bloodFlowing.iconForWorldRender[0] : Necromancy.bloodFlowing.iconForWorldRender[1];
+    }
+
+    public Icon iconForInvRender;
+    public Icon[] iconForWorldRender;
 }

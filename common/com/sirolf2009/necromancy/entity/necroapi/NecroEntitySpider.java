@@ -3,13 +3,13 @@ package com.sirolf2009.necromancy.entity.necroapi;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 
 import com.sirolf2009.necroapi.BodyPart;
 import com.sirolf2009.necroapi.ISaddleAble;
 import com.sirolf2009.necroapi.NecroEntityBase;
 import com.sirolf2009.necromancy.item.ItemBodyPart;
+import com.sirolf2009.necromancy.lib.Reference;
 
 public class NecroEntitySpider extends NecroEntityBase implements ISaddleAble {
 
@@ -21,6 +21,11 @@ public class NecroEntitySpider extends NecroEntityBase implements ISaddleAble {
         legItem = ItemBodyPart.getItemStackFromName("Spider Legs", 1);
         texture = "/mob/spider.png";
         hasArms = false;
+    }
+
+    @Override
+    public void initRecipes() {
+        initDefaultRecipes(Item.spiderEye);
     }
 
     public NecroEntitySpider() {
@@ -87,22 +92,6 @@ public class NecroEntitySpider extends NecroEntityBase implements ISaddleAble {
     }
 
     @Override
-    public void initRecipes() {
-        headRecipe = new Object[] { "SSSS", "SBFS", "SEES", 'S', new ItemStack(organs, 1, 4), // skin
-        'E', Item.spiderEye, 'F', Item.rottenFlesh, 'B', new ItemStack(organs, 1, 0) }; // brains
-        torsoRecipe = new Object[] { " LL ", "BHUB", "LEEL", "BLLB", 'L', new ItemStack(organs, 1, 4), // skin
-        'E', Item.rottenFlesh, 'H', new ItemStack(organs, 1, 1), // heart
-        'U', new ItemStack(organs, 1, 3), // lungs
-        'B', Item.bone };
-        armRecipe = new Object[] { "LLLL", "BMEB", "LLLL", 'L', new ItemStack(organs, 1, 4), // skin
-        'E', Item.rottenFlesh, 'M', new ItemStack(organs, 1, 2), // muscle
-        'B', Item.bone };
-        legRecipe = new Object[] { "LBBL", "LMML", "LEEL", "LBBL", 'L', new ItemStack(organs, 1, 4), // skin
-        'E', Item.rottenFlesh, 'M', new ItemStack(organs, 1, 2), // muscle
-        'B', Item.bone };
-    }
-
-    @Override
     public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity entity, BodyPart[] part, String location) {
         if (location.equals("legs")) {
             float var8 = (float) Math.PI / 4F;
@@ -153,7 +142,7 @@ public class NecroEntitySpider extends NecroEntityBase implements ISaddleAble {
 
     @Override
     public String getSaddleTex() {
-        return "/necromancy/spiderSaddle.png";
+        return Reference.LOC_RESOURCES_TEXTURES_ENTITIES + "/spiderSaddle.png";
     }
 
     @Override

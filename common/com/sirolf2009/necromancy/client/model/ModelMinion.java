@@ -81,8 +81,8 @@ public class ModelMinion extends ModelBase {
             GL11.glPushMatrix();
             GL11.glTranslatef(armRightPos[0] / 16, armRightPos[1] / 16, armRightPos[2] / 16);
             bindTexByPart(parts[3]);
-            NecroEntityBase mob = NecroEntityRegistry.registeredEntities.get(armLeft[0].name);
-            mob.preRender(minion, armLeft, "armLeft", this);
+            NecroEntityBase mob = NecroEntityRegistry.registeredEntities.get(armRight[0].name);
+            mob.preRender(minion, armLeft, "armRight", this);
             for (BodyPart part : armRight) {
                 part.render(par7);
             }

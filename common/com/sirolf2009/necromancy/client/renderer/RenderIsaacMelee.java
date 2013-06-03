@@ -5,25 +5,25 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 
-import com.sirolf2009.necromancy.entity.EntityIsaacNormal;
+import com.sirolf2009.necromancy.entity.EntityIsaacBody;
 
-public class RenderIsaacNormal extends RenderLiving {
+public class RenderIsaacMelee extends RenderLiving {
 
-    public RenderIsaacNormal(ModelBase par1ModelBase, float par2) {
+    public RenderIsaacMelee(ModelBase par1ModelBase, float par2) {
         super(par1ModelBase, par2);
     }
 
     @Override
     public void doRenderLiving(EntityLiving el, double d1, double d2, double d3, float f1, float f2) {
-        renderIsaacNormal((EntityIsaacNormal) el, d1, d2, d3, f1, f2);
+        renderIsaacNormal((EntityIsaacBody) el, d1, d2, d3, f1, f2);
     }
 
     @Override
     public void doRender(Entity el, double d1, double d2, double d3, float f1, float f2) {
-        renderIsaacNormal((EntityIsaacNormal) el, d1, d2, d3, f1, f2);
+        renderIsaacNormal((EntityIsaacBody) el, d1, d2, d3, f1, f2);
     }
 
-    public void renderIsaacNormal(EntityIsaacNormal em, double d1, double d2, double d3, float f1, float f2) {
+    public void renderIsaacNormal(EntityIsaacBody em, double d1, double d2, double d3, float f1, float f2) {
         super.doRenderLiving(em, d1, d2, d3, f1, f2);
     }
 }

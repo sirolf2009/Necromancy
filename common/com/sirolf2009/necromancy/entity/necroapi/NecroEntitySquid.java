@@ -2,6 +2,8 @@ package com.sirolf2009.necromancy.entity.necroapi;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.entity.Entity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
 import com.sirolf2009.necroapi.BodyPart;
 import com.sirolf2009.necroapi.NecroEntityBase;
@@ -15,6 +17,12 @@ public class NecroEntitySquid extends NecroEntityBase {
         torsoItem = ItemBodyPart.getItemStackFromName("Squid Torso", 1);
         legItem = ItemBodyPart.getItemStackFromName("Squid Legs", 1);
         texture = "/mob/squid.png";
+        hasArms = false;
+    }
+
+    @Override
+    public void initRecipes() {
+        initDefaultRecipes(new ItemStack(Item.dyePowder, 1, 0));
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.sirolf2009.necromancy.entity.necroapi;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.entity.Entity;
 
@@ -16,6 +17,11 @@ public class NecroEntitySheep extends NecroEntityQuadruped {
         armItem = ItemBodyPart.getItemStackFromName("Sheep Arm", 1);
         legItem = ItemBodyPart.getItemStackFromName("Sheep Legs", 1);
         texture = "/mob/sheep.png";
+    }
+
+    @Override
+    public void initRecipes() {
+        initDefaultRecipes(Block.cloth);
     }
 
     @Override

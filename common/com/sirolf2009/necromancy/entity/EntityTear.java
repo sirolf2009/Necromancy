@@ -2,8 +2,6 @@ package com.sirolf2009.necromancy.entity;
 
 import java.util.List;
 
-import com.sirolf2009.necromancy.Necromancy;
-
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentThorns;
 import net.minecraft.entity.Entity;
@@ -27,7 +25,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class EntityTear extends Entity implements IProjectile {
 
-    public String type = "Normal";
     private int xTile = -1;
     private int yTile = -1;
     private int zTile = -1;
@@ -44,7 +41,7 @@ public class EntityTear extends Entity implements IProjectile {
     /** The owner of this arrow. */
     public Entity shootingEntity;
     private int ticksInAir = 0;
-    private double damage = 2.0D;
+    private int damage = 5;
 
     /** The amount of knockback an arrow applies when it hits a mob. */
     private int knockbackStrength;
@@ -272,7 +269,6 @@ public class EntityTear extends Entity implements IProjectile {
                     DamageSource damagesource = null;
 
                     damagesource = DamageSource.generic;
-                    int damage = type == "Normal" ? 5 : 7;
                     if (movingobjectposition.entityHit.attackEntityFrom(damagesource, damage)) {
                         if (movingobjectposition.entityHit instanceof EntityLiving) {
                             EntityLiving entityliving = (EntityLiving) movingobjectposition.entityHit;
@@ -304,12 +300,7 @@ public class EntityTear extends Entity implements IProjectile {
                             this.setDead();
                         }
                     } else {
-                        motionX *= -0.10000000149011612D;
-                        motionY *= -0.10000000149011612D;
-                        motionZ *= -0.10000000149011612D;
-                        rotationYaw += 180.0F;
-                        prevRotationYaw += 180.0F;
-                        ticksInAir = 0;
+                        movingobjectposition.entityHit.attackEntityFrom(damagesource, damage);
                     }
                 } else {
                     xTile = movingobjectposition.blockX;
@@ -399,7 +390,7 @@ public class EntityTear extends Entity implements IProjectile {
         par1NBTTagCompound.setByte("shake", (byte) arrowShake);
         par1NBTTagCompound.setByte("inGround", (byte) (inGround ? 1 : 0));
         par1NBTTagCompound.setByte("pickup", (byte) canBePickedUp);
-        par1NBTTagCompound.setDouble("damage", damage);
+        par1NBTTagCompound.setInteger("damage", damage);
     }
 
     /**
@@ -416,7 +407,7 @@ public class EntityTear extends Entity implements IProjectile {
         inGround = par1NBTTagCompound.getByte("inGround") == 1;
 
         if (par1NBTTagCompound.hasKey("damage")) {
-            damage = par1NBTTagCompound.getDouble("damage");
+            damage = par1NBTTagCompound.getInteger("damage");
         }
 
         if (par1NBTTagCompound.hasKey("pickup")) {
@@ -461,7 +452,7 @@ public class EntityTear extends Entity implements IProjectile {
         return 0.0F;
     }
 
-    public void setDamage(double par1) {
+    public void setDamage(int par1) {
         damage = par1;
     }
 

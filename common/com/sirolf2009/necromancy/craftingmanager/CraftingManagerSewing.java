@@ -15,7 +15,6 @@ import net.minecraft.world.World;
 import com.sirolf2009.necroapi.NecroEntityBase;
 import com.sirolf2009.necroapi.NecroEntityRegistry;
 import com.sirolf2009.necromancy.Necromancy;
-import com.sirolf2009.necromancy.item.ItemBodyPart;
 import com.sirolf2009.necromancy.item.ItemNecromancy;
 import com.sirolf2009.necromancy.recipes.ShapedRecipes4x4;
 import com.sirolf2009.necromancy.recipes.ShapelessRecipes4x4;
@@ -41,11 +40,12 @@ public class CraftingManagerSewing {
                 addRecipe(mob.armItem, mob.armRecipe);
             }
             if ((mob = (NecroEntityBase) itr.next()).hasLegs) {
+                System.out.println(mob.mobName + ", " + mob.legItem + ", " + mob.hasLegs);
                 addRecipe(mob.legItem, mob.legRecipe);
             }
         }
         addShapelessRecipe(new ItemStack(Necromancy.organs, 8, 4), new Object[] { Item.leather });
-        addShapelessRecipe(new ItemStack(Necromancy.spawner, 1), new Object[] { Item.rottenFlesh, Item.rottenFlesh, Item.rottenFlesh, Item.rottenFlesh, Item.rottenFlesh, Item.ghastTear, Item.ghastTear, ItemNecromancy.getItemStackFromName("Soul in a Jar").getItem(), ItemBodyPart.getItemStackFromName("Heart", 1).getItem() });
+        addShapelessRecipe(new ItemStack(Necromancy.spawner, 1), new Object[] { Item.rottenFlesh, Item.rottenFlesh, Item.rottenFlesh, Item.rottenFlesh, Item.rottenFlesh, Item.ghastTear, Item.ghastTear, ItemNecromancy.getItemStackFromName("Soul in a Jar").getItem(), new ItemStack(Necromancy.organs, 1, 1).getItem() });
         addRecipe(new ItemStack(Item.monsterPlacer, 1, Necromancy.TeddyID), new Object[] { "LLLL", "LWWL", "LWWL", "LLLL", 'L', Item.leather, 'W', Block.cloth });
     }
 

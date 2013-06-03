@@ -5,6 +5,7 @@ import java.util.logging.Level;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -40,7 +41,14 @@ public class TileEntityAltar extends TileEntity implements IInventory {
 
     public void spawn(EntityPlayer user) {
         lastUser = user;
-        if (!worldObj.isRemote) {
+        Necromancy.logger.log(Level.SEVERE, Necromancy.maxSpawn + "");
+        if (!worldObj.isRemote && Necromancy.maxSpawn != -1 && user.getEntityData().getInteger("minions") >= Necromancy.maxSpawn) {
+            if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
+                Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage("<Death> Mortal fool! Thou shan't never grow that strong.");
+                Entity thunder = new EntityLightningBolt(worldObj, xCoord, yCoord, zCoord);
+                worldObj.spawnEntityInWorld(thunder);
+            }
+        } else if (!worldObj.isRemote) {
             BodyPart[][] types = new BodyPart[5][];
             ItemStack head = getStackInSlot(2);
             ItemStack body = getStackInSlot(3);
@@ -87,6 +95,7 @@ public class TileEntityAltar extends TileEntity implements IInventory {
                     decrStackSize(x, 1);
                 }
             }
+            user.getEntityData().setInteger("minions", user.getEntityData().getInteger("minions") + 1);
             bodyPartsOld = null;
             user.addStat(Necromancy.SpawnAchieve, 1);
             log(minionTemp);
@@ -182,13 +191,13 @@ public class TileEntityAltar extends TileEntity implements IInventory {
         Iterator<NecroEntityBase> itr = NecroEntityRegistry.registeredEntities.values().iterator();
         while (itr.hasNext() && stack != null) {
             NecroEntityBase mob = itr.next();
-            if (string.equals("head") && mob.hasHead && ItemStack.areItemStacksEqual(stack, mob.headItem))
+            if (string.equals("head") && mob.hasHead && stack.isItemEqual(mob.headItem))
                 return true;
-            if (string.equals("body") && mob.hasTorso && ItemStack.areItemStacksEqual(stack, mob.torsoItem))
+            if (string.equals("body") && mob.hasTorso && stack.isItemEqual(mob.torsoItem))
                 return true;
-            if (string.equals("arm") && mob.hasArms && ItemStack.areItemStacksEqual(stack, mob.armItem))
+            if (string.equals("arm") && mob.hasArms && stack.isItemEqual(mob.armItem))
                 return true;
-            if (string.equals("leg") && mob.hasLegs && ItemStack.areItemStacksEqual(stack, mob.legItem))
+            if (string.equals("leg") && mob.hasLegs && stack.isItemEqual(mob.legItem))
                 return true;
         }
         log(stack.getDisplayName() + " is not a " + string + " item");

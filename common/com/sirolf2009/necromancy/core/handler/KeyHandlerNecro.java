@@ -9,6 +9,7 @@ import org.lwjgl.input.Keyboard;
 import com.sirolf2009.necromancy.Necromancy;
 import com.sirolf2009.necromancy.core.proxy.ClientProxy;
 import com.sirolf2009.necromancy.entity.EntityTear;
+import com.sirolf2009.necromancy.entity.EntityTearBlood;
 
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.KeyBindingRegistry.KeyHandler;
@@ -40,13 +41,11 @@ public class KeyHandlerNecro extends KeyHandler {
             if (FMLClientHandler.instance().getClient().currentScreen == null && ClientProxy.mc.thePlayer.inventory.armorInventory[3] != null && ClientProxy.mc.thePlayer.inventory.armorInventory[3].getItem() == Necromancy.isaacsHead) {
                 if (kb.keyCode == tearNormal.keyCode && lastShotNormal + 1200 < System.currentTimeMillis()) {
                     EntityTear tearNormal = new EntityTear(ClientProxy.mc.thePlayer.worldObj, ClientProxy.mc.thePlayer, 2);
-                    tearNormal.type = "Normal";
                     ClientProxy.mc.thePlayer.worldObj.spawnEntityInWorld(tearNormal);
                     lastShotNormal = System.currentTimeMillis();
                 }
                 if (kb.keyCode == tearBlood.keyCode && lastShotBlood + 1900 < System.currentTimeMillis()) {
-                    EntityTear tearBlood = new EntityTear(ClientProxy.mc.thePlayer.worldObj, ClientProxy.mc.thePlayer, 2);
-                    tearBlood.type = "Blood";
+                    EntityTearBlood tearBlood = new EntityTearBlood(ClientProxy.mc.thePlayer.worldObj, ClientProxy.mc.thePlayer, 2);
                     ClientProxy.mc.thePlayer.worldObj.spawnEntityInWorld(tearBlood);
                     lastShotBlood = System.currentTimeMillis();
                 }

@@ -1,5 +1,6 @@
 package com.sirolf2009.necromancy.entity;
 
+import net.minecraft.client.model.ModelBox;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.ai.EntityAIControlledByPlayer;
@@ -134,7 +135,9 @@ public class EntityMinion extends EntityTameable {
             if (location.equals("legs"))
                 return mob.legs == null ? mob.updateParts(ModelMinion.instance).legs : mob.legs;
         }
-        System.out.println("no mob called " + name + " found, this is a bug");
+        if (name != "UNDEFINED") {
+            System.out.println("no mob called " + name + " found, this is a bug");
+        }
         return null;
     }
 
@@ -144,14 +147,30 @@ public class EntityMinion extends EntityTameable {
             NecroEntityBase mob;
             if (torso != null && torso[0] != null && (mob = NecroEntityRegistry.registeredEntities.get(torso[0].name)) != null && mob instanceof ISaddleAble) {
                 setSaddled(true);
-                par1EntityPlayer.inventory.consumeInventoryItem(Item.saddle.itemID);
+                if (!par1EntityPlayer.capabilities.isCreativeMode) {
+                    par1EntityPlayer.inventory.consumeInventoryItem(Item.saddle.itemID);
+                }
                 return true;
             }
             return false;
         }
         if (this.getSaddled() && !worldObj.isRemote && (riddenByEntity == null || riddenByEntity == par1EntityPlayer) && (par1EntityPlayer.isSneaking() || riddenByEntity == par1EntityPlayer)) {
-            ridingEntity.height = ((ISaddleAble) torso[0]).riderHeight();
+            ISaddleAble mob = (ISaddleAble) NecroEntityRegistry.registeredEntities.get(torso[0].name);
             par1EntityPlayer.mountEntity(this);
+            if (riddenByEntity != null) {
+                float lowestPoint = 0;
+                float highestPoint = 0;
+                for (Object model : leg[0].cubeList) {
+                    ModelBox cube = (ModelBox) model;
+                    if (cube.posY1 < lowestPoint) {
+                        lowestPoint = cube.posY1;
+                    }
+                    if (cube.posY2 > highestPoint) {
+                        highestPoint = cube.posY1;
+                    }
+                }
+                riddenByEntity.height = mob.riderHeight() + (highestPoint - lowestPoint);
+            }
             return true;
         }
         if (riddenByEntity == null && par1EntityPlayer.username.equalsIgnoreCase(this.getOwnerName()) && FMLCommonHandler.instance().getSide() == cpw.mods.fml.relauncher.Side.CLIENT && !worldObj.isRemote) {
@@ -298,6 +317,11 @@ public class EntityMinion extends EntityTameable {
     @Override
     protected String getDeathSound() {
         return "mob." + aiMinion.getSound(this) + ".death";
+    }
+
+    @Override
+    public void onDeath(DamageSource par1DamageSource) {
+        getOwner().getEntityData().setInteger("minions", getOwner().getEntityData().getInteger("minions") - 1);
     }
 
     protected String legType = "";

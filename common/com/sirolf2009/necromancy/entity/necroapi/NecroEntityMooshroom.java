@@ -26,6 +26,11 @@ public class NecroEntityMooshroom extends NecroEntityCow {
     }
 
     @Override
+    public void initRecipes() {
+        initDefaultRecipes(Block.mushroomRed);
+    }
+
+    @Override
     @SideOnly(Side.CLIENT)
     public void preRender(Entity entity, BodyPart[] parts, String location, ModelBase model) {
         RenderBlocks renderBlocks = new RenderBlocks();

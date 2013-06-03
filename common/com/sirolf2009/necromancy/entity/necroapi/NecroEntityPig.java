@@ -2,7 +2,6 @@ package com.sirolf2009.necromancy.entity.necroapi;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 
 import com.sirolf2009.necroapi.BodyPart;
 import com.sirolf2009.necroapi.NecroEntityQuadruped;
@@ -20,6 +19,11 @@ public class NecroEntityPig extends NecroEntityQuadruped {
     }
 
     @Override
+    public void initRecipes() {
+        initDefaultRecipes(Item.porkRaw);
+    }
+
+    @Override
     public BodyPart[] initHead(ModelBase model) {
         BodyPart head = new BodyPart(this, model, 0, 0);
         head.addBox(-4.0F, -4.0F, -4.0F, 8, 8, 8, 0.0F);
@@ -28,21 +32,5 @@ public class NecroEntityPig extends NecroEntityQuadruped {
         snout.addBox(-2.0F, 0.0F, -5.0F, 4, 3, 1, 0.0F);
         snout.setTextureSize(textureWidth, textureHeight);
         return new BodyPart[] { head, snout };
-    }
-
-    @Override
-    public void initRecipes() {
-        headRecipe = new Object[] { "SSSS", "SBFS", "SEES", 'S', new ItemStack(organs, 1, 4), // skin
-        'E', Item.spiderEye, 'F', Item.rottenFlesh, 'B', new ItemStack(organs, 1, 0) }; // brains
-        torsoRecipe = new Object[] { " LL ", "BHUB", "LEEL", "BLLB", 'L', new ItemStack(organs, 1, 4), // skin
-        'E', Item.rottenFlesh, 'H', new ItemStack(organs, 1, 1), // heart
-        'U', new ItemStack(organs, 1, 3), // lungs
-        'B', Item.bone };
-        armRecipe = new Object[] { "LLLL", "BMEB", "LLLL", 'L', new ItemStack(organs, 1, 4), // skin
-        'E', Item.rottenFlesh, 'M', new ItemStack(organs, 1, 2), // muscle
-        'B', Item.bone };
-        legRecipe = new Object[] { "LBBL", "LMML", "LEEL", "LBBL", 'L', new ItemStack(organs, 1, 4), // skin
-        'E', Item.rottenFlesh, 'M', new ItemStack(organs, 1, 2), // muscle
-        'B', Item.bone };
     }
 }

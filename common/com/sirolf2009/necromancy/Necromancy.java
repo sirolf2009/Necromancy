@@ -1,8 +1,12 @@
 package com.sirolf2009.necromancy;
 
 import java.awt.Color;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.logging.Logger;
 
 import net.minecraft.block.Block;
@@ -12,8 +16,8 @@ import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.dedicated.PropertyManager;
 import net.minecraft.stats.Achievement;
-import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.AchievementPage;
 import net.minecraftforge.common.Configuration;
@@ -42,6 +46,7 @@ import com.sirolf2009.necromancy.entity.EntityIsaacNormal;
 import com.sirolf2009.necromancy.entity.EntityMinion;
 import com.sirolf2009.necromancy.entity.EntityNightCrawler;
 import com.sirolf2009.necromancy.entity.EntityTear;
+import com.sirolf2009.necromancy.entity.EntityTearBlood;
 import com.sirolf2009.necromancy.entity.EntityTeddy;
 import com.sirolf2009.necromancy.entity.necroapi.NecroEntityCaveSpider;
 import com.sirolf2009.necromancy.entity.necroapi.NecroEntityChicken;
@@ -58,7 +63,6 @@ import com.sirolf2009.necromancy.entity.necroapi.NecroEntitySpider;
 import com.sirolf2009.necromancy.entity.necroapi.NecroEntitySquid;
 import com.sirolf2009.necromancy.entity.necroapi.NecroEntityVillager;
 import com.sirolf2009.necromancy.entity.necroapi.NecroEntityWitch;
-import com.sirolf2009.necromancy.entity.necroapi.NecroEntityWither;
 import com.sirolf2009.necromancy.entity.necroapi.NecroEntityZombie;
 import com.sirolf2009.necromancy.generation.WorldGenerator;
 import com.sirolf2009.necromancy.item.ItemBodyPart;
@@ -76,11 +80,13 @@ import com.sirolf2009.necromancy.tileentity.TileEntitySewing;
 
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.ServerStarted;
 import cpw.mods.fml.common.Mod.ServerStarting;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerStartedEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.EntityRegistry;
@@ -119,6 +125,7 @@ public class Necromancy {
     public static int NecroVillagerID;
     public static int TeddyID;
     public static int IsaacID;
+    public static int maxSpawn = -1;
     public static boolean Christmas = false;
     public static boolean renderSpecialScythe = false;
 
@@ -138,8 +145,8 @@ public class Necromancy {
     public static Block altar;
     public static Block altarBlock;
     public static Block sewing;
-    public static Block bloodFlowing;
-    public static Block bloodStill;
+    public static BlockBloodFlowing bloodFlowing;
+    public static BlockBloodStationary bloodStill;
     // public static Block skullWall;
 
     public static EnumArmorMaterial isaac = EnumHelper.addArmorMaterial("Isaac", Integer.MAX_VALUE, new int[] { 0, 0, 0, 0 }, 0);
@@ -186,9 +193,6 @@ public class Necromancy {
             config.save();
         }
 
-        IsaacID = EntityRegistry.findGlobalUniqueEntityId();
-        TeddyID = EntityRegistry.findGlobalUniqueEntityId();
-
         NecroEntityBase.organID = OrgansID;
 
         MinecraftForge.EVENT_BUS.register(eventHandler);
@@ -200,6 +204,8 @@ public class Necromancy {
         LanguageRegistry.instance().addStringLocalization("itemGroup.BodyParts", "en_US", "Bodyparts");
         initItems();
         initEntities();
+        spawner = new ItemSpawner(SpawnerID).setUnlocalizedName("NecroSpawner");
+        LanguageRegistry.addName(new ItemStack(spawner, 1, 0), "Isaac's Soul Heart");
         initBlocks();
         initRecipes();
         proxy.init();
@@ -219,13 +225,16 @@ public class Necromancy {
 
         GameRegistry.registerWorldGenerator(new WorldGenerator());
 
-        specialFolk.add("sirolf2009");
-        specialFolk.add("mr_boness");
-        specialFolk.add("creeperrain");
-        specialFolk.add("sander_de_ronde");
-        specialFolk.add("Honeydew");
-        specialFolk.add("CaptainSparklez");
-        specialFolk.add("MinecraftWero");
+        try {
+            URL url = new URL("https://dl.dropboxusercontent.com/u/50553915/necromancy/specialFolk.txt");
+            Scanner s = new Scanner(url.openStream());
+            while (s.hasNext()) {
+                specialFolk.add(s.nextLine());
+            }
+            s.close();
+        } catch (IOException e) {
+            System.err.println("not connected to the internet, special scythes are de-activated");
+        }
     }
 
     @Mod.PostInit
@@ -239,11 +248,18 @@ public class Necromancy {
         eventHandler.initCommands(event);
     }
 
+    @ServerStarted
+    public void serverStarted(FMLServerStartedEvent event) {
+        if (new File("server.properties").exists()) {
+            PropertyManager manager = new PropertyManager(new File("server.properties"), null);
+            maxSpawn = manager.getIntProperty("max_minion_spawn", -1);
+        }
+    }
+
     private void initEntities() {
         int modIDs = 0;
-        EntityRegistry.registerGlobalEntityID(EntityMinion.class, "minionNecro", EntityRegistry.findGlobalUniqueEntityId(), new Color(99, 69, 29).getRGB(), Color.red.getRGB());
-        LanguageRegistry.instance().addStringLocalization("entity.minionNecro.name", "en_US", "Minion");
 
+        TeddyID = EntityRegistry.findGlobalUniqueEntityId();
         EntityRegistry.registerGlobalEntityID(EntityTeddy.class, "teddyNecro", TeddyID, new Color(99, 69, 29).getRGB(), Color.red.getRGB());
         LanguageRegistry.instance().addStringLocalization("entity.teddyNecro.name", "en_US", "Teddy Bear");
 
@@ -252,9 +268,9 @@ public class Necromancy {
         LanguageRegistry.instance().addStringLocalization("entity.NightCrawler.name", "en_US", "Night Crawler");
         EntityRegistry.addSpawn(EntityNightCrawler.class, 1, 1, 1, EnumCreatureType.monster, BiomeGenBase.forest, BiomeGenBase.swampland);
 
+        IsaacID = EntityRegistry.findGlobalUniqueEntityId();
         EntityRegistry.registerGlobalEntityID(EntityIsaacNormal.class, "IsaacNormal", IsaacID, new Color(6, 6, 6).getRGB(), new Color(204, 153, 153).getRGB());
         LanguageRegistry.instance().addStringLocalization("entity.IsaacNormal.name", "en_US", "Isaac");
-        EntityRegistry.addSpawn(EntityIsaacNormal.class, 1, 1, 1, EnumCreatureType.monster, WorldType.base12Biomes);
 
         EntityRegistry.registerGlobalEntityID(EntityIsaacBlood.class, "IsaacBlood", EntityRegistry.findGlobalUniqueEntityId(), new Color(16, 6, 6).getRGB(), new Color(214, 153, 153).getRGB());
         LanguageRegistry.instance().addStringLocalization("entity.IsaacBlood.name", "en_US", "Isaac Blood Mode");
@@ -265,14 +281,17 @@ public class Necromancy {
         EntityRegistry.registerGlobalEntityID(EntityIsaacBody.class, "IsaacBody", EntityRegistry.findGlobalUniqueEntityId(), new Color(36, 6, 6).getRGB(), new Color(214, 153, 153).getRGB());
         LanguageRegistry.instance().addStringLocalization("entity.IsaacBody.name", "en_US", "Isaac's Body");
 
+        EntityRegistry.registerGlobalEntityID(EntityMinion.class, "minionNecro", EntityRegistry.findGlobalUniqueEntityId(), new Color(99, 69, 29).getRGB(), Color.red.getRGB());
+        LanguageRegistry.instance().addStringLocalization("entity.minionNecro.name", "en_US", "Minion");
+
         EntityRegistry.registerModEntity(EntityTear.class, "TearNormal", 6, this, 144, 2, true);
+        EntityRegistry.registerModEntity(EntityTearBlood.class, "TearBlood", 7, this, 144, 2, true);
 
         NecroVillagerID = EntityRegistry.findGlobalUniqueEntityId();
         VillagerRegistry.instance().registerVillagerType(NecroVillagerID, Reference.LOC_RESOURCES_TEXTURES_ENTITIES + "/villagerNecro.png");
         VillagerRegistry.instance().registerVillageTradeHandler(NecroVillagerID, packetHandler);
 
         NecroEntityRegistry.RegisterEntity(new NecroEntitySkeleton());
-        NecroEntityRegistry.RegisterEntity(new NecroEntityWither());
         NecroEntityRegistry.RegisterEntity(new NecroEntityZombie());
         NecroEntityRegistry.RegisterEntity(new NecroEntityPig());
         NecroEntityRegistry.RegisterEntity(new NecroEntityCow());
@@ -280,7 +299,7 @@ public class Necromancy {
         NecroEntityRegistry.RegisterEntity(new NecroEntityCreeper());
         NecroEntityRegistry.RegisterEntity(new NecroEntitySpider());
         NecroEntityRegistry.RegisterEntity(new NecroEntityEnderman());
-        //NecroEntityRegistry.RegisterEntity(new NecroEntitySlimeSmall());
+        // NecroEntityRegistry.RegisterEntity(new NecroEntitySlimeSmall());
         NecroEntityRegistry.RegisterEntity(new NecroEntityIsaac());
         NecroEntityRegistry.RegisterEntity(new NecroEntityChicken());
         NecroEntityRegistry.RegisterEntity(new NecroEntityMooshroom());
@@ -348,14 +367,12 @@ public class Necromancy {
         // skull = new ItemNecroSkull(skullID);
         isaacsHead = new ItemIsaacsHead(IsaacsHeadID, isaac, proxy.addArmour("Isaac"), 0);
         LanguageRegistry.addName(isaacsHead, "Isaac's Severed Head");
-        spawner = new ItemSpawner(SpawnerID).setUnlocalizedName("NecroSpawner");
-        LanguageRegistry.addName(new ItemStack(spawner, 1, 0), "Isaac's Soul Heart");
     }
 
     private void initRecipes() {
-        GameRegistry.addRecipe(new ItemStack(necronomicon, 1), new Object[] { "LSL", "IBF", "LNL", Character.valueOf('B'), Item.book, Character.valueOf('L'), Item.leather, Character.valueOf('S'), new ItemStack(necromanticItems, 1, 6), Character.valueOf('I'), new ItemStack(Item.dyePowder, 1, 0), Character.valueOf('F'), Item.feather, Character.valueOf('N'), Item.netherStalkSeeds });
+        GameRegistry.addRecipe(new ItemStack(necronomicon, 1), new Object[] { "LSL", "IBF", "LNL", Character.valueOf('B'), Item.book, Character.valueOf('L'), Item.leather, Character.valueOf('S'), ItemNecromancy.getItemStackFromName("Jar of Blood"), Character.valueOf('I'), new ItemStack(Item.dyePowder, 1, 0), Character.valueOf('F'), Item.feather, Character.valueOf('N'), Item.netherStalkSeeds });
         GameRegistry.addRecipe(ItemNecromancy.getItemStackFromName("Bone Needle"), new Object[] { "X", Character.valueOf('X'), new ItemStack(Item.dyePowder, 1, 15) });
-        GameRegistry.addRecipe(new ItemStack(scythe, 1), new Object[] { "IH", " S", " B", Character.valueOf('I'), Block.obsidian, 'H', Item.hoeIron, 'S', Item.stick, 'B', new ItemStack(necromanticItems, 1, 6) });
+        GameRegistry.addRecipe(new ItemStack(scythe, 1), new Object[] { "IH", " S", " B", Character.valueOf('I'), Block.obsidian, 'H', Item.hoeIron, 'S', Item.stick, 'B', ItemNecromancy.getItemStackFromName("Jar of Blood") });
         GameRegistry.addRecipe(new ItemStack(sewing, 1), new Object[] { "III", "ISB", "III", 'I', Item.ingotIron, 'S', Item.silk, 'B', ItemNecromancy.getItemStackFromName("Bone Needle") });
         GameRegistry.addRecipe(ItemNecromancy.getItemStackFromName("Brain on a Stick"), new Object[] { "# ", " X", '#', Item.fishingRod, 'X', new ItemStack(organs, 1, 0) });
         // GameRegistry.addRecipe(new ItemStack(skullWall, 6), new Object[] {

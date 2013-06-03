@@ -21,6 +21,7 @@ public class ComponentVillageCemetery extends ComponentVillage {
         boundingBox = par4StructureBoundingBox;
     }
 
+    @SuppressWarnings("rawtypes")
     public static ComponentVillageCemetery func_74919_a(ComponentVillageStartPiece par0ComponentVillageStartPiece, List par1List, Random par2Random, int par3, int par4, int par5, int par6, int par7) {
         StructureBoundingBox var8 = StructureBoundingBox.getComponentToAddBoundingBox(par3, par4, par5, 0, 0, 0, 11, 15, 88, par6);
         return canVillageGoDeeper(var8) && StructureComponent.findIntersecting(par1List, var8) == null ? new ComponentVillageCemetery(par0ComponentVillageStartPiece, par7, par2Random, var8, par6) : null;

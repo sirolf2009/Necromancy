@@ -1,6 +1,7 @@
 package com.sirolf2009.necromancy.entity.necroapi;
 
 import net.minecraft.client.model.ModelBase;
+import net.minecraft.item.Item;
 
 import com.sirolf2009.necroapi.BodyPart;
 import com.sirolf2009.necroapi.ISkull;
@@ -15,11 +16,12 @@ public class NecroEntitySkeleton extends NecroEntityBiped implements ISkull {
         torsoItem = ItemBodyPart.getItemStackFromName("Skeleton Torso", 1);
         armItem = ItemBodyPart.getItemStackFromName("Skeleton Arm", 1);
         legItem = ItemBodyPart.getItemStackFromName("Skeleton Legs", 1);
-        /*
-         * headRecipe = new Object[] {"SSSS", "SBFS", "SEES", 'S', new
-         * ItemStack(organs, 1, 4), //skin 'E', Item.spiderEye, 'F', Item.bone,
-         * 'B', new ItemStack(organs, 1, 0)}; //brains
-         */texture = "/mob/skeleton.png";
+        texture = "/mob/skeleton.png";
+    }
+
+    @Override
+    public void initRecipes() {
+        initDefaultRecipes(Item.bone);
     }
 
     @Override

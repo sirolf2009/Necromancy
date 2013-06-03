@@ -22,6 +22,11 @@ public class NecroEntityCreeper extends NecroEntityBase {
     }
 
     @Override
+    public void initRecipes() {
+        initDefaultRecipes(Item.gunpowder);
+    }
+
+    @Override
     public BodyPart[] initHead(ModelBase model) {
         BodyPart head = new BodyPart(this, model, 0, 0);
         head.addBox(-4, -4, -4, 8, 8, 8, 0.0F);

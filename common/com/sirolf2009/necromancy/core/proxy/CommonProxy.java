@@ -15,6 +15,7 @@ public class CommonProxy {
     public int addArmour(String path) {
         return 0;
     }
-    
-    public void refreshTextures() {};
+
+    public void refreshTextures() {
+    };
 }

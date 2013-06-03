@@ -1,19 +1,25 @@
 package com.sirolf2009.necromancy.entity;
 
-import net.minecraft.entity.IRangedAttackMob;
+import com.sirolf2009.necromancy.lib.Reference;
+
+import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
-public class EntityIsaacBody extends EntityIsaacBlood implements IRangedAttackMob, IMob {
+public class EntityIsaacBody extends EntityMob implements IMob {
 
     public EntityIsaacBody(World par1World) {
         super(par1World);
+        isImmuneToFire = true;
+        setSize(0.6F, 1.8F);
+        moveSpeed = 0.3F;
+        texture = Reference.LOC_RESOURCES_TEXTURES_ENTITIES + "/Isaac.png";
     }
 
     @Override
     public int getMaxHealth() {
-        return 30;
+        return 50;
     }
 
     /**
