@@ -78,7 +78,6 @@ public class EntityMinion extends EntityTameable {
             dataWatcher.updateObject(24, getBodyPartsNames()[4]);
         }
         setSaddled(getSaddled());
-
     }
 
     @Override
@@ -118,7 +117,6 @@ public class EntityMinion extends EntityTameable {
         armLeft = getBodyPartFromlocationName("armLeft", dataWatcher.getWatchableObjectString(22));
         armRight = getBodyPartFromlocationName("armRight", dataWatcher.getWatchableObjectString(23));
         leg = getBodyPartFromlocationName("legs", legType = dataWatcher.getWatchableObjectString(24));
-
     }
 
     public static BodyPart[] getBodyPartFromlocationName(String location, String name) {
@@ -199,6 +197,7 @@ public class EntityMinion extends EntityTameable {
     @Override
     public void writeEntityToNBT(NBTTagCompound par1NBTTagCompound) {
         super.writeEntityToNBT(par1NBTTagCompound);
+        updateBodyParts();
         par1NBTTagCompound.setString("head", getBodyPartsNames()[0]);
         par1NBTTagCompound.setString("body", getBodyPartsNames()[1]);
         par1NBTTagCompound.setString("leg", getBodyPartsNames()[2]);
@@ -210,6 +209,7 @@ public class EntityMinion extends EntityTameable {
     @Override
     public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound) {
         super.readEntityFromNBT(par1NBTTagCompound);
+        dataWatcherUpdate();
         dataWatcher.updateObject(20, par1NBTTagCompound.getString("head"));
         dataWatcher.updateObject(21, par1NBTTagCompound.getString("body"));
         dataWatcher.updateObject(22, par1NBTTagCompound.getString("armLeft"));
@@ -242,7 +242,7 @@ public class EntityMinion extends EntityTameable {
         } else {
             System.err.println("Trying to set an impossible body part!");
         }
-        // dataWatcherUpdate();
+        dataWatcherUpdate();
     }
 
     @Override
@@ -292,7 +292,7 @@ public class EntityMinion extends EntityTameable {
         armLeft = bodypart[2];
         armRight = bodypart[3];
         leg = bodypart[4];
-        // dataWatcherUpdate();
+        dataWatcherUpdate();
     }
 
     public void setAltar(TileEntityAltar tileEntityAltar) {
