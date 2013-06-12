@@ -3,9 +3,13 @@ package com.sirolf2009.necromancy.core.handler;
 import java.util.List;
 import java.util.Random;
 
+import org.bouncycastle.util.encoders.Hex;
+
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
@@ -20,10 +24,12 @@ import com.sirolf2009.necromancy.block.BlockAltar;
 import com.sirolf2009.necromancy.block.BlockSewing;
 import com.sirolf2009.necromancy.client.gui.GuiAltar;
 import com.sirolf2009.necromancy.client.gui.GuiSewing;
+import com.sirolf2009.necromancy.core.proxy.ClientProxy;
 import com.sirolf2009.necromancy.generation.villagecomponent.ComponentVillageCemetery;
 import com.sirolf2009.necromancy.inventory.ContainerAltar;
 import com.sirolf2009.necromancy.inventory.ContainerNecronomiconCrafting;
 import com.sirolf2009.necromancy.inventory.ContainerSewing;
+import com.sirolf2009.necromancy.item.ItemBodyPart;
 import com.sirolf2009.necromancy.item.ItemNecroSkull;
 import com.sirolf2009.necromancy.item.ItemNecromancy;
 import com.sirolf2009.necromancy.tileentity.TileEntityAltar;
@@ -58,7 +64,6 @@ public class PacketHandler implements IPacketHandler, IGuiHandler, ICraftingHand
         return null;
     }
 
-    @SuppressWarnings("static-access")
     @Override
     public void onCrafting(EntityPlayer player, ItemStack item, IInventory craftMatrix) {
         if (item != null && item.getItemName().equals("item.Necronomicon")) {
@@ -76,9 +81,9 @@ public class PacketHandler implements IPacketHandler, IGuiHandler, ICraftingHand
         if (item != null && item.getItemName().equals("tile.skullWall")) {
             Necromancy.logger.info(craftMatrix.getStackInSlot(0) + " is in " + craftMatrix.getStackInSlot(0).getItemName());
             item.stackTagCompound.setString("Base", craftMatrix.getStackInSlot(1).getItemName());
-            item.stackTagCompound.setString("Skull1", ((ItemNecroSkull) craftMatrix.getStackInSlot(1).getItem()).skullTypes[craftMatrix.getStackInSlot(1).getItemDamage()]);
-            item.stackTagCompound.setString("Skull2", ((ItemNecroSkull) craftMatrix.getStackInSlot(4).getItem()).skullTypes[craftMatrix.getStackInSlot(4).getItemDamage()]);
-            item.stackTagCompound.setString("Skull3", ((ItemNecroSkull) craftMatrix.getStackInSlot(5).getItem()).skullTypes[craftMatrix.getStackInSlot(5).getItemDamage()]);
+            item.stackTagCompound.setString("Skull1", ItemNecroSkull.skullTypes[craftMatrix.getStackInSlot(1).getItemDamage()]);
+            item.stackTagCompound.setString("Skull2", ItemNecroSkull.skullTypes[craftMatrix.getStackInSlot(4).getItemDamage()]);
+            item.stackTagCompound.setString("Skull3", ItemNecroSkull.skullTypes[craftMatrix.getStackInSlot(5).getItemDamage()]);
 
         }
     }
@@ -89,6 +94,16 @@ public class PacketHandler implements IPacketHandler, IGuiHandler, ICraftingHand
 
     @Override
     public void onPacketData(INetworkManager manager, Packet250CustomPayload packet, Player player) {
+        if(packet.data[0] == 0) {
+            ClientProxy.mc.thePlayer.getEntityData().setBoolean("aggressive", packet.data[1] == 1);
+        } else if(packet.data[0] == 1) { //we're making friends :D
+            EntityPlayer playerEntity = (EntityPlayer) ClientProxy.mc.theWorld.getEntityByID(packet.data[1] & 0xFF);
+            playerEntity.getEntityData().setString(playerEntity.username, "friend");
+        } else if(packet.data[0] == 2) { //who needs friends anyway
+            EntityPlayer playerEntity = (EntityPlayer) ClientProxy.mc.theWorld.getEntityByID(packet.data[1] & 0xFF);
+            System.out.println("player found by packet data "+playerEntity);
+            playerEntity.getEntityData().setString(playerEntity.username, "enemy");
+        }
     }
 
     @Override
@@ -110,7 +125,9 @@ public class PacketHandler implements IPacketHandler, IGuiHandler, ICraftingHand
     @SuppressWarnings("unchecked")
     @Override
     public void manipulateTradesForVillager(EntityVillager villager, MerchantRecipeList recipeList, Random random) {
-        recipeList.add(new MerchantRecipe(new ItemStack(net.minecraft.item.Item.emerald, 6), new ItemStack(net.minecraft.item.Item.book), new ItemStack(Necromancy.necronomicon)));
-        recipeList.add(new MerchantRecipe(new ItemStack(net.minecraft.item.Item.emerald, 1), new ItemStack(net.minecraft.item.Item.rottenFlesh, 6), new ItemStack(Necromancy.necromanticItems, 1, random.nextInt(ItemNecromancy.names.length))));
+        recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, 6), new ItemStack(Item.book), new ItemStack(Necromancy.necronomicon)));
+        recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, new Random().nextInt(3)), null, new ItemStack(Necromancy.bodyparts, 1, random.nextInt(ItemBodyPart.necroEntities.size()-1))));
+        recipeList.add(new MerchantRecipe(new ItemStack(Necromancy.bodyparts, 1, random.nextInt(ItemBodyPart.necroEntities.size()-1)), null, new ItemStack(Item.emerald, new Random().nextInt(3))));
+        recipeList.add(new MerchantRecipe(new ItemStack(Necromancy.bodyparts, 1, random.nextInt(ItemBodyPart.necroEntities.size()-1)), null, new ItemStack(Item.emerald, new Random().nextInt(3))));
     }
 }

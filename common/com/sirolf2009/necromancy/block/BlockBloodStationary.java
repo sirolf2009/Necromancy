@@ -18,7 +18,6 @@ public class BlockBloodStationary extends BlockStationary implements ILiquid {
         blockHardness = 100F;
         this.setLightOpacity(3);
         this.setUnlocalizedName("BloodStationary");
-        this.setCreativeTab(Necromancy.tabNecromancy);
         this.disableStats();
     }
 

@@ -29,7 +29,7 @@ public class ItemScythe extends ItemSword {
         par1ItemStack.damageItem(1, par3EntityLiving);
         if (FMLCommonHandler.instance().getSide() == Side.CLIENT && par2EntityLiving.getHealth() <= 0)
             if (((EntityPlayer) par3EntityLiving).inventory.consumeInventoryItem(Item.glassBottle.itemID)) {
-                ((EntityPlayer) par3EntityLiving).inventory.addItemStackToInventory(new ItemStack(Necromancy.necromanticItems, 1, 5));
+                ((EntityPlayer) par3EntityLiving).inventory.addItemStackToInventory(ItemNecromancy.getItemStackFromName("Soul in a Jar"));
                 Random rand = new Random();
                 for (int i = 0; i < 30; i++) {
                     ClientProxy.spawnParticle("skull", par2EntityLiving.posX, par2EntityLiving.posY, par2EntityLiving.posZ, rand.nextDouble() / 360 * 10, rand.nextDouble() / 360 * 10, rand.nextDouble() / 360 * 10);

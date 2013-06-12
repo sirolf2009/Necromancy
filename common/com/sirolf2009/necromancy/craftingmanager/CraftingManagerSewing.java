@@ -40,7 +40,6 @@ public class CraftingManagerSewing {
                 addRecipe(mob.armItem, mob.armRecipe);
             }
             if ((mob = (NecroEntityBase) itr.next()).hasLegs) {
-                System.out.println(mob.mobName + ", " + mob.legItem + ", " + mob.hasLegs);
                 addRecipe(mob.legItem, mob.legRecipe);
             }
         }

@@ -18,7 +18,6 @@ public class BlockBloodFlowing extends BlockFlowing implements IBlockLiquid {
         super(par1, Material.water);
         blockHardness = 100F;
         this.setLightOpacity(3);
-        this.setCreativeTab(Necromancy.tabNecromancy);
         this.setUnlocalizedName("BloodFlowing");
     }
 

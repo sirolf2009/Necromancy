@@ -15,6 +15,7 @@ import net.minecraftforge.event.entity.player.FillBucketEvent;
 
 import com.sirolf2009.necromancy.Necromancy;
 import com.sirolf2009.necromancy.client.model.ModelMinion;
+import com.sirolf2009.necromancy.command.CommandMinion;
 import com.sirolf2009.necromancy.command.CommandRemodel;
 import com.sirolf2009.necromancy.lib.Reference;
 
@@ -26,7 +27,7 @@ public class EventHandler {
 
     @ForgeSubscribe
     public void LivingDropsEvent(LivingDeathEvent evt) {
-        if (evt.entity instanceof EntityLiving && !evt.entity.worldObj.isRemote && rand.nextInt(100) <= 4) {
+        if (evt.entity instanceof EntityLiving && !evt.entity.worldObj.isRemote && rand.nextInt(100) <= 6-1) {
             switch (rand.nextInt(7)) {
                 case 0:
                     evt.entity.entityDropItem(new ItemStack(Necromancy.organs, 1, 0), 1);
@@ -55,6 +56,7 @@ public class EventHandler {
 
     public void initCommands(FMLServerStartingEvent event) {
         event.registerServerCommand(new CommandRemodel());
+        event.registerServerCommand(new CommandMinion());
     }
 
     @ForgeSubscribe

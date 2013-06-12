@@ -4,6 +4,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
@@ -49,6 +50,10 @@ public class EntityNightCrawler extends EntityMob {
             entityToAttack = entity;
         }
         return true;
+    }
+    
+    protected int getDropItemId() {
+        return Item.enderPearl.itemID;
     }
 
     /**

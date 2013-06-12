@@ -196,10 +196,8 @@ public class Necromancy {
         NecroEntityBase.organID = OrgansID;
 
         MinecraftForge.EVENT_BUS.register(eventHandler);
-    }
+        
 
-    @Mod.Init
-    public void init(FMLInitializationEvent event) {
         LanguageRegistry.instance().addStringLocalization("itemGroup.Necromancy", "en_US", "Necromancy");
         LanguageRegistry.instance().addStringLocalization("itemGroup.BodyParts", "en_US", "Bodyparts");
         initItems();
@@ -214,14 +212,6 @@ public class Necromancy {
         VillagerRegistry.instance().registerVillageCreationHandler(packetHandler);
         ArrayList<Class<PacketHandler>> villageComponentsList = new ArrayList<Class<PacketHandler>>();
         villageComponentsList.add(PacketHandler.class);
-        NecronomiconAchieve = new Achievement(666, "NecronomiconAchieve", 0, 0, necronomicon, null).registerAchievement();
-        SewingAchieve = new Achievement(666 + 1, "SewingAchieve", -2, 0, sewing, NecronomiconAchieve).registerAchievement();
-        AltarAchieve = new Achievement(666 + 2, "AltarAchieve", 0, 2, altar, NecronomiconAchieve).registerAchievement();
-        SpawnAchieve = new Achievement(666 + 3, "SpawnAchieve", 2, 4, necromanticItems, AltarAchieve).registerAchievement().setSpecial();
-
-        addAchievementLocalizations();
-        achievePage = new AchievementPage("Necromancy", new Achievement[] { NecronomiconAchieve, SpawnAchieve, AltarAchieve, SewingAchieve });
-        AchievementPage.registerAchievementPage(achievePage);
 
         GameRegistry.registerWorldGenerator(new WorldGenerator());
 
@@ -235,6 +225,19 @@ public class Necromancy {
         } catch (IOException e) {
             System.err.println("not connected to the internet, special scythes are de-activated");
         }
+
+        NecronomiconAchieve = new Achievement(666, "NecronomiconAchieve", 0, 0, necronomicon, null).registerAchievement();
+        SewingAchieve = new Achievement(666 + 1, "SewingAchieve", -2, 0, sewing, NecronomiconAchieve).registerAchievement();
+        AltarAchieve = new Achievement(666 + 2, "AltarAchieve", 0, 2, altar, NecronomiconAchieve).registerAchievement();
+        SpawnAchieve = new Achievement(666 + 3, "SpawnAchieve", 2, 4, necromanticItems, AltarAchieve).registerAchievement().setSpecial();
+
+        addAchievementLocalizations();
+        achievePage = new AchievementPage("Necromancy", new Achievement[] { NecronomiconAchieve, SpawnAchieve, AltarAchieve, SewingAchieve });
+        AchievementPage.registerAchievementPage(achievePage);
+    }
+
+    @Mod.Init
+    public void init(FMLInitializationEvent event) {
     }
 
     @Mod.PostInit
@@ -266,7 +269,7 @@ public class Necromancy {
         EntityRegistry.registerGlobalEntityID(EntityNightCrawler.class, "NightCrawler", EntityRegistry.findGlobalUniqueEntityId(), new Color(6, 6, 6).getRGB(), new Color(13, 13, 13).getRGB());
         EntityRegistry.registerModEntity(EntityNightCrawler.class, "NightCrawler", modIDs++, this, 80, 1, true);
         LanguageRegistry.instance().addStringLocalization("entity.NightCrawler.name", "en_US", "Night Crawler");
-        EntityRegistry.addSpawn(EntityNightCrawler.class, 1, 1, 1, EnumCreatureType.monster, BiomeGenBase.forest, BiomeGenBase.swampland);
+        EntityRegistry.addSpawn(EntityNightCrawler.class, 1, 1, 1, EnumCreatureType.monster, BiomeGenBase.beach);
 
         IsaacID = EntityRegistry.findGlobalUniqueEntityId();
         EntityRegistry.registerGlobalEntityID(EntityIsaacNormal.class, "IsaacNormal", IsaacID, new Color(6, 6, 6).getRGB(), new Color(204, 153, 153).getRGB());

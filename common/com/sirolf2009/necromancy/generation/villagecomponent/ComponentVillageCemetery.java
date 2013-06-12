@@ -4,17 +4,21 @@ import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.ComponentVillage;
 import net.minecraft.world.gen.structure.ComponentVillageStartPiece;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.StructureComponent;
 
+import com.sirolf2009.necroapi.NecroEntityBase;
+import com.sirolf2009.necroapi.NecroEntityRegistry;
 import com.sirolf2009.necromancy.Necromancy;
 
 public class ComponentVillageCemetery extends ComponentVillage {
-    private int averageGroundLevel = -1;
 
+    private int averageGroundLevel = -1;
     public ComponentVillageCemetery(ComponentVillageStartPiece par1ComponentVillageStartPiece, int par2, Random par3Random, StructureBoundingBox par4StructureBoundingBox, int par5) {
         super(par1ComponentVillageStartPiece, par2);
         coordBaseMode = par5;
@@ -23,1366 +27,144 @@ public class ComponentVillageCemetery extends ComponentVillage {
 
     @SuppressWarnings("rawtypes")
     public static ComponentVillageCemetery func_74919_a(ComponentVillageStartPiece par0ComponentVillageStartPiece, List par1List, Random par2Random, int par3, int par4, int par5, int par6, int par7) {
-        StructureBoundingBox var8 = StructureBoundingBox.getComponentToAddBoundingBox(par3, par4, par5, 0, 0, 0, 11, 15, 88, par6);
+        StructureBoundingBox var8 = StructureBoundingBox.getComponentToAddBoundingBox(par3, par4, par5, 0, 0, 0, 17, 5, 18, par6);
         return canVillageGoDeeper(var8) && StructureComponent.findIntersecting(par1List, var8) == null ? new ComponentVillageCemetery(par0ComponentVillageStartPiece, par7, par2Random, var8, par6) : null;
     }
 
     @Override
     public boolean addComponentParts(World par1World, Random par2Random, StructureBoundingBox par3StructureBoundingBox) {
-        System.out.println("YEAH WE'RE GENERATING " + par3StructureBoundingBox.getCenterX() + ", " + par3StructureBoundingBox.getCenterY() + ", " + par3StructureBoundingBox.getCenterZ());
-        if (averageGroundLevel < 0) {
-            averageGroundLevel = this.getAverageGroundLevel(par1World, par3StructureBoundingBox);
-
-            if (averageGroundLevel < 0)
+        if (this.averageGroundLevel < 0) {
+            this.averageGroundLevel = this.getAverageGroundLevel(par1World, par3StructureBoundingBox);
+            if (this.averageGroundLevel < 0) {
                 return true;
-
-            boundingBox.offset(0, averageGroundLevel - boundingBox.maxY + 15 - 1, 0);
-        }
-        int i = 0, j = -1, k = 0;
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 0, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 0, k + 1, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 0, k + 2, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 0, k + 3, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 0, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 0, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 0, k + 6, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 0, k + 7, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 0, k + 8, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 0, k + 9, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 0, k + 10, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 0, k + 11, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 0, k + 14, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 1, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 1, k + 1, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 1, k + 2, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 1, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 1, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 1, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 1, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 1, k + 7, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 1, k + 8, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 1, k + 9, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 1, k + 10, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 1, k + 11, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 1, k + 12, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 1, k + 13, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 1, k + 14, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 2, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 2, k + 1, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 2, k + 2, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 2, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 2, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 2, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 2, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 2, k + 7, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 2, k + 8, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 2, k + 13, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 2, k + 14, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 3, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 3, k + 1, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 3, k + 2, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 3, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 3, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 3, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 3, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 3, k + 7, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 3, k + 8, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 3, k + 9, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 3, k + 10, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 3, k + 11, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 3, k + 12, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 3, k + 13, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 3, k + 14, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 4, k + 0, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 4, k + 1, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 4, k + 2, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 4, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 4, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 4, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 4, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 4, k + 7, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 4, k + 8, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 4, k + 9, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 4, k + 10, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 4, k + 11, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 4, k + 12, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 4, k + 13, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 4, k + 14, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 5, k + 0, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 5, k + 1, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 5, k + 2, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 5, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 5, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 5, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 5, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 5, k + 7, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 5, k + 8, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 5, k + 9, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 5, k + 10, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 5, k + 11, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 5, k + 12, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 5, k + 13, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 5, k + 14, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 6, k + 0, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 6, k + 1, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 6, k + 2, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 6, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 6, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 6, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 6, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 6, k + 7, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 6, k + 8, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 6, k + 9, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 6, k + 10, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 6, k + 11, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 6, k + 12, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 6, k + 13, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 6, k + 14, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 7, k + 0, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 7, k + 1, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 7, k + 2, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 7, k + 3, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 7, k + 4, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 7, k + 5, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 7, k + 6, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 7, k + 7, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 7, k + 8, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 7, k + 9, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 7, k + 10, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 7, k + 11, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 7, k + 12, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 7, k + 13, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 7, k + 14, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 8, k + 0, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 8, k + 1, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 8, k + 2, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 8, k + 3, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 8, k + 4, Block.cobblestoneMossy.blockID);
-        // generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 8, k +
-        // 5, -117);
-        // generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 8, k +
-        // 6, -117);
-        generateBlockAndMetadata(par1World, par3StructureBoundingBox, i + 0, j + 8, k + 7, -117, 1);
-        // generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 8, k +
-        // 8, -117);
-        // generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 8, k +
-        // 9, -117);
-        generateBlockAndMetadata(par1World, par3StructureBoundingBox, i + 0, j + 8, k + 10, -117, 1);
-        // generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 8, k +
-        // 11, -117);
-        generateBlockAndMetadata(par1World, par3StructureBoundingBox, i + 0, j + 8, k + 12, -117, 1);
-        // generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 8, k +
-        // 13, -117);
-        // generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 8, k +
-        // 14, -117);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 9, k + 0, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 9, k + 1, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 9, k + 2, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 9, k + 3, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 9, k + 4, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 10, k + 0, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 10, k + 1, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 10, k + 2, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 10, k + 3, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 0, j + 10, k + 4, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 0, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 0, k + 1, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 0, k + 2, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 0, k + 3, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 0, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 0, k + 5, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 0, k + 6, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 0, k + 7, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 0, k + 8, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 0, k + 9, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 0, k + 10, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 0, k + 14, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 1, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 1, k + 1, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 1, k + 2, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 1, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 1, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 1, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 1, k + 6, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 1, k + 7, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 1, k + 8, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 1, k + 9, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 1, k + 10, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 1, k + 11, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 1, k + 12, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 1, k + 13, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 1, k + 14, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 2, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 2, k + 1, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 2, k + 2, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 2, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 2, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 2, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 2, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 2, k + 13, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 2, k + 14, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 3, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 3, k + 1, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 3, k + 2, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 3, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 3, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 3, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 3, k + 6, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 3, k + 8, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 3, k + 9, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 3, k + 10, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 3, k + 13, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 3, k + 14, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 4, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 4, k + 1, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 4, k + 2, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 4, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 4, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 4, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 4, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 4, k + 7, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 4, k + 8, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 4, k + 9, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 4, k + 10, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 4, k + 11, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 4, k + 12, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 4, k + 13, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 4, k + 14, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 5, k + 0, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 5, k + 1, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 5, k + 2, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 5, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 5, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 5, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 5, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 5, k + 7, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 5, k + 8, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 5, k + 9, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 5, k + 10, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 5, k + 11, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 5, k + 12, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 5, k + 13, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 5, k + 14, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 6, k + 0, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 6, k + 1, Block.dirt.blockID);
-        // generateBlockAndMetadata(par1World, par3StructureBoundingBox, i + 1,
-        // j + 6, k + 2, Block.chest.blockID, 3);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 6, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 6, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 6, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 6, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 6, k + 7, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 6, k + 8, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 6, k + 9, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 6, k + 10, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 6, k + 11, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 6, k + 12, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 6, k + 13, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 6, k + 14, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 7, k + 0, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 7, k + 1, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 7, k + 2, Block.slowSand.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 7, k + 3, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 7, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 7, k + 5, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 7, k + 6, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 7, k + 7, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 7, k + 8, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 7, k + 9, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 7, k + 10, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 7, k + 11, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 7, k + 12, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 7, k + 13, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 7, k + 14, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 8, k + 0, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 8, k + 2, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 8, k + 4, Block.cobblestone.blockID);
-        // generateBlockAndMetadata(par1World, par3StructureBoundingBox, i + 1,
-        // j + 8, k + 14, -117, 1);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 9, k + 0, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 9, k + 4, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 10, k + 0, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 10, k + 1, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 10, k + 2, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 10, k + 3, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 1, j + 10, k + 4, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 0, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 0, k + 1, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 0, k + 2, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 0, k + 3, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 0, k + 4, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 0, k + 5, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 0, k + 6, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 0, k + 7, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 0, k + 8, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 0, k + 9, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 0, k + 14, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 1, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 1, k + 1, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 1, k + 2, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 1, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 1, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 1, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 1, k + 6, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 1, k + 7, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 1, k + 13, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 1, k + 14, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 2, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 2, k + 1, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 2, k + 2, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 2, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 2, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 2, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 2, k + 6, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 2, k + 9, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 2, k + 12, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 2, k + 13, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 2, k + 14, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 3, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 3, k + 1, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 3, k + 2, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 3, k + 3, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 3, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 3, k + 5, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 3, k + 9, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 3, k + 11, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 3, k + 12, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 3, k + 13, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 3, k + 14, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 4, k + 0, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 4, k + 1, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 4, k + 2, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 4, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 4, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 4, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 4, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 4, k + 7, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 4, k + 8, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 4, k + 9, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 4, k + 10, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 4, k + 11, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 4, k + 12, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 4, k + 13, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 4, k + 14, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 5, k + 0, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 5, k + 1, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 5, k + 2, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 5, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 5, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 5, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 5, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 5, k + 7, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 5, k + 8, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 5, k + 9, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 5, k + 10, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 5, k + 11, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 5, k + 12, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 5, k + 13, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 5, k + 14, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 6, k + 0, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 6, k + 1, Block.dirt.blockID);
-        // generateBlockAndMetadata(par1World, par3StructureBoundingBox, i + 2,
-        // j + 6, k + 2, Block.chest.blockID, 3);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 6, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 6, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 6, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 6, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 6, k + 7, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 6, k + 8, Block.dirt.blockID);
-        // generateBlockAndMetadata(par1World, par3StructureBoundingBox, i + 2,
-        // j + 6, k + 9, Block.chest.blockID, 5);
-        // generateBlockAndMetadata(par1World, par3StructureBoundingBox, i + 2,
-        // j + 6, k + 10, Block.chest.blockID, 5);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 6, k + 11, Block.dirt.blockID);
-        // generateBlockAndMetadata(par1World, par3StructureBoundingBox, i + 2,
-        // j + 6, k + 12, Block.chest.blockID, 5);
-        // generateBlockAndMetadata(par1World, par3StructureBoundingBox, i + 2,
-        // j + 6, k + 13, Block.chest.blockID, 5);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 6, k + 14, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 7, k + 0, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 7, k + 1, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 7, k + 2, Block.slowSand.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 7, k + 3, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 7, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 7, k + 5, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 7, k + 6, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 7, k + 7, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 7, k + 8, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 7, k + 9, Block.slowSand.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 7, k + 10, Block.slowSand.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 7, k + 11, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 7, k + 12, Block.slowSand.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 7, k + 13, Block.slowSand.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 7, k + 14, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 8, k + 0, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 8, k + 2, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 8, k + 4, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 8, k + 8, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 8, k + 11, Block.cobblestone.blockID);
-        // generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 8, k +
-        // 14, -117);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 9, k + 0, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 9, k + 4, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 10, k + 0, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 10, k + 1, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 10, k + 2, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 10, k + 3, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 2, j + 10, k + 4, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 0, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 0, k + 1, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 0, k + 2, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 0, k + 3, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 0, k + 4, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 0, k + 5, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 0, k + 6, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 0, k + 7, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 0, k + 8, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 0, k + 14, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 1, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 1, k + 1, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 1, k + 2, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 1, k + 3, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 1, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 1, k + 5, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 1, k + 6, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 1, k + 8, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 1, k + 9, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 1, k + 10, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 1, k + 11, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 1, k + 13, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 1, k + 14, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 2, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 2, k + 1, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 2, k + 2, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 2, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 2, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 2, k + 5, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 2, k + 8, Block.cobblestone.blockID);
-        // generateBlockAndMetadata(par1World, par3StructureBoundingBox, i + 3,
-        // j + 2, k + 9, -112, 1);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 2, k + 10, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 2, k + 11, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 2, k + 12, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 2, k + 13, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 2, k + 14, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 3, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 3, k + 1, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 3, k + 2, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 3, k + 3, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 3, k + 4, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 3, k + 8, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 3, k + 9, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 3, k + 10, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 3, k + 11, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 3, k + 12, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 3, k + 13, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 3, k + 14, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 4, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 4, k + 1, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 4, k + 2, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 4, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 4, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 4, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 4, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 4, k + 7, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 4, k + 8, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 4, k + 9, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 4, k + 10, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 4, k + 11, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 4, k + 12, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 4, k + 13, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 4, k + 14, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 5, k + 0, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 5, k + 1, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 5, k + 2, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 5, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 5, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 5, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 5, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 5, k + 7, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 5, k + 8, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 5, k + 9, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 5, k + 10, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 5, k + 11, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 5, k + 12, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 5, k + 13, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 5, k + 14, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 6, k + 0, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 6, k + 1, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 6, k + 2, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 6, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 6, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 6, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 6, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 6, k + 7, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 6, k + 8, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 6, k + 9, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 6, k + 10, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 6, k + 11, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 6, k + 12, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 6, k + 13, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 6, k + 14, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 7, k + 0, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 7, k + 1, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 7, k + 2, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 7, k + 3, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 7, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 7, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 7, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 7, k + 12, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 7, k + 13, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 7, k + 14, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 8, k + 0, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 8, k + 4, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 8, k + 5, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 8, k + 6, Block.cobblestone.blockID);
-        // generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 8, k +
-        // 14, -117);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 9, k + 0, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 9, k + 4, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 9, k + 5, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 9, k + 6, Block.cobblestone.blockID);
-        // generateBlockAndMetadata(par1World, par3StructureBoundingBox, i + 3,
-        // j + 9, k + 14, -117, 1);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 10, k + 0, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 10, k + 1, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 10, k + 2, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 10, k + 3, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 10, k + 4, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 10, k + 5, Block.cobblestoneMossy.blockID);
-        // generateBlockAndMetadata(par1World, par3StructureBoundingBox, i + 3,
-        // j + 10, k + 6, -112, 1);
-        generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 10, k + 8, Block.stoneSingleSlab.blockID);
-        // generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 10, k +
-        // 14, -117);
-        // generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 11, k +
-        // 14, -117);
-        // generateBlock(par1World, par3StructureBoundingBox, i + 3, j + 13, k +
-        // 5, -117);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 0, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 0, k + 1, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 0, k + 2, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 0, k + 3, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 0, k + 4, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 0, k + 5, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 0, k + 6, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 0, k + 7, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 0, k + 8, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 0, k + 9, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 0, k + 10, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 0, k + 11, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 0, k + 13, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 0, k + 14, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 1, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 1, k + 1, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 1, k + 2, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 1, k + 3, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 1, k + 4, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 1, k + 5, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 1, k + 6, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 1, k + 7, Block.cobblestone.blockID);
-        generateBlockAndMetadata(par1World, par3StructureBoundingBox, i + 4, j + 1, k + 8, Block.chest.blockID, 3);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 1, k + 12, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 1, k + 13, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 1, k + 14, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 2, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 2, k + 1, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 2, k + 2, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 2, k + 3, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 2, k + 4, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 2, k + 7, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 2, k + 12, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 2, k + 13, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 2, k + 14, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 3, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 3, k + 1, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 3, k + 2, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 3, k + 3, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 3, k + 4, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 3, k + 8, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 3, k + 12, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 3, k + 13, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 3, k + 14, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 4, k + 0, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 4, k + 1, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 4, k + 2, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 4, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 4, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 4, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 4, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 4, k + 7, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 4, k + 8, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 4, k + 9, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 4, k + 10, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 4, k + 12, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 4, k + 13, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 4, k + 14, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 5, k + 0, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 5, k + 1, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 5, k + 2, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 5, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 5, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 5, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 5, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 5, k + 7, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 5, k + 8, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 5, k + 9, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 5, k + 10, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 5, k + 12, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 5, k + 13, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 5, k + 14, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 6, k + 0, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 6, k + 1, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 6, k + 2, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 6, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 6, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 6, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 6, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 6, k + 7, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 6, k + 8, Block.dirt.blockID);
-        generateBlockAndMetadata(par1World, par3StructureBoundingBox, i + 4, j + 6, k + 9, Block.chest.blockID, 5);
-        generateBlockAndMetadata(par1World, par3StructureBoundingBox, i + 4, j + 6, k + 10, Block.chest.blockID, 5);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 6, k + 12, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 6, k + 13, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 6, k + 14, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 7, k + 0, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 7, k + 1, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 7, k + 2, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 7, k + 3, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 7, k + 4, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 7, k + 5, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 7, k + 6, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 7, k + 8, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 7, k + 9, Block.slowSand.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 7, k + 10, Block.slowSand.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 8, k + 0, Block.cobblestone.blockID);
-        // TODO
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 8, k + 1, Block.mobSpawner.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 8, k + 8, Block.stoneDoubleSlab.blockID);
-        // generateBlockAndMetadata(par1World, par3StructureBoundingBox, i + 4,
-        // j + 8, k + 9, -116, 1);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 9, k + 0, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 9, k + 8, Block.stoneDoubleSlab.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 10, k + 0, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 10, k + 1, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 10, k + 2, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 10, k + 3, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 10, k + 4, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 10, k + 5, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 10, k + 6, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 10, k + 8, Block.stoneDoubleSlab.blockID);
-        // generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 11, k +
-        // 5, -117);
-        generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 11, k + 8, Block.stoneSingleSlab.blockID);
-        // generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 11, k +
-        // 14, -117);
-        // generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 12, k +
-        // 5, -117);
-        // generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 13, k +
-        // 5, -117);
-        // generateBlock(par1World, par3StructureBoundingBox, i + 4, j + 14, k +
-        // 5, -117);
-        // generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 0, k +
-        // 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 0, k + 1, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 0, k + 2, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 0, k + 3, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 0, k + 4, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 0, k + 5, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 0, k + 6, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 0, k + 7, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 0, k + 12, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 0, k + 13, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 0, k + 14, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 1, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 1, k + 1, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 1, k + 2, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 1, k + 3, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 1, k + 4, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 1, k + 5, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 1, k + 6, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 1, k + 7, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 1, k + 8, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 1, k + 9, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 1, k + 10, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 1, k + 11, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 1, k + 12, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 1, k + 13, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 1, k + 14, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 2, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 2, k + 1, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 2, k + 2, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 2, k + 3, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 2, k + 4, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 2, k + 8, Block.cobblestone.blockID);
-        // generateBlockAndMetadata(par1World, par3StructureBoundingBox, i + 5,
-        // j + 2, k + 9, -112, 1);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 2, k + 10, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 2, k + 11, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 2, k + 12, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 2, k + 13, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 2, k + 14, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 3, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 3, k + 1, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 3, k + 2, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 3, k + 3, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 3, k + 4, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 3, k + 9, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 3, k + 10, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 3, k + 11, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 3, k + 12, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 3, k + 13, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 3, k + 14, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 4, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 4, k + 1, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 4, k + 2, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 4, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 4, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 4, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 4, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 4, k + 7, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 4, k + 8, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 4, k + 9, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 4, k + 10, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 4, k + 11, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 4, k + 12, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 4, k + 13, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 4, k + 14, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 5, k + 0, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 5, k + 1, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 5, k + 2, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 5, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 5, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 5, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 5, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 5, k + 7, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 5, k + 8, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 5, k + 9, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 5, k + 10, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 5, k + 11, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 5, k + 12, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 5, k + 13, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 5, k + 14, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 6, k + 0, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 6, k + 1, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 6, k + 2, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 6, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 6, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 6, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 6, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 6, k + 7, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 6, k + 8, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 6, k + 9, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 6, k + 10, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 6, k + 11, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 6, k + 12, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 6, k + 13, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 6, k + 14, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 7, k + 0, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 7, k + 1, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 7, k + 2, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 7, k + 3, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 7, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 7, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 7, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 7, k + 12, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 7, k + 13, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 7, k + 14, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 8, k + 0, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 8, k + 4, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 8, k + 5, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 8, k + 6, Block.cobblestone.blockID);
-        // generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 8, k +
-        // 14, -117);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 9, k + 0, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 9, k + 4, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 9, k + 5, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 9, k + 6, Block.cobblestone.blockID);
-        // generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 9, k +
-        // 14, -117);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 10, k + 0, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 10, k + 1, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 10, k + 2, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 10, k + 3, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 10, k + 4, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 10, k + 5, Block.cobblestoneMossy.blockID);
-        // generateBlockAndMetadata(par1World, par3StructureBoundingBox, i + 5,
-        // j + 10, k + 6, -112, 1);
-        generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 10, k + 8, Block.stoneSingleSlab.blockID);
-        // generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 10, k +
-        // 14, -117);
-        // generateBlockAndMetadata(par1World, par3StructureBoundingBox, i + 5,
-        // j + 11, k + 14, -117, 1);
-        // generateBlock(par1World, par3StructureBoundingBox, i + 5, j + 13, k +
-        // 5, -117);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 0, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 0, k + 1, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 0, k + 2, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 0, k + 3, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 0, k + 4, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 0, k + 5, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 0, k + 6, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 0, k + 13, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 0, k + 14, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 1, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 1, k + 1, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 1, k + 2, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 1, k + 3, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 1, k + 4, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 1, k + 5, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 1, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 1, k + 13, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 1, k + 14, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 2, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 2, k + 1, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 2, k + 2, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 2, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 2, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 2, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 2, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 2, k + 7, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 2, k + 8, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 2, k + 9, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 2, k + 12, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 2, k + 13, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 2, k + 14, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 3, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 3, k + 1, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 3, k + 2, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 3, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 3, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 3, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 3, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 3, k + 7, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 3, k + 8, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 3, k + 9, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 3, k + 10, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 3, k + 11, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 3, k + 12, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 3, k + 13, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 3, k + 14, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 4, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 4, k + 1, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 4, k + 2, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 4, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 4, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 4, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 4, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 4, k + 7, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 4, k + 8, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 4, k + 9, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 4, k + 10, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 4, k + 11, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 4, k + 12, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 4, k + 13, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 4, k + 14, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 5, k + 0, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 5, k + 1, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 5, k + 2, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 5, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 5, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 5, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 5, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 5, k + 7, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 5, k + 8, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 5, k + 9, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 5, k + 10, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 5, k + 11, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 5, k + 12, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 5, k + 13, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 5, k + 14, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 6, k + 0, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 6, k + 1, Block.dirt.blockID);
-        generateBlockAndMetadata(par1World, par3StructureBoundingBox, i + 6, j + 6, k + 2, Block.chest.blockID, 3);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 6, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 6, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 6, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 6, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 6, k + 7, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 6, k + 8, Block.dirt.blockID);
-        generateBlockAndMetadata(par1World, par3StructureBoundingBox, i + 6, j + 6, k + 9, Block.chest.blockID, 4);
-        generateBlockAndMetadata(par1World, par3StructureBoundingBox, i + 6, j + 6, k + 10, Block.chest.blockID, 4);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 6, k + 11, Block.dirt.blockID);
-        generateBlockAndMetadata(par1World, par3StructureBoundingBox, i + 6, j + 6, k + 12, Block.chest.blockID, 4);
-        generateBlockAndMetadata(par1World, par3StructureBoundingBox, i + 6, j + 6, k + 13, Block.chest.blockID, 4);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 6, k + 14, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 7, k + 0, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 7, k + 1, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 7, k + 2, Block.slowSand.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 7, k + 3, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 7, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 7, k + 5, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 7, k + 6, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 7, k + 7, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 7, k + 8, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 7, k + 9, Block.slowSand.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 7, k + 10, Block.slowSand.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 7, k + 11, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 7, k + 12, Block.slowSand.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 7, k + 13, Block.slowSand.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 7, k + 14, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 8, k + 0, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 8, k + 2, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 8, k + 4, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 8, k + 8, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 8, k + 11, Block.cobblestone.blockID);
-        // generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 8, k +
-        // 14, -117);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 9, k + 0, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 9, k + 4, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 10, k + 0, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 10, k + 1, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 10, k + 2, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 10, k + 3, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 6, j + 10, k + 4, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 0, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 0, k + 1, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 0, k + 2, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 0, k + 3, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 0, k + 4, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 0, k + 5, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 0, k + 6, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 0, k + 14, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 1, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 1, k + 1, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 1, k + 2, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 1, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 1, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 1, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 1, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 1, k + 7, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 1, k + 8, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 1, k + 14, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 2, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 2, k + 1, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 2, k + 2, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 2, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 2, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 2, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 2, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 2, k + 7, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 2, k + 8, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 2, k + 9, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 2, k + 13, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 2, k + 14, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 3, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 3, k + 1, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 3, k + 2, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 3, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 3, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 3, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 3, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 3, k + 7, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 3, k + 8, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 3, k + 9, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 3, k + 10, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 3, k + 11, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 3, k + 12, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 3, k + 13, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 3, k + 14, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 4, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 4, k + 1, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 4, k + 2, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 4, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 4, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 4, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 4, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 4, k + 7, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 4, k + 8, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 4, k + 9, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 4, k + 10, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 4, k + 11, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 4, k + 12, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 4, k + 13, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 4, k + 14, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 5, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 5, k + 1, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 5, k + 2, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 5, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 5, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 5, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 5, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 5, k + 7, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 5, k + 8, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 5, k + 9, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 5, k + 10, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 5, k + 11, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 5, k + 12, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 5, k + 13, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 5, k + 14, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 6, k + 0, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 6, k + 1, Block.dirt.blockID);
-        generateBlockAndMetadata(par1World, par3StructureBoundingBox, i + 7, j + 6, k + 2, Block.chest.blockID, 3);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 6, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 6, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 6, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 6, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 6, k + 7, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 6, k + 8, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 6, k + 9, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 6, k + 10, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 6, k + 11, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 6, k + 12, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 6, k + 13, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 6, k + 14, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 7, k + 0, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 7, k + 1, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 7, k + 2, Block.slowSand.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 7, k + 3, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 7, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 7, k + 5, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 7, k + 6, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 7, k + 7, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 7, k + 8, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 7, k + 9, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 7, k + 10, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 7, k + 11, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 7, k + 12, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 7, k + 13, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 7, k + 14, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 8, k + 0, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 8, k + 2, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 8, k + 4, Block.cobblestone.blockID);
-        // generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 8, k +
-        // 14, -117);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 9, k + 0, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 9, k + 4, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 10, k + 0, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 10, k + 1, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 10, k + 2, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 10, k + 3, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 7, j + 10, k + 4, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 0, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 0, k + 1, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 0, k + 2, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 0, k + 3, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 0, k + 4, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 0, k + 5, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 0, k + 6, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 0, k + 7, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 0, k + 8, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 1, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 1, k + 1, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 1, k + 2, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 1, k + 3, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 1, k + 4, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 1, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 1, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 1, k + 7, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 1, k + 8, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 1, k + 9, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 2, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 2, k + 1, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 2, k + 2, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 2, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 2, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 2, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 2, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 2, k + 7, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 2, k + 8, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 2, k + 9, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 2, k + 14, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 3, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 3, k + 1, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 3, k + 2, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 3, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 3, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 3, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 3, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 3, k + 7, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 3, k + 8, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 3, k + 9, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 3, k + 10, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 3, k + 11, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 3, k + 12, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 3, k + 13, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 3, k + 14, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 4, k + 0, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 4, k + 1, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 4, k + 2, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 4, k + 3, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 4, k + 4, Block.stone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 4, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 4, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 4, k + 7, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 4, k + 8, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 4, k + 9, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 4, k + 10, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 4, k + 11, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 4, k + 12, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 4, k + 13, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 4, k + 14, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 5, k + 0, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 5, k + 1, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 5, k + 2, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 5, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 5, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 5, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 5, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 5, k + 7, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 5, k + 8, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 5, k + 9, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 5, k + 10, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 5, k + 11, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 5, k + 12, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 5, k + 13, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 5, k + 14, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 6, k + 0, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 6, k + 1, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 6, k + 2, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 6, k + 3, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 6, k + 4, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 6, k + 5, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 6, k + 6, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 6, k + 7, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 6, k + 8, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 6, k + 9, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 6, k + 10, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 6, k + 11, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 6, k + 12, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 6, k + 13, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 6, k + 14, Block.dirt.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 7, k + 0, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 7, k + 1, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 7, k + 2, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 7, k + 3, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 7, k + 4, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 7, k + 5, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 7, k + 6, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 7, k + 7, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 7, k + 8, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 7, k + 9, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 7, k + 10, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 7, k + 11, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 7, k + 12, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 7, k + 13, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 7, k + 14, Block.grass.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 8, k + 0, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 8, k + 1, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 8, k + 2, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 8, k + 3, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 8, k + 4, Block.cobblestoneMossy.blockID);
-        // generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 8, k +
-        // 5, -117);
-        // generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 8, k +
-        // 6, -117);
-        // generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 8, k +
-        // 7, -117);
-        // generateBlockAndMetadata(par1World, par3StructureBoundingBox, i + 8,
-        // j + 8, k + 8, -117, 1);
-        // generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 8, k +
-        // 9, -117);
-        // generateBlockAndMetadata(par1World, par3StructureBoundingBox, i + 8,
-        // j + 8, k + 10, -117, 1);
-        // generateBlockAndMetadata(par1World, par3StructureBoundingBox, i + 8,
-        // j + 8, k + 11, -117, 1);
-        // generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 8, k +
-        // 12, -117);
-        // generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 8, k +
-        // 13, -117);
-        // generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 8, k +
-        // 14, -117);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 9, k + 0, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 9, k + 1, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 9, k + 2, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 9, k + 3, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 9, k + 4, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 10, k + 0, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 10, k + 1, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 10, k + 2, Block.cobblestone.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 10, k + 3, Block.cobblestoneMossy.blockID);
-        generateBlock(par1World, par3StructureBoundingBox, i + 8, j + 10, k + 4, Block.cobblestone.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 0, j + 0, k + 12, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 0, j + 0, k + 13, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 0, j + 2, k + 9, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 0, j + 2, k + 10, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 0, j + 2, k + 11, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 0, j + 2, k + 12, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 1, j + 0, k + 11, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 1, j + 0, k + 12, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 1, j + 0, k + 13, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 1, j + 2, k + 7, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 1, j + 2, k + 8, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 1, j + 2, k + 9, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 1, j + 2, k + 10, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 1, j + 2, k + 11, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 1, j + 2, k + 12, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 1, j + 3, k + 7, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 1, j + 3, k + 11, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 1, j + 3, k + 12, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 1, j + 8, k + 5, Block.plantYellow.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 1, j + 8, k + 6, Block.plantRed.blockID);
-        generateBlockAndMetadataWithNotify(par1World, par3StructureBoundingBox, i + 1, j + 8, k + 7, Block.tallGrass.blockID, 1);
-        generateBlockAndMetadataWithNotify(par1World, par3StructureBoundingBox, i + 1, j + 8, k + 8, Block.tallGrass.blockID, 1);
-        generateBlockAndMetadataWithNotify(par1World, par3StructureBoundingBox, i + 1, j + 8, k + 9, Block.tallGrass.blockID, 1);
-        generateBlockAndMetadataWithNotify(par1World, par3StructureBoundingBox, i + 1, j + 8, k + 10, Block.tallGrass.blockID, 1);
-        generateBlockAndMetadataWithNotify(par1World, par3StructureBoundingBox, i + 1, j + 8, k + 11, Block.tallGrass.blockID, 1);
-        generateBlockAndMetadataWithNotify(par1World, par3StructureBoundingBox, i + 1, j + 8, k + 12, Block.tallGrass.blockID, 1);
-        generateBlockAndMetadataWithNotify(par1World, par3StructureBoundingBox, i + 1, j + 8, k + 13, Block.tallGrass.blockID, 1);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 2, j + 0, k + 10, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 2, j + 0, k + 11, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 2, j + 0, k + 12, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 2, j + 0, k + 13, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 2, j + 1, k + 8, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 2, j + 1, k + 9, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 2, j + 1, k + 10, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 2, j + 1, k + 11, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 2, j + 1, k + 12, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 2, j + 2, k + 7, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 2, j + 2, k + 8, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 2, j + 2, k + 10, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 2, j + 2, k + 11, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 2, j + 3, k + 6, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 2, j + 3, k + 7, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 2, j + 3, k + 8, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 2, j + 3, k + 10, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 2, j + 8, k + 5, Block.plantRed.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 2, j + 8, k + 6, Block.plantYellow.blockID);
-        generateBlockAndMetadataWithNotify(par1World, par3StructureBoundingBox, i + 2, j + 8, k + 7, Block.tallGrass.blockID, 1);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 3, j + 0, k + 9, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 3, j + 0, k + 10, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 3, j + 0, k + 11, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 3, j + 0, k + 12, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 3, j + 0, k + 13, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 3, j + 1, k + 7, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 3, j + 1, k + 12, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 3, j + 2, k + 6, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 3, j + 2, k + 7, Block.dirt.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 3, j + 3, k + 5, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 3, j + 3, k + 6, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 3, j + 3, k + 7, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 3, j + 7, k + 7, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 3, j + 7, k + 8, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 3, j + 7, k + 9, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 3, j + 7, k + 10, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 3, j + 7, k + 11, Block.gravel.blockID);
-        generateBlockAndMetadataWithNotify(par1World, par3StructureBoundingBox, i + 3, j + 8, k + 12, Block.tallGrass.blockID, 1);
-        generateBlockAndMetadataWithNotify(par1World, par3StructureBoundingBox, i + 3, j + 8, k + 13, Block.tallGrass.blockID, 1);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 4, j + 0, k + 12, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 4, j + 2, k + 5, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 4, j + 2, k + 6, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 4, j + 3, k + 5, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 4, j + 3, k + 6, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 4, j + 6, k + 11, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 4, j + 7, k + 7, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 4, j + 7, k + 11, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 4, j + 7, k + 12, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 4, j + 7, k + 13, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 4, j + 7, k + 14, Block.gravel.blockID);
-        // generateBlockAndMetadataWithNotify(par1World,
-        // par3StructureBoundingBox, i + 4, j + 8, k + 6,
-        // Block.doorSteel.blockID, 3);
-        // generateBlockAndMetadataWithNotify(par1World,
-        // par3StructureBoundingBox, i + 4, j + 9, k + 6,
-        // Block.doorSteel.blockID, 8);
-        placeDoorAtCurrentPosition(par1World, par3StructureBoundingBox, par2Random, 4, i + 7, 6, 3);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 5, j + 0, k + 8, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 5, j + 0, k + 9, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 5, j + 0, k + 10, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 5, j + 0, k + 11, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 5, j + 2, k + 5, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 5, j + 2, k + 6, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 5, j + 2, k + 7, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 5, j + 3, k + 5, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 5, j + 3, k + 6, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 5, j + 3, k + 8, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 5, j + 7, k + 7, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 5, j + 7, k + 8, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 5, j + 7, k + 9, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 5, j + 7, k + 10, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 5, j + 7, k + 11, Block.gravel.blockID);
-        generateBlockAndMetadataWithNotify(par1World, par3StructureBoundingBox, i + 5, j + 8, k + 12, Block.tallGrass.blockID, 1);
-        generateBlockAndMetadataWithNotify(par1World, par3StructureBoundingBox, i + 5, j + 8, k + 13, Block.tallGrass.blockID, 1);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 6, j + 0, k + 7, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 6, j + 0, k + 8, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 6, j + 0, k + 9, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 6, j + 0, k + 10, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 6, j + 0, k + 11, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 6, j + 0, k + 12, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 6, j + 1, k + 7, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 6, j + 1, k + 8, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 6, j + 1, k + 9, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 6, j + 1, k + 10, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 6, j + 1, k + 11, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 6, j + 1, k + 12, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 6, j + 2, k + 10, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 6, j + 2, k + 11, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 6, j + 8, k + 5, Block.plantYellow.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 6, j + 8, k + 6, Block.plantRed.blockID);
-        generateBlockAndMetadataWithNotify(par1World, par3StructureBoundingBox, i + 6, j + 8, k + 7, Block.tallGrass.blockID, 1);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 7, j + 0, k + 7, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 7, j + 0, k + 8, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 7, j + 0, k + 9, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 7, j + 0, k + 10, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 7, j + 0, k + 11, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 7, j + 0, k + 12, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 7, j + 0, k + 13, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 7, j + 1, k + 9, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 7, j + 1, k + 10, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 7, j + 1, k + 11, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 7, j + 1, k + 12, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 7, j + 1, k + 13, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 7, j + 2, k + 10, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 7, j + 2, k + 11, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 7, j + 2, k + 12, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 7, j + 8, k + 5, Block.plantRed.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 7, j + 8, k + 6, Block.plantYellow.blockID);
-        generateBlockAndMetadataWithNotify(par1World, par3StructureBoundingBox, i + 7, j + 8, k + 7, Block.tallGrass.blockID, 1);
-        generateBlockAndMetadataWithNotify(par1World, par3StructureBoundingBox, i + 7, j + 8, k + 8, Block.tallGrass.blockID, 1);
-        generateBlockAndMetadataWithNotify(par1World, par3StructureBoundingBox, i + 7, j + 8, k + 9, Block.tallGrass.blockID, 1);
-        generateBlockAndMetadataWithNotify(par1World, par3StructureBoundingBox, i + 7, j + 8, k + 10, Block.tallGrass.blockID, 1);
-        generateBlockAndMetadataWithNotify(par1World, par3StructureBoundingBox, i + 7, j + 8, k + 11, Block.tallGrass.blockID, 1);
-        generateBlockAndMetadataWithNotify(par1World, par3StructureBoundingBox, i + 7, j + 8, k + 12, Block.tallGrass.blockID, 1);
-        generateBlockAndMetadataWithNotify(par1World, par3StructureBoundingBox, i + 7, j + 8, k + 13, Block.tallGrass.blockID, 1);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 8, j + 0, k + 9, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 8, j + 0, k + 10, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 8, j + 0, k + 11, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 8, j + 0, k + 12, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 8, j + 0, k + 13, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 8, j + 0, k + 14, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 8, j + 1, k + 10, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 8, j + 1, k + 11, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 8, j + 1, k + 12, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 8, j + 1, k + 13, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 8, j + 1, k + 14, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 8, j + 2, k + 10, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 8, j + 2, k + 11, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 8, j + 2, k + 12, Block.gravel.blockID);
-        generateBlockWithNotify(par1World, par3StructureBoundingBox, i + 8, j + 2, k + 13, Block.gravel.blockID);
-
-        for (int var5 = 0; var5 < 9; ++var5) {
-            for (int var6 = 0; var6 < 5; ++var6) {
-                this.clearCurrentPositionBlocksUpwards(par1World, var6, 12, var5, par3StructureBoundingBox);
-                this.fillCurrentPositionBlocksDownwards(par1World, Block.cobblestone.blockID, 0, var6, -1, var5, par3StructureBoundingBox);
             }
         }
+        this.boundingBox.offset(0, this.averageGroundLevel - this.boundingBox.minY - 1, 0);
 
-        this.spawnVillagers(par1World, par3StructureBoundingBox, 3, 4, 9, 1);
+        fillWithBlocks(par1World, par3StructureBoundingBox, 0, 0, 0, 17, 5, 18, 0, 0, false); //clear area
+        fillWithBlocks(par1World, par3StructureBoundingBox, 0, 0, 0, 17, 0, 18, Block.grass.blockID, Block.grass.blockID, false); //create ground
+        fillWithBlocks(par1World, par3StructureBoundingBox, 0, 1, 0, 17, 1, 0, Block.cobblestoneWall.blockID, Block.cobblestone.blockID, false); //front wall
+        fillWithBlocks(par1World, par3StructureBoundingBox, 0, 1, 17, 16, 1, 18, Block.cobblestoneWall.blockID, Block.cobblestone.blockID, false); //back wall
+        fillWithBlocks(par1World, par3StructureBoundingBox, 0, 1, 0, 0, 1, 17, Block.cobblestoneWall.blockID, Block.cobblestone.blockID, false); //left wall
+        fillWithBlocks(par1World, par3StructureBoundingBox, 17, 1, 0, 17, 1, 18, Block.cobblestoneWall.blockID, Block.cobblestone.blockID, false); //right wall
+        for(int i = 0; i < 4; i++) { //left graves
+            placeBlockAtCurrentPosition(par1World, Block.cobblestone.blockID, 0, 3, 1, 2+i*2, par3StructureBoundingBox);
+            if(par2Random.nextInt(10)==1)
+                generateBodypartChest(par1World, par3StructureBoundingBox, par2Random, 3, 0, 2+i*2);
+            placeBlockAtCurrentPosition(par1World, Block.slowSand.blockID, 0, 4, 0, 2+i*2, par3StructureBoundingBox);
+            placeBlockAtCurrentPosition(par1World, Block.slowSand.blockID, 0, 5, 0, 2+i*2, par3StructureBoundingBox);
+        }
+        for(int i = 0; i < 4; i++) { //right graves
+            placeBlockAtCurrentPosition(par1World, Block.slowSand.blockID, 0, 11, 0, 2+i*2, par3StructureBoundingBox);
+            placeBlockAtCurrentPosition(par1World, Block.slowSand.blockID, 0, 12, 0, 2+i*2, par3StructureBoundingBox);
+            placeBlockAtCurrentPosition(par1World, Block.cobblestone.blockID, 0, 13, 1, 2+i*2, par3StructureBoundingBox);
+            if(par2Random.nextInt(10)==1)
+                generateBodypartChest(par1World, par3StructureBoundingBox, par2Random, 13, 0, 2+i*2);
+        }
+        fillWithBlocks(par1World, par3StructureBoundingBox, 6, 1, 0, 10, 1, 0, 0, 0, false); //clear door area
+        fillWithBlocks(par1World, par3StructureBoundingBox, 5, 1, 0, 5, 3, 0, Block.cobblestone.blockID, Block.cobblestone.blockID, false); //door part
+        fillWithBlocks(par1World, par3StructureBoundingBox, 6, 3, 0, 6, 4, 0, Block.cobblestone.blockID, Block.cobblestone.blockID, false); //door part
+        fillWithBlocks(par1World, par3StructureBoundingBox, 7, 4, 0, 7, 5, 0, Block.cobblestone.blockID, Block.cobblestone.blockID, false); //door part
+        placeBlockAtCurrentPosition(par1World, Block.cobblestone.blockID, 0, 8, 5, 0, par3StructureBoundingBox); //door part
+        fillWithBlocks(par1World, par3StructureBoundingBox, 9, 4, 0, 9, 5, 0, Block.cobblestone.blockID, Block.cobblestone.blockID, false); //door part
+        fillWithBlocks(par1World, par3StructureBoundingBox, 10, 3, 0, 10, 4, 0, Block.cobblestone.blockID, Block.cobblestone.blockID, false); //door part
+        fillWithBlocks(par1World, par3StructureBoundingBox, 11, 1, 0, 11, 3, 0, Block.cobblestone.blockID, Block.cobblestone.blockID, false); //door part
+
+        fillWithBlocks(par1World, par3StructureBoundingBox, 7, 0, 0, 9, 0, 14, Block.gravel.blockID, Block.gravel.blockID, false); //path
+
+        fillWithBlocks(par1World, par3StructureBoundingBox, 3, 1, 11, 5, 3, 11, Block.cobblestone.blockID, Block.cobblestone.blockID, false); //tomb front wall
+        fillWithBlocks(par1World, par3StructureBoundingBox, 3, 1, 15, 5, 3, 15, Block.cobblestone.blockID, Block.cobblestone.blockID, false); //tomb back wall
+        fillWithBlocks(par1World, par3StructureBoundingBox, 2, 1, 12, 2, 3, 14, Block.cobblestone.blockID, Block.cobblestone.blockID, false); //tomb left wall
+        fillWithBlocks(par1World, par3StructureBoundingBox, 6, 1, 12, 6, 3, 14, Block.cobblestone.blockID, Block.cobblestone.blockID, false); //tomb right wall
+        fillWithBlocks(par1World, par3StructureBoundingBox, 3, 0, 12, 5, 0, 14, Block.cobblestone.blockID, Block.cobblestone.blockID, false); //tomb floor
+        fillWithBlocks(par1World, par3StructureBoundingBox, 3, 4, 12, 5, 4, 14, Block.cobblestone.blockID, Block.cobblestone.blockID, false); //tomb roof
+        placeBlockAtCurrentPosition(par1World, Block.cobblestone.blockID, 0, 3, 1, 13, par3StructureBoundingBox); //tomb chest seperator
+        for(int i=0; i<3; i++)
+            placeBlockAtCurrentPosition(par1World, Block.stairsCobblestone.blockID, getMetadataWithOffset(Block.stairsCobblestone.blockID, 3), 3+i, 4, 11, par3StructureBoundingBox); //tomb front stair roof
+        for(int i=0; i<3; i++)
+            placeBlockAtCurrentPosition(par1World, Block.stairsCobblestone.blockID, getMetadataWithOffset(Block.stairsCobblestone.blockID, 2), 3+i, 4, 15, par3StructureBoundingBox); //tomb back stair roof
+        for(int i=0; i<3; i++)
+            placeBlockAtCurrentPosition(par1World, Block.stairsCobblestone.blockID, getMetadataWithOffset(Block.stairsCobblestone.blockID, 0), 2, 4, 12+i, par3StructureBoundingBox); //tomb left stair roof
+        for(int i=0; i<3; i++)
+            placeBlockAtCurrentPosition(par1World, Block.stairsCobblestone.blockID, getMetadataWithOffset(Block.stairsCobblestone.blockID, 1), 6, 4, 12+i, par3StructureBoundingBox); //tomb right stair roof
+        placeBlockAtCurrentPosition(par1World, Block.cobblestone.blockID, 0, 6, 0, 13, par3StructureBoundingBox); //tomb door support    
+        placeDoorAtCurrentPosition(par1World, par3StructureBoundingBox, par2Random, 6, 1, 13, getMetadataWithOffset(Block.doorWood.blockID, 0));
+
+        fillWithBlocks(par1World, par3StructureBoundingBox, 10, 0, 11, 14, 0, 15, Block.cobblestone.blockID, Block.cobblestone.blockID, false); //house floor
+        fillWithBlocks(par1World, par3StructureBoundingBox, 10, 1, 11, 14, 3, 11, Block.planks.blockID, Block.planks.blockID, false); //house front wall
+        fillWithBlocks(par1World, par3StructureBoundingBox, 10, 1, 15, 14, 3, 15, Block.planks.blockID, Block.planks.blockID, false); //house back wall
+        fillWithBlocks(par1World, par3StructureBoundingBox, 10, 1, 11, 10, 3, 15, Block.planks.blockID, Block.planks.blockID, false); //house left wall
+        fillWithBlocks(par1World, par3StructureBoundingBox, 14, 1, 11, 14, 3, 15, Block.planks.blockID, Block.planks.blockID, false); //house right wall
+        fillWithBlocks(par1World, par3StructureBoundingBox, 10, 4, 11, 14, 4, 15, Block.wood.blockID, Block.wood.blockID, false); //house roof
+        fillWithBlocks(par1World, par3StructureBoundingBox, 11, 4, 12, 13, 4, 14, Block.planks.blockID, Block.planks.blockID, false); //house roof
+        fillWithBlocks(par1World, par3StructureBoundingBox, 10, 1, 11, 10, 3, 11, Block.cobblestone.blockID, Block.cobblestone.blockID, false); //house front left corner
+        fillWithBlocks(par1World, par3StructureBoundingBox, 14, 1, 11, 14, 3, 11, Block.cobblestone.blockID, Block.cobblestone.blockID, false); //house front right corner
+        fillWithBlocks(par1World, par3StructureBoundingBox, 10, 1, 15, 10, 3, 15, Block.cobblestone.blockID, Block.cobblestone.blockID, false); //house back left corner
+        fillWithBlocks(par1World, par3StructureBoundingBox, 14, 1, 15, 14, 3, 15, Block.cobblestone.blockID, Block.cobblestone.blockID, false); //house back right corner
+        placeDoorAtCurrentPosition(par1World, par3StructureBoundingBox, par2Random, 10, 1, 13, getMetadataWithOffset(Block.doorWood.blockID, 2));
+
+        generateBodypartChest(par1World, par3StructureBoundingBox, par2Random, 3, 1, 12);
+        generateBodypartChest(par1World, par3StructureBoundingBox, par2Random, 3, 1, 14);
+        this.spawnVillagers(par1World, par3StructureBoundingBox, 11, 3, 12, 1);
         return true;
     }
 
-    public void generateBlock(World par1World, StructureBoundingBox par3StructureBoundingBox, int i, int j, int k, int blockID) {
-        if (j > 3) {
-            placeBlockAtCurrentPosition(par1World, blockID, 0, i, j - 3, k, par3StructureBoundingBox);
+    private void generateBodypartChest(World par1World, StructureBoundingBox structureBoundingBox, Random par2Random, int x, int y, int z, Object... content) {
+        int mobs = NecroEntityRegistry.registeredEntities.size();
+        ItemStack headItem, torsoItem, armLeftItem, armRightItem, legItem;
+        while(true) {
+            headItem = ((NecroEntityBase)NecroEntityRegistry.registeredEntities.values().toArray()[par2Random.nextInt(mobs)]).headItem;
+            torsoItem = ((NecroEntityBase)NecroEntityRegistry.registeredEntities.values().toArray()[par2Random.nextInt(mobs)]).torsoItem;
+            armLeftItem = ((NecroEntityBase)NecroEntityRegistry.registeredEntities.values().toArray()[par2Random.nextInt(mobs)]).armItem;
+            armRightItem = ((NecroEntityBase)NecroEntityRegistry.registeredEntities.values().toArray()[par2Random.nextInt(mobs)]).armItem;
+            legItem = ((NecroEntityBase)NecroEntityRegistry.registeredEntities.values().toArray()[par2Random.nextInt(mobs)]).legItem;
+            if(headItem != null && torsoItem != null && armLeftItem != null && armRightItem != null && legItem != null)
+                break;
         }
+        generateChest(par1World, structureBoundingBox, x, y, z, 12, headItem, 13, torsoItem, 14, legItem, 4, armRightItem, 22, armLeftItem);
     }
 
-    public void generateBlockWithNotify(World par1World, StructureBoundingBox par3StructureBoundingBox, int i, int j, int k, int blockID) {
-        if (j > 3) {
-            placeBlockAtCurrentPosition(par1World, blockID, 0, i, j - 3, k, par3StructureBoundingBox);
-        }
-    }
+    private void generateChest(World par1World, StructureBoundingBox structureBoundingBox, int x, int y, int z, Object... content) {
+        int i1 = this.getXWithOffset(x, z);
+        int j1 = this.getYWithOffset(y);
+        int k1 = this.getZWithOffset(x, z);
 
-    public void generateBlockAndMetadataWithNotify(World par1World, StructureBoundingBox par3StructureBoundingBox, int i, int j, int k, int blockID, int meta) {
-        if (j > 3) {
-            placeBlockAtCurrentPosition(par1World, blockID, 0, i, j - 3, k, par3StructureBoundingBox);
-        }
-    }
+        if (structureBoundingBox.isVecInside(i1, j1, k1) && par1World.getBlockId(i1, j1, k1) != Block.chest.blockID)
+        {
+            par1World.setBlock(i1, j1, k1, Block.chest.blockID, 0, 2);
+            TileEntityChest tileentitychest = (TileEntityChest)par1World.getBlockTileEntity(i1, j1, k1);
 
-    public void generateBlockAndMetadata(World par1World, StructureBoundingBox par3StructureBoundingBox, int i, int j, int k, int blockID, int meta) {
-        if (j > 3 && blockID > 0) {
-            placeBlockAtCurrentPosition(par1World, blockID, i, j - 3, k, meta, par3StructureBoundingBox);
-        }
+            if (tileentitychest != null)
+            {
+                for(int i=0; i<content.length; i++) {
+                    if(content[i] instanceof Integer && content[i+1] instanceof ItemStack) {
+                        tileentitychest.setInventorySlotContents(Integer.valueOf(content[i].toString()), (ItemStack) content[i+1]);
+                    }
+                }
+            }
+        }/*
+
+        if(par1World.getBlockId(x, y, z) != Block.chest.blockID && par1World.getBlockTileEntity(x, y, z) == null) {
+            placeBlockAtCurrentPosition(par1World, Block.chest.blockID, 0, x, y, z, structureBoundingBox);
+            int j1 = this.getBiomeSpecificBlock(Block.chest.blockID, 0);
+            int k1 = this.getBiomeSpecificBlockMetadata(Block.chest.blockID, 0);
+            int x1 = this.getXWithOffset(j1, k1);
+            int y1 = this.getYWithOffset(y);
+            int z1 = this.getZWithOffset(j1, k1);
+            TileEntityChest chest = null;
+            System.out.println(x1+", "+y1+", "+z1);
+                chest = (TileEntityChest) par1World.getBlockTileEntity(x1, y1, z1);
+            for(int i=0; i<content.length; i++) {
+                if(content[i] instanceof Integer && content[i+1] instanceof ItemStack && chest != null) {
+                    System.out.println(chest);
+                    System.out.println(Integer.valueOf(content[i].toString())+" "+(ItemStack) content[i+1]);
+                    chest.setInventorySlotContents(Integer.valueOf(content[i].toString()), (ItemStack) content[i+1]);
+                } else if(chest != null) {
+                    throw new IllegalArgumentException("Wrong chest content pars used: "+content[i]+" "+content[i+1]);
+                }
+                i+=1;
+            }
+        }*/
     }
 
     /**
@@ -1391,7 +173,6 @@ public class ComponentVillageCemetery extends ComponentVillage {
      */
     @Override
     protected int getVillagerType(int par1) {
-        System.out.println(Necromancy.NecroVillagerID);
         return Necromancy.NecroVillagerID;
     }
 }

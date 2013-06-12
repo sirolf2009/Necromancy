@@ -1,5 +1,8 @@
 package com.sirolf2009.necromancy.entity;
 
+import java.util.Iterator;
+import java.util.List;
+
 import net.minecraft.client.model.ModelBox;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
@@ -78,6 +81,7 @@ public class EntityMinion extends EntityTameable {
             dataWatcher.updateObject(24, getBodyPartsNames()[4]);
         }
         setSaddled(getSaddled());
+        
     }
 
     @Override
@@ -87,7 +91,7 @@ public class EntityMinion extends EntityTameable {
 
     @Override
     public boolean attackEntityAsMob(Entity par1Entity) {
-        return par1Entity.attackEntityFrom(DamageSource.causeMobDamage(this), 6);
+        return par1Entity.attackEntityFrom(DamageSource.causeMobDamage(this), 8);
     }
 
     @Override
@@ -99,6 +103,21 @@ public class EntityMinion extends EntityTameable {
     @Override
     public void onUpdate() {
         super.onUpdate();
+        List<?> list = worldObj.selectEntitiesWithinAABB(EntityPlayer.class, boundingBox.expand(10D, 4.0D, 10D), null);
+        Iterator<?> itr = list.iterator();
+        while(itr.hasNext()) {
+            Object obj = itr.next();
+            if(obj instanceof EntityPlayer) {
+                NBTTagCompound nbt = getOwner().getEntityData();
+                if(nbt.getBoolean("aggressive"))
+                System.out.println(nbt.getBoolean("aggressive") +" "+ FMLCommonHandler.instance().getSide());
+                if(nbt.getString(((EntityPlayer)obj).username).equals("enemy")) {
+                    setAttackTarget((EntityPlayer)obj);
+                } else if(nbt.getString(((EntityPlayer)obj).username)=="" && nbt.getBoolean("aggressive")) {
+                    setAttackTarget((EntityPlayer)obj);
+                }
+            }
+        }
         if (rand.nextInt(100) == 0 || ticksExisted < 10) {
             if (!worldObj.isRemote) {
                 dataWatcherUpdate();
@@ -124,17 +143,14 @@ public class EntityMinion extends EntityTameable {
         if ((mob = NecroEntityRegistry.registeredEntities.get(name)) != null) {
             if (location.equals("head"))
                 return mob.head == null ? mob.updateParts(ModelMinion.instance).head : mob.head;
-            if (location.equals("torso"))
-                return mob.torso == null ? mob.updateParts(ModelMinion.instance).torso : mob.torso;
-            if (location.equals("armLeft"))
-                return mob.armLeft == null ? mob.updateParts(ModelMinion.instance).armLeft : mob.armLeft;
-            if (location.equals("armRight"))
-                return mob.armRight == null ? mob.updateParts(ModelMinion.instance).armRight : mob.armRight;
-            if (location.equals("legs"))
-                return mob.legs == null ? mob.updateParts(ModelMinion.instance).legs : mob.legs;
-        }
-        if (name != "UNDEFINED") {
-            System.out.println("no mob called " + name + " found, this is a bug");
+                if (location.equals("torso"))
+                    return mob.torso == null ? mob.updateParts(ModelMinion.instance).torso : mob.torso;
+                    if (location.equals("armLeft"))
+                        return mob.armLeft == null ? mob.updateParts(ModelMinion.instance).armLeft : mob.armLeft;
+                        if (location.equals("armRight"))
+                            return mob.armRight == null ? mob.updateParts(ModelMinion.instance).armRight : mob.armRight;
+                            if (location.equals("legs"))
+                                return mob.legs == null ? mob.updateParts(ModelMinion.instance).legs : mob.legs;
         }
         return null;
     }
@@ -171,11 +187,12 @@ public class EntityMinion extends EntityTameable {
             }
             return true;
         }
-        if (riddenByEntity == null && par1EntityPlayer.username.equalsIgnoreCase(this.getOwnerName()) && FMLCommonHandler.instance().getSide() == cpw.mods.fml.relauncher.Side.CLIENT && !worldObj.isRemote) {
+        if (riddenByEntity == null && par1EntityPlayer.username.equalsIgnoreCase(this.getOwnerName()) && !worldObj.isRemote) {
             aiSit.setSitting(!this.isSitting());
             isJumping = false;
             this.setPathToEntity((PathEntity) null);
-            ClientProxy.mc.ingameGUI.getChatGUI().printChatMessage("Minion is " + (isSitting() ? "walking" : "sitting"));
+            if(FMLCommonHandler.instance().getSide() != cpw.mods.fml.relauncher.Side.SERVER)
+                ClientProxy.mc.ingameGUI.getChatGUI().printChatMessage("Minion is " + (isSitting() ? "walking" : "sitting"));
         } else if (riddenByEntity == null && !par1EntityPlayer.username.equalsIgnoreCase(this.getOwnerName()) && FMLCommonHandler.instance().getSide() == cpw.mods.fml.relauncher.Side.CLIENT && !worldObj.isRemote) {
             ClientProxy.mc.ingameGUI.getChatGUI().printChatMessage("<Minion> I obey only " + getOwnerName());
         }
@@ -225,7 +242,7 @@ public class EntityMinion extends EntityTameable {
 
     @Override
     public int getMaxHealth() {
-        return 20;
+        return 30;
     }
 
     public void setBodyPart(String location, BodyPart[] bodypart) {

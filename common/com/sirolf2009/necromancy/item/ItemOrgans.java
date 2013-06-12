@@ -1,5 +1,7 @@
 package com.sirolf2009.necromancy.item;
 
+import com.sirolf2009.necromancy.Necromancy;
+
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
@@ -12,6 +14,7 @@ public class ItemOrgans extends ItemFood {
         super(par1, 2, true);
         setPotionEffect(Potion.hunger.id, 30, 0, 0.8F);
         setHasSubtypes(true);
+        setCreativeTab(Necromancy.tabNecromancy);
         icons = new Icon[names.length];
     }
 

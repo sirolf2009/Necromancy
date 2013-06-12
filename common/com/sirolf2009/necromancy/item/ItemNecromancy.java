@@ -10,6 +10,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
+import net.minecraft.world.World;
 
 import com.sirolf2009.necromancy.Necromancy;
 
@@ -57,6 +58,13 @@ public class ItemNecromancy extends Item {
      */
     public boolean shouldRotateAroundWhenRendering() {
         return true;
+    }
+    
+    @Override
+    public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
+        if(par1ItemStack.getItemDamage() > names.length) {
+            par1ItemStack.setItemDamage(2);
+        }
     }
 
     @Override
