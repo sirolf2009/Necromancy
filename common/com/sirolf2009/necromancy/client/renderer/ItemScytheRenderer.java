@@ -1,5 +1,6 @@
 package com.sirolf2009.necromancy.client.renderer;
 
+import net.minecraft.client.renderer.InventoryEffectRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
@@ -9,6 +10,7 @@ import org.lwjgl.opengl.GL11;
 import com.sirolf2009.necromancy.Necromancy;
 import com.sirolf2009.necromancy.client.model.ModelScythe;
 import com.sirolf2009.necromancy.client.model.ModelScytheSpecial;
+import com.sirolf2009.necromancy.core.proxy.ClientProxy;
 import com.sirolf2009.necromancy.lib.Reference;
 
 import cpw.mods.fml.client.FMLClientHandler;
@@ -48,19 +50,18 @@ public class ItemScytheRenderer implements IItemRenderer {
                 renderScythe(0F, 1F, 0F, 1F, 1F, 180F, 1);
                 break;
             case EQUIPPED:
-                /*if (ClientProxy.mc.gameSettings.thirdPersonView == 0) {
-                    if (isSpecial) {
-                        renderSpecialScythe(0F, 1F, 0F, 20F, -140F, 20F, .6F);
-                    } else {
-                        renderScythe(0F, 2.2F, 0F, -10F, 140F, 180F, 2);
-                    }
-                } else {*/
-                    if (isSpecial) {
-                        renderSpecialScythe(.8F, 1F, .8F, 0F, 220F, 0F, 1.2F);
-                    } else {
-                        renderScythe(0.8F, 2F, 0.8F, 1F, 120F, 180F, 1.2F);
-                    }
-                //}
+                if (isSpecial) {
+                    renderSpecialScythe(.8F, 1F, .8F, 0F, -40F, 0F, 1.2F);
+                } else {
+                    renderScythe(0.8F, 4F, 0.8F, 0F, -140F, 180F, 3.8F);
+                }
+                break;
+            case EQUIPPED_FIRST_PERSON:
+                if (isSpecial) {
+                    renderSpecialScythe(0F, 1F, 0F, 20F, -140F, 20F, .6F);
+                } else {
+                    renderScythe(0F, 2.2F, 0F, -10F, 140F, 180F, 2);
+                }
                 break;
             case INVENTORY:
                 renderScythe(0F, 0.4F, 0F, 150F, 60F, 0F, 0.8F);

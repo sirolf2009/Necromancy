@@ -1,10 +1,10 @@
 package com.sirolf2009.necromancy.entity.necroapi;
 
+import org.lwjgl.opengl.GL11;
+
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
-
-import org.lwjgl.opengl.GL11;
 
 import com.sirolf2009.necroapi.BodyPart;
 import com.sirolf2009.necroapi.NecroEntityBiped;
