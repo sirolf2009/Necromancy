@@ -1,0 +1,92 @@
+<?xml version="1.0" ?> 
+<project name="Necromancy" default="build">
+
+	<property file="build.properties" prefix="build"/>
+	<property file="build_number.properties" prefix="build_number"/>
+
+	<target name="clean">
+		<delete file="${build.dir.development}\forge\mcp\src\minecraft\mcmod.info" />
+		<delete dir="${build.dir.development}\forge\mcp\src\minecraft\com\sirolf2009" />
+		<delete dir="${build.dir.development}\forge\mcp\reobf\minecraft" />
+	</target>
+
+	<target name="prep">
+		<copy todir="${build.dir.development}\forge\mcp\src\minecraft">
+					<fileset dir="${build.dir.development}\source\Necromancy\common\" />
+		</copy>
+		<copy todir="${build.dir.development}\forge\mcp\src\minecraft">
+			<fileset dir="${build.dir.development}\source\NecroAPI\common\" />
+		</copy>
+	</target>
+
+	<target name="replace_tokens">
+		<replace dir="${build.dir.development}\forge\mcp\src\minecraft" token="@VERSION@" value="${release.mod.version}" />
+		<replace dir="${build.dir.development}\forge\mcp\src\minecraft" token="@FINGERPRINT@" value="${release.mod.fingerprint}" />
+	</target>
+
+	<target name="recompile">
+		<exec dir="${build.dir.development}\forge\mcp" executable="cmd" osfamily="windows">
+			<arg line="/c recompile.bat" />
+		</exec>
+		<exec dir="${build.dir.development}\forge\mcp" executable="bash" osfamily="unix">
+			<arg line="recompile.sh" />
+		</exec>
+	</target>
+
+	<target name="reobfuscate">
+		<exec dir="${build.dir.development}\forge\mcp" executable="cmd" osfamily="windows">
+			<arg line="/c reobfuscate_srg.bat" />
+		</exec>
+		<exec dir="${build.dir.development}\forge\mcp" executable="bash" osfamily="unix">
+			<arg line="reobfuscate_srg.sh" />
+		</exec>
+	</target>
+
+	<target name="sign_jar">
+		<signjar jar="${build.dir.release}\Necromancy-${release.mod.version}-${release.minecraft.version}.jar" keystore="${build.keystore.location}" alias="${build.keystore.alias}" storepass="${build.keystore.password}" />
+	</target>
+
+	<target name="build">
+		<!-- Prep for the build -->
+		<antcall target="clean" />
+		<antcall target="prep" />
+		<antcall target="recompile" />		
+		<antcall target="reobfuscate" />
+
+		<!-- Build the jar -->
+		<mkdir dir="${build.dir.release}" />
+		<jar destfile="${build.dir.release}\Necromancy-universal-${release.mod.version}.jar">
+			<fileset dir="${build.dir.development}\forge\mcp\src\minecraft\" includes="mcmod.info" />
+			<fileset dir="${build.dir.development}\forge\mcp\reobf\minecraft" />
+			<fileset dir="${build.dir.development}\source\Necromancy\resources" excludes="**/xcf/**" />
+		</jar>
+
+		<!-- Clean up the MCP source now that we are done -->
+		<antcall target="clean" />
+	</target>
+
+	<target name="release">
+		<!-- Prep for the build -->
+		<input message="Mod version:" addproperty="release.mod.version" />
+		<input message="Minecraft version:" addproperty="release.minecraft.version" />
+		<antcall target="clean" />
+		<antcall target="prep" />
+		<antcall target="replace_tokens" />
+		<antcall target="recompile" />		
+		<antcall target="reobfuscate" />
+
+		<!-- Build the jar -->
+		<mkdir dir="${build.dir.release}" />
+		<jar destfile="${build.dir.release}\Necromancy-${release.mod.version}-${release.minecraft.version}.jar">
+			<fileset dir="${build.dir.development}\forge\mcp\src\minecraft\" includes="mcmod.info" />
+			<fileset dir="${build.dir.development}\forge\mcp\reobf\minecraft" />
+			<fileset dir="${build.dir.development}\source\Necromancy\resources" excludes="**/xcf/**" />
+		</jar>
+
+		<!-- Sign the finished jar -->
+		<antcall target="sign_jar" />
+
+		<!-- Clean up the MCP source now that we are done -->
+		<antcall target="clean" />
+	</target>
+</project>

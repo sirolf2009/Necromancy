@@ -129,10 +129,10 @@ public class Necromancy {
     public static boolean Christmas = false;
     public static boolean renderSpecialScythe = false;
 
-    public static Item necroArmorHead;
-    public static Item necroArmorTorso;
-    public static Item necroArmorLeggings;
-    public static Item necroArmorBoots;
+    public static Item apprenticeArmorHead;
+    public static Item apprenticeArmorTorso;
+    public static Item apprenticeArmorLeggings;
+    public static Item apprenticeArmorBoots;
     public static Item necromanticItems;
     public static Item necronomicon;
     public static Item scythe;
@@ -150,6 +150,7 @@ public class Necromancy {
     // public static Block skullWall;
 
     public static EnumArmorMaterial isaac = EnumHelper.addArmorMaterial("Isaac", Integer.MAX_VALUE, new int[] { 0, 0, 0, 0 }, 0);
+    public static EnumArmorMaterial apprenticeRobes = EnumHelper.addArmorMaterial("apprenticeRobesNecromancy", Integer.MAX_VALUE, new int[] { 0, 0, 0, 0 }, 100);
 
     public static Logger logger;
 

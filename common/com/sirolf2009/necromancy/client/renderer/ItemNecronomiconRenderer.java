@@ -2,14 +2,13 @@ package com.sirolf2009.necromancy.client.renderer;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.InventoryEffectRenderer;
+import net.minecraft.client.model.ModelBook;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
 
 import org.lwjgl.opengl.GL11;
 
 import com.sirolf2009.necromancy.client.model.ModelNecronomicon;
-import com.sirolf2009.necromancy.core.proxy.ClientProxy;
 import com.sirolf2009.necromancy.item.ItemNecronomicon;
 import com.sirolf2009.necromancy.lib.Reference;
 
@@ -17,11 +16,14 @@ import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
+
 @SideOnly(Side.CLIENT)
 public class ItemNecronomiconRenderer implements IItemRenderer {
 
     public ModelNecronomicon modelInteractive = new ModelNecronomicon();
     public ModelNecronomicon modelStatic = new ModelNecronomicon();
+    public ModelBook modelBook = new ModelBook();
+    public boolean isFancyBookSupported = true;
 
     public String[] leftPageContent = {}, rightPageContent = {};
 
@@ -43,22 +45,25 @@ public class ItemNecronomiconRenderer implements IItemRenderer {
 
     @Override
     public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
-        switch (type) {
-            case ENTITY:
+        if(!isFancyBookSupported) {
+            if(type.equals(ItemRenderType.ENTITY)) {
                 renderNecronomiconStatic(0F, 0.2F, 0F, 180F, 1F, 1F, 0.004F);
-                break;
-            case EQUIPPED:
-                if (ClientProxy.mc.gameSettings.thirdPersonView == 0 && !(ClientProxy.mc.currentScreen instanceof InventoryEffectRenderer)) {
-                    renderNecronomiconInteractive(0.8F, 1F, -1F, 20F, 100F, 160F, 0.01F, (ItemNecronomicon) item.getItem());
-                } else {
-                    renderNecronomiconInteractive(0.8F, 1.3F, 0.6F, 180F, 180F, 0F, 0.009F, (ItemNecronomicon) item.getItem());
-                }
-                break;
-            case INVENTORY:
+            } else if(type.equals(ItemRenderType.EQUIPPED)) {
+                renderNecronomiconInteractive(0.8F, 1.3F, 0.6F, 180F, 180F, 0F, 0.009F, (ItemNecronomicon) item.getItem());
+            } else if(type.equals(ItemRenderType.EQUIPPED_FIRST_PERSON)) {
+                renderNecronomiconInteractive(0.8F, 1F, -1F, 20F, 100F, 160F, 0.01F, (ItemNecronomicon) item.getItem());
+            } else if(type.equals(ItemRenderType.INVENTORY)) {
                 renderNecronomiconStatic(-0.2F, 0.2F, 0.2F, 100F, -20F, -20F, 0.007F);
-                break;
-            default:
-                break;
+            }
+        } else {
+            GL11.glPushMatrix();
+            GL11.glScalef(2F, 2F, 2F);
+            FMLClientHandler.instance().getClient().renderEngine.bindTexture(Reference.LOC_RESOURCES_TEXTURES_MODELS + "/necronomicon.png");
+            modelBook.render(null, 111.29507F, 0.10000038F, 0.9000004F, 0F, 0, 0.0625F);
+            GL11.glPopMatrix();
+        }
+        if(isFancyBookSupported && GL11.glGetError() != GL11.GL_NO_ERROR) {
+            isFancyBookSupported = false;
         }
     }
 

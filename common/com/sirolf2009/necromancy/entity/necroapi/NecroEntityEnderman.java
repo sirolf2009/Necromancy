@@ -1,7 +1,5 @@
 package com.sirolf2009.necromancy.entity.necroapi;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
@@ -76,7 +74,6 @@ public class NecroEntityEnderman extends NecroEntityBiped {
 
     @Override
     public void preRender(Entity entity, BodyPart[] parts, String location, ModelBase model) {
-        GL11.glTranslatef(0, 0, 0);
     }
 
     @Override

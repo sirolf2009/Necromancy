@@ -3,7 +3,8 @@ package com.sirolf2009.necromancy.lib;
 public class Reference {
     public static final String MOD_ID = "necromancy";
     public static final String MOD_NAME = "Necromancy";
-    public static final String MOD_VERSION = "1.1";
+    public static final String MOD_VERSION = "@VERSION@";
+    public static final String MOD_FINGERPRINT = "@FINGERPRINT@";
 
     public static final String LOC_RESOURCES = "/mods/necromancy";
     public static final String LOC_RESOURCES_SOUNDS = LOC_RESOURCES + "/sounds";
