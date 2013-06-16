@@ -51,7 +51,8 @@ public class EntityNightCrawler extends EntityMob {
         }
         return true;
     }
-    
+
+    @Override
     protected int getDropItemId() {
         return Item.enderPearl.itemID;
     }

@@ -1,11 +1,11 @@
 package com.sirolf2009.necromancy.entity;
 
-import com.sirolf2009.necromancy.lib.Reference;
-
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
+
+import com.sirolf2009.necromancy.lib.Reference;
 
 public class EntityIsaacBody extends EntityMob implements IMob {
 

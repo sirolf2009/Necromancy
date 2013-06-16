@@ -1,6 +1,5 @@
 package com.sirolf2009.necromancy.client.renderer;
 
-import net.minecraft.client.renderer.InventoryEffectRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
@@ -10,30 +9,27 @@ import org.lwjgl.opengl.GL11;
 import com.sirolf2009.necromancy.Necromancy;
 import com.sirolf2009.necromancy.client.model.ModelScythe;
 import com.sirolf2009.necromancy.client.model.ModelScytheSpecial;
-import com.sirolf2009.necromancy.core.proxy.ClientProxy;
 import com.sirolf2009.necromancy.lib.Reference;
 
 import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class ItemScytheRenderer implements IItemRenderer {
 
-    public static final int blockRenderId = RenderingRegistry.getNextAvailableRenderId();
     public ModelScythe model = new ModelScythe();
     public ModelScytheSpecial modelSpecial = new ModelScytheSpecial();
     boolean isSpecial = false;
 
     @Override
     public boolean handleRenderType(ItemStack item, ItemRenderType type) {
-        return true;
+        return Necromancy.renderModelNecronomicon;
     }
 
     @Override
     public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item, ItemRendererHelper helper) {
-        return true;
+        return Necromancy.renderModelNecronomicon;
     }
 
     @Override

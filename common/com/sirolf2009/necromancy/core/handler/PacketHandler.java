@@ -3,9 +3,6 @@ package com.sirolf2009.necromancy.core.handler;
 import java.util.List;
 import java.util.Random;
 
-import org.bouncycastle.util.encoders.Hex;
-
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -94,14 +91,14 @@ public class PacketHandler implements IPacketHandler, IGuiHandler, ICraftingHand
 
     @Override
     public void onPacketData(INetworkManager manager, Packet250CustomPayload packet, Player player) {
-        if(packet.data[0] == 0) {
+        if (packet.data[0] == 0) {
             ClientProxy.mc.thePlayer.getEntityData().setBoolean("aggressive", packet.data[1] == 1);
-        } else if(packet.data[0] == 1) { //we're making friends :D
+        } else if (packet.data[0] == 1) { // we're making friends :D
             EntityPlayer playerEntity = (EntityPlayer) ClientProxy.mc.theWorld.getEntityByID(packet.data[1] & 0xFF);
             playerEntity.getEntityData().setString(playerEntity.username, "friend");
-        } else if(packet.data[0] == 2) { //who needs friends anyway
+        } else if (packet.data[0] == 2) { // who needs friends anyway
             EntityPlayer playerEntity = (EntityPlayer) ClientProxy.mc.theWorld.getEntityByID(packet.data[1] & 0xFF);
-            System.out.println("player found by packet data "+playerEntity);
+            System.out.println("player found by packet data " + playerEntity);
             playerEntity.getEntityData().setString(playerEntity.username, "enemy");
         }
     }
@@ -126,8 +123,8 @@ public class PacketHandler implements IPacketHandler, IGuiHandler, ICraftingHand
     @Override
     public void manipulateTradesForVillager(EntityVillager villager, MerchantRecipeList recipeList, Random random) {
         recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, 6), new ItemStack(Item.book), new ItemStack(Necromancy.necronomicon)));
-        recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, new Random().nextInt(3)), null, new ItemStack(Necromancy.bodyparts, 1, random.nextInt(ItemBodyPart.necroEntities.size()-1))));
-        recipeList.add(new MerchantRecipe(new ItemStack(Necromancy.bodyparts, 1, random.nextInt(ItemBodyPart.necroEntities.size()-1)), null, new ItemStack(Item.emerald, new Random().nextInt(3))));
-        recipeList.add(new MerchantRecipe(new ItemStack(Necromancy.bodyparts, 1, random.nextInt(ItemBodyPart.necroEntities.size()-1)), null, new ItemStack(Item.emerald, new Random().nextInt(3))));
+        recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, new Random().nextInt(3)), null, new ItemStack(Necromancy.bodyparts, 1, random.nextInt(ItemBodyPart.necroEntities.size() - 1))));
+        recipeList.add(new MerchantRecipe(new ItemStack(Necromancy.bodyparts, 1, random.nextInt(ItemBodyPart.necroEntities.size() - 1)), null, new ItemStack(Item.emerald, new Random().nextInt(3))));
+        recipeList.add(new MerchantRecipe(new ItemStack(Necromancy.bodyparts, 1, random.nextInt(ItemBodyPart.necroEntities.size() - 1)), null, new ItemStack(Item.emerald, new Random().nextInt(3))));
     }
 }

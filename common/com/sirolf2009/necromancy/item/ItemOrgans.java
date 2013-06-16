@@ -1,12 +1,12 @@
 package com.sirolf2009.necromancy.item;
 
-import com.sirolf2009.necromancy.Necromancy;
-
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.Icon;
+
+import com.sirolf2009.necromancy.Necromancy;
 
 public class ItemOrgans extends ItemFood {
 

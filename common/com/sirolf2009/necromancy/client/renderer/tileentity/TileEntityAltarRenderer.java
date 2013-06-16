@@ -101,8 +101,6 @@ public class TileEntityAltarRenderer extends TileEntitySpecialRenderer implement
     private void renderAltar(TileEntityAltar entity, double x, double y, double z, float f) {
         bindTextureByName(Reference.LOC_RESOURCES_TEXTURES_MODELS + "/altarTexture.png");
         GL11.glPushMatrix();
-        GL11.glEnable(32826);
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         GL11.glTranslatef((float) x, (float) y + 2.0F, (float) z + 1.0F);
         GL11.glScalef(1.0F, -1F, -1F);
         GL11.glTranslatef(0.5F, 0.5F, 0.5F);
@@ -168,17 +166,17 @@ public class TileEntityAltarRenderer extends TileEntitySpecialRenderer implement
         if (metadata == 1) {
             d0 = par2 + .2F;
             d1 = par3 + 0.7F;
-            d2 = par4 + 0.5F;
+            d2 = par4 + 0.2F;
         }
         if (metadata == 2) {
-            d0 = par2 + .2F;
+            d0 = par2 + .8F;
             d1 = par3 + 0.7F;
-            d2 = par4 + 0.5F;
+            d2 = par4 + 0.2F;
         }
         if (metadata == 3) {
-            d0 = par2 + .2F;
+            d0 = par2 + .8F;
             d1 = par3 + 0.7F;
-            d2 = par4 + 0.5F;
+            d2 = par4 + 0.8F;
         }
         double d3 = 0.5D;
         double d4 = 0.27000001072883606D;

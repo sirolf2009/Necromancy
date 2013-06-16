@@ -27,7 +27,7 @@ public class EventHandler {
 
     @ForgeSubscribe
     public void LivingDropsEvent(LivingDeathEvent evt) {
-        if (evt.entity instanceof EntityLiving && !evt.entity.worldObj.isRemote && rand.nextInt(100) <= 6-1) {
+        if (evt.entity instanceof EntityLiving && !evt.entity.worldObj.isRemote && rand.nextInt(100) <= 6 - 1) {
             switch (rand.nextInt(7)) {
                 case 0:
                     evt.entity.entityDropItem(new ItemStack(Necromancy.organs, 1, 0), 1);

@@ -5,6 +5,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+
 import com.sirolf2009.necromancy.Necromancy;
 
 public class ItemIsaacsHead extends ItemArmor {
@@ -14,7 +15,8 @@ public class ItemIsaacsHead extends ItemArmor {
         setUnlocalizedName("IsaacsHead");
         setCreativeTab(Necromancy.tabNecromancy);
     }
-    
+
+    @Override
     public String getArmorTexture(ItemStack stack, Entity entity, int slot, int layer) {
         return "/armor/Isaac_1.png";
     }

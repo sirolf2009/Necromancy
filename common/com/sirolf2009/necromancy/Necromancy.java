@@ -128,6 +128,8 @@ public class Necromancy {
     public static int maxSpawn = -1;
     public static boolean Christmas = false;
     public static boolean renderSpecialScythe = false;
+    public static boolean renderModelScythe = false;
+    public static boolean renderModelNecronomicon = false;
 
     public static Item apprenticeArmorHead;
     public static Item apprenticeArmorTorso;
@@ -180,16 +182,20 @@ public class Necromancy {
 
         BucketBloodID = config.getItem("BloodStationary", 2621).getInt();
         ScytheID = config.getItem("Scythe", 2622).getInt();
-        ItemID = config.getItem("main items", "item", 2623).getInt();
-        NecronomiconID = config.getItem("necronomicon", "item", 2624).getInt();
-        OrgansID = config.getItem("organs", "item", 2625).getInt();
-        BodyPartID = config.getItem("bodyparts", "item", 2626).getInt();
-        IsaacsHeadID = config.getItem("Isaac's Severed Head", "armor", 2627).getInt();
-        SpawnerID = config.getItem("spawner", "item", 2628).getInt();
+        ItemID = config.getItem("item", "main items", 2623).getInt();
+        NecronomiconID = config.getItem("item", "necronomicon", 2624).getInt();
+        OrgansID = config.getItem("item", "organs", 2625).getInt();
+        BodyPartID = config.getItem("item", "bodyparts", 2626).getInt();
+        SpawnerID = config.getItem("item", "spawner", 2628).getInt();
 
-        Christmas = config.get("Other", "christmas hats", false).getBoolean(false);
-        renderSpecialScythe = config.get("Other", "special scythes (only for a select number of people)", true).getBoolean(false);
-        NecroVillagerID = config.get("Other", "NecroVillagerID", 666).getInt();
+        IsaacsHeadID = config.getItem("armor", "Isaac's Severed Head", 2627).getInt();
+
+        renderModelNecronomicon = config.get("rendering", "Render Necronomicon Model", true).getBoolean(true);
+        renderModelNecronomicon = config.get("rendering", "Render Scythe Model", true).getBoolean(true);
+        Christmas = config.get("rendering", "christmas hats", false).getBoolean(false);
+
+        renderSpecialScythe = config.get("special scythes (only for a select number of people)", "Other", true).getBoolean(false);
+        NecroVillagerID = config.get("NecroVillagerID", "Other", 666).getInt();
         if (config.hasChanged()) {
             config.save();
         }
@@ -197,7 +203,6 @@ public class Necromancy {
         NecroEntityBase.organID = OrgansID;
 
         MinecraftForge.EVENT_BUS.register(eventHandler);
-        
 
         LanguageRegistry.instance().addStringLocalization("itemGroup.Necromancy", "en_US", "Necromancy");
         LanguageRegistry.instance().addStringLocalization("itemGroup.BodyParts", "en_US", "Bodyparts");

@@ -81,7 +81,7 @@ public class EntityMinion extends EntityTameable {
             dataWatcher.updateObject(24, getBodyPartsNames()[4]);
         }
         setSaddled(getSaddled());
-        
+
     }
 
     @Override
@@ -105,16 +105,17 @@ public class EntityMinion extends EntityTameable {
         super.onUpdate();
         List<?> list = worldObj.selectEntitiesWithinAABB(EntityPlayer.class, boundingBox.expand(10D, 4.0D, 10D), null);
         Iterator<?> itr = list.iterator();
-        while(itr.hasNext()) {
+        while (itr.hasNext()) {
             Object obj = itr.next();
-            if(obj instanceof EntityPlayer) {
+            if (obj instanceof EntityPlayer) {
                 NBTTagCompound nbt = getOwner().getEntityData();
-                if(nbt.getBoolean("aggressive"))
-                System.out.println(nbt.getBoolean("aggressive") +" "+ FMLCommonHandler.instance().getSide());
-                if(nbt.getString(((EntityPlayer)obj).username).equals("enemy")) {
-                    setAttackTarget((EntityPlayer)obj);
-                } else if(nbt.getString(((EntityPlayer)obj).username)=="" && nbt.getBoolean("aggressive")) {
-                    setAttackTarget((EntityPlayer)obj);
+                if (nbt.getBoolean("aggressive")) {
+                    System.out.println(nbt.getBoolean("aggressive") + " " + FMLCommonHandler.instance().getSide());
+                }
+                if (nbt.getString(((EntityPlayer) obj).username).equals("enemy")) {
+                    setAttackTarget((EntityPlayer) obj);
+                } else if (nbt.getString(((EntityPlayer) obj).username) == "" && nbt.getBoolean("aggressive")) {
+                    setAttackTarget((EntityPlayer) obj);
                 }
             }
         }
@@ -143,14 +144,14 @@ public class EntityMinion extends EntityTameable {
         if ((mob = NecroEntityRegistry.registeredEntities.get(name)) != null) {
             if (location.equals("head"))
                 return mob.head == null ? mob.updateParts(ModelMinion.instance).head : mob.head;
-                if (location.equals("torso"))
-                    return mob.torso == null ? mob.updateParts(ModelMinion.instance).torso : mob.torso;
-                    if (location.equals("armLeft"))
-                        return mob.armLeft == null ? mob.updateParts(ModelMinion.instance).armLeft : mob.armLeft;
-                        if (location.equals("armRight"))
-                            return mob.armRight == null ? mob.updateParts(ModelMinion.instance).armRight : mob.armRight;
-                            if (location.equals("legs"))
-                                return mob.legs == null ? mob.updateParts(ModelMinion.instance).legs : mob.legs;
+            if (location.equals("torso"))
+                return mob.torso == null ? mob.updateParts(ModelMinion.instance).torso : mob.torso;
+            if (location.equals("armLeft"))
+                return mob.armLeft == null ? mob.updateParts(ModelMinion.instance).armLeft : mob.armLeft;
+            if (location.equals("armRight"))
+                return mob.armRight == null ? mob.updateParts(ModelMinion.instance).armRight : mob.armRight;
+            if (location.equals("legs"))
+                return mob.legs == null ? mob.updateParts(ModelMinion.instance).legs : mob.legs;
         }
         return null;
     }
@@ -191,8 +192,9 @@ public class EntityMinion extends EntityTameable {
             aiSit.setSitting(!this.isSitting());
             isJumping = false;
             this.setPathToEntity((PathEntity) null);
-            if(FMLCommonHandler.instance().getSide() != cpw.mods.fml.relauncher.Side.SERVER)
+            if (FMLCommonHandler.instance().getSide() != cpw.mods.fml.relauncher.Side.SERVER) {
                 ClientProxy.mc.ingameGUI.getChatGUI().printChatMessage("Minion is " + (isSitting() ? "walking" : "sitting"));
+            }
         } else if (riddenByEntity == null && !par1EntityPlayer.username.equalsIgnoreCase(this.getOwnerName()) && FMLCommonHandler.instance().getSide() == cpw.mods.fml.relauncher.Side.CLIENT && !worldObj.isRemote) {
             ClientProxy.mc.ingameGUI.getChatGUI().printChatMessage("<Minion> I obey only " + getOwnerName());
         }

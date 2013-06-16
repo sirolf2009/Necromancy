@@ -1,10 +1,10 @@
 package com.sirolf2009.necromancy.client.model;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+
+import org.lwjgl.opengl.GL11;
 
 /**
  * @author Fabiulu Permission to use this model has been lend to sirolf2009 for
