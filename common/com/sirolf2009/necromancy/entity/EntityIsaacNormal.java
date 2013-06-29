@@ -17,7 +17,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
-import com.sirolf2009.necromancy.lib.Reference;
+import com.sirolf2009.necromancy.lib.ReferenceNecromancy;
 
 public class EntityIsaacNormal extends EntityMob implements IMob, IRangedAttackMob {
 
@@ -34,7 +34,7 @@ public class EntityIsaacNormal extends EntityMob implements IMob, IRangedAttackM
         tasks.addTask(6, new EntityAILookIdle(this));
         targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
         targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 16.0F, 0, true));
-        texture = Reference.LOC_RESOURCES_TEXTURES_ENTITIES + "/Isaac.png";
+        texture = ReferenceNecromancy.LOC_RESOURCES_TEXTURES_ENTITIES + "/Isaac.png";
         if (!par1World.isRemote) {
             tasks.addTask(1, new EntityAIArrowAttack(this, moveSpeed, 18, 50F));
         }

@@ -5,13 +5,14 @@ import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.liquids.LiquidDictionary;
 import net.minecraftforge.liquids.LiquidStack;
 
-import com.sirolf2009.necromancy.Necromancy;
+import com.sirolf2009.necromancy.block.BlockNecromancy;
 import com.sirolf2009.necromancy.client.model.ModelIsaacHead;
 import com.sirolf2009.necromancy.client.model.ModelIsaacNormal;
 import com.sirolf2009.necromancy.client.model.ModelIsaacSevered;
 import com.sirolf2009.necromancy.client.model.ModelNightCrawler;
 import com.sirolf2009.necromancy.client.model.ModelTeddy;
 import com.sirolf2009.necromancy.client.renderer.ItemNecronomiconRenderer;
+import com.sirolf2009.necromancy.client.renderer.ItemScytheBoneRenderer;
 import com.sirolf2009.necromancy.client.renderer.ItemScytheRenderer;
 import com.sirolf2009.necromancy.client.renderer.RenderIsaacMelee;
 import com.sirolf2009.necromancy.client.renderer.RenderIsaacRanged;
@@ -33,7 +34,8 @@ import com.sirolf2009.necromancy.entity.EntityNightCrawler;
 import com.sirolf2009.necromancy.entity.EntityTear;
 import com.sirolf2009.necromancy.entity.EntityTearBlood;
 import com.sirolf2009.necromancy.entity.EntityTeddy;
-import com.sirolf2009.necromancy.lib.Reference;
+import com.sirolf2009.necromancy.item.ItemNecromancy;
+import com.sirolf2009.necromancy.lib.ReferenceNecromancy;
 import com.sirolf2009.necromancy.tileentity.TileEntityAltar;
 import com.sirolf2009.necromancy.tileentity.TileEntitySewing;
 
@@ -67,15 +69,16 @@ public class ClientProxy extends CommonProxy {
         // new TileEntitySkullWallRenderer());
         // ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySkull.class,
         // new TileEntityNecroSkullRenderer());
-        MinecraftForgeClient.registerItemRenderer(Necromancy.AltarID, new TileEntityAltarRenderer());
-        MinecraftForgeClient.registerItemRenderer(Necromancy.SewingID, new TileEntitySewingRenderer());
+        MinecraftForgeClient.registerItemRenderer(BlockNecromancy.altar.blockID, new TileEntityAltarRenderer());
+        MinecraftForgeClient.registerItemRenderer(BlockNecromancy.sewing.blockID, new TileEntitySewingRenderer());
         // MinecraftForgeClient.registerItemRenderer(Necromancy.SkullWallID, new
         // TileEntitySkullWallRenderer());
-        LiquidDictionary.getOrCreateLiquid("blood", new LiquidStack(Necromancy.bloodStill, 1))
+        LiquidDictionary.getOrCreateLiquid("blood", new LiquidStack(BlockNecromancy.bloodStill, 1))
         // LiquidDictionary.getCanonicalLiquid("blood")
-        .setRenderingIcon(Necromancy.bloodStill.iconForInvRender).setTextureSheet(Reference.LOC_RESOURCES_TEXTURES_BLOCKS + "blood_flow.png");
-        MinecraftForgeClient.registerItemRenderer(Necromancy.scythe.itemID, new ItemScytheRenderer());
-        MinecraftForgeClient.registerItemRenderer(Necromancy.necronomicon.itemID, new ItemNecronomiconRenderer());
+        .setRenderingIcon(BlockNecromancy.bloodStill.iconForInvRender).setTextureSheet(ReferenceNecromancy.LOC_RESOURCES_TEXTURES_BLOCKS + "blood_flow.png");
+        MinecraftForgeClient.registerItemRenderer(ItemNecromancy.scythe.itemID, new ItemScytheRenderer());
+        MinecraftForgeClient.registerItemRenderer(ItemNecromancy.scytheBone.itemID, new ItemScytheBoneRenderer());
+        MinecraftForgeClient.registerItemRenderer(ItemNecromancy.necronomicon.itemID, new ItemNecronomiconRenderer());
         KeyBindingRegistry.registerKeyBinding(new KeyHandlerNecro());
     }
 

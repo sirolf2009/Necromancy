@@ -27,12 +27,14 @@ import com.sirolf2009.necroapi.NecroEntityBase;
 import com.sirolf2009.necroapi.NecroEntityRegistry;
 import com.sirolf2009.necromancy.client.model.ModelMinion;
 import com.sirolf2009.necromancy.core.proxy.ClientProxy;
-import com.sirolf2009.necromancy.item.ItemNecromancy;
+import com.sirolf2009.necromancy.item.ItemGeneric;
 import com.sirolf2009.necromancy.tileentity.TileEntityAltar;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 
 public class EntityMinion extends EntityTameable {
+
+    private boolean isAgressive;
 
     public EntityMinion(World par1World, BodyPart[][] bodypart, String owner) {
         this(par1World);
@@ -51,7 +53,7 @@ public class EntityMinion extends EntityTameable {
         tasks.addTask(0, aiMinion);
         tasks.addTask(1, aiSit);
         tasks.addTask(2, aiControlledByPlayer);
-        tasks.addTask(4, new EntityAITempt(this, 0.3F, ItemNecromancy.getItemStackFromName("Brain on a Stick").getItem().itemID, false));
+        tasks.addTask(4, new EntityAITempt(this, 0.3F, ItemGeneric.getItemStackFromName("Brain on a Stick").getItem().itemID, false));
         targetTasks.addTask(1, new EntityAIOwnerHurtByTarget(this));
         targetTasks.addTask(2, new EntityAIOwnerHurtTarget(this));
         targetTasks.addTask(3, new EntityAIHurtByTarget(this, true));
@@ -81,7 +83,38 @@ public class EntityMinion extends EntityTameable {
             dataWatcher.updateObject(24, getBodyPartsNames()[4]);
         }
         setSaddled(getSaddled());
+    }
 
+    private void updateBodyParts() {
+        head = getBodyPartFromlocationName("head", dataWatcher.getWatchableObjectString(20));
+        torso = getBodyPartFromlocationName("torso", dataWatcher.getWatchableObjectString(21));
+        armLeft = getBodyPartFromlocationName("armLeft", dataWatcher.getWatchableObjectString(22));
+        armRight = getBodyPartFromlocationName("armRight", dataWatcher.getWatchableObjectString(23));
+        leg = getBodyPartFromlocationName("legs", legType = dataWatcher.getWatchableObjectString(24));
+    }
+
+    @Override
+    public void writeEntityToNBT(NBTTagCompound par1NBTTagCompound) {
+        super.writeEntityToNBT(par1NBTTagCompound);
+        updateBodyParts();
+        par1NBTTagCompound.setString("head", getBodyPartsNames()[0]);
+        par1NBTTagCompound.setString("body", getBodyPartsNames()[1]);
+        par1NBTTagCompound.setString("armLeft", getBodyPartsNames()[2]);
+        par1NBTTagCompound.setString("armRight", getBodyPartsNames()[3]);
+        par1NBTTagCompound.setString("leg", getBodyPartsNames()[4]);
+        par1NBTTagCompound.setBoolean("Saddle", getSaddled());
+    }
+
+    @Override
+    public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound) {
+        super.readEntityFromNBT(par1NBTTagCompound);
+        head = getBodyPartFromlocationName("head", par1NBTTagCompound.getString("head"));
+        torso = getBodyPartFromlocationName("torso", par1NBTTagCompound.getString("body"));
+        armLeft = getBodyPartFromlocationName("armLeft", par1NBTTagCompound.getString("armLeft"));
+        armRight = getBodyPartFromlocationName("armRight", par1NBTTagCompound.getString("armRight"));
+        leg = getBodyPartFromlocationName("legs", par1NBTTagCompound.getString("leg"));
+        setSaddled(par1NBTTagCompound.getBoolean("Saddle"));
+        dataWatcherUpdate();
     }
 
     @Override
@@ -91,13 +124,16 @@ public class EntityMinion extends EntityTameable {
 
     @Override
     public boolean attackEntityAsMob(Entity par1Entity) {
-        return par1Entity.attackEntityFrom(DamageSource.causeMobDamage(this), 8);
+        if (getOwner() != null)
+            return par1Entity.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) getOwner()), 8);
+        else
+            return par1Entity.attackEntityFrom(DamageSource.causeMobDamage(this), 8);
     }
 
     @Override
     public boolean canBeSteered() {
         ItemStack var1 = ((EntityPlayer) riddenByEntity).getHeldItem();
-        return var1 != null && var1.itemID == ItemNecromancy.getItemStackFromName("Brain on a Stick").getItem().itemID;
+        return var1 != null && var1.itemID == ItemGeneric.getItemStackFromName("Brain on a Stick").getItem().itemID;
     }
 
     @Override
@@ -108,14 +144,14 @@ public class EntityMinion extends EntityTameable {
         while (itr.hasNext()) {
             Object obj = itr.next();
             if (obj instanceof EntityPlayer) {
-                NBTTagCompound nbt = getOwner().getEntityData();
-                if (nbt.getBoolean("aggressive")) {
-                    System.out.println(nbt.getBoolean("aggressive") + " " + FMLCommonHandler.instance().getSide());
-                }
-                if (nbt.getString(((EntityPlayer) obj).username).equals("enemy")) {
-                    setAttackTarget((EntityPlayer) obj);
-                } else if (nbt.getString(((EntityPlayer) obj).username) == "" && nbt.getBoolean("aggressive")) {
-                    setAttackTarget((EntityPlayer) obj);
+                if (getOwner() != null) {
+                    NBTTagCompound nbt = getOwner().getEntityData();
+                    isAgressive = nbt.getBoolean("aggressive");
+                    if (nbt.getString(((EntityPlayer) obj).username).equals("enemy")) {
+                        setAttackTarget((EntityPlayer) obj);
+                    } else if (nbt.getString(((EntityPlayer) obj).username) == "" && isAgressive) {
+                        setAttackTarget((EntityPlayer) obj);
+                    }
                 }
             }
         }
@@ -129,14 +165,9 @@ public class EntityMinion extends EntityTameable {
         if (ticksExisted < 10) {
             model.updateModel(this, true);
         }
-    }
-
-    private void updateBodyParts() {
-        head = getBodyPartFromlocationName("head", dataWatcher.getWatchableObjectString(20));
-        torso = getBodyPartFromlocationName("torso", dataWatcher.getWatchableObjectString(21));
-        armLeft = getBodyPartFromlocationName("armLeft", dataWatcher.getWatchableObjectString(22));
-        armRight = getBodyPartFromlocationName("armRight", dataWatcher.getWatchableObjectString(23));
-        leg = getBodyPartFromlocationName("legs", legType = dataWatcher.getWatchableObjectString(24));
+        if (head == null) {
+            this.setDead();
+        }
     }
 
     public static BodyPart[] getBodyPartFromlocationName(String location, String name) {
@@ -152,6 +183,8 @@ public class EntityMinion extends EntityTameable {
                 return mob.armRight == null ? mob.updateParts(ModelMinion.instance).armRight : mob.armRight;
             if (location.equals("legs"))
                 return mob.legs == null ? mob.updateParts(ModelMinion.instance).legs : mob.legs;
+        } else {
+            System.err.println(location + " " + name + " not found!");
         }
         return null;
     }
@@ -211,30 +244,6 @@ public class EntityMinion extends EntityTameable {
         } else {
             dataWatcher.updateObject(25, Byte.valueOf((byte) 0));
         }
-    }
-
-    @Override
-    public void writeEntityToNBT(NBTTagCompound par1NBTTagCompound) {
-        super.writeEntityToNBT(par1NBTTagCompound);
-        updateBodyParts();
-        par1NBTTagCompound.setString("head", getBodyPartsNames()[0]);
-        par1NBTTagCompound.setString("body", getBodyPartsNames()[1]);
-        par1NBTTagCompound.setString("leg", getBodyPartsNames()[2]);
-        par1NBTTagCompound.setString("armLeft", getBodyPartsNames()[3]);
-        par1NBTTagCompound.setString("armRight", getBodyPartsNames()[4]);
-        par1NBTTagCompound.setBoolean("Saddle", getSaddled());
-    }
-
-    @Override
-    public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound) {
-        super.readEntityFromNBT(par1NBTTagCompound);
-        dataWatcherUpdate();
-        dataWatcher.updateObject(20, par1NBTTagCompound.getString("head"));
-        dataWatcher.updateObject(21, par1NBTTagCompound.getString("body"));
-        dataWatcher.updateObject(22, par1NBTTagCompound.getString("armLeft"));
-        dataWatcher.updateObject(23, par1NBTTagCompound.getString("armRight"));
-        dataWatcher.updateObject(24, par1NBTTagCompound.getString("leg"));
-        setSaddled(par1NBTTagCompound.getBoolean("Saddle"));
     }
 
     @Override

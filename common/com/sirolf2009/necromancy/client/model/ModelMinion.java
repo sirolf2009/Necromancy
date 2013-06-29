@@ -15,8 +15,8 @@ import com.sirolf2009.necroapi.BodyPart;
 import com.sirolf2009.necroapi.ISaddleAble;
 import com.sirolf2009.necroapi.NecroEntityBase;
 import com.sirolf2009.necroapi.NecroEntityRegistry;
-import com.sirolf2009.necromancy.Necromancy;
 import com.sirolf2009.necromancy.entity.EntityMinion;
+import com.sirolf2009.necromancy.lib.ConfigurationNecromancy;
 
 import cpw.mods.fml.client.FMLClientHandler;
 
@@ -174,7 +174,7 @@ public class ModelMinion extends ModelBase {
         Date date = new Date();
         if (Integer.valueOf(month.format(date)) == 12 && Integer.valueOf(day.format(date)) > 21)
             return true;
-        if (Necromancy.Christmas)
+        if (ConfigurationNecromancy.Christmas)
             return true;
         return false;
     }

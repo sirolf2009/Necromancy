@@ -1,6 +1,6 @@
 package com.sirolf2009.necromancy.lib;
 
-public class Reference {
+public class ReferenceNecromancy {
     public static final String MOD_ID = "necromancy";
     public static final String MOD_NAME = "Necromancy";
     public static final String MOD_VERSION = "@VERSION@";

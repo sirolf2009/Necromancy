@@ -2,7 +2,7 @@ package com.sirolf2009.necromancy.creativetab;
 
 import net.minecraft.item.Item;
 
-import com.sirolf2009.necromancy.Necromancy;
+import com.sirolf2009.necromancy.item.ItemNecromancy;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -23,7 +23,7 @@ public final class CreativeTabNecro extends net.minecraft.creativetab.CreativeTa
      */
     public int getTabIconItemIndex() {
         if (display == 1)
-            return Necromancy.necronomicon.itemID;
+            return ItemNecromancy.necronomicon.itemID;
         else
             return Item.skull.itemID;
     }

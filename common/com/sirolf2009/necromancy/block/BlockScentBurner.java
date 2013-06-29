@@ -9,15 +9,14 @@ import net.minecraft.world.World;
 import com.sirolf2009.necromancy.Necromancy;
 import com.sirolf2009.necromancy.tileentity.TileEntitySewing;
 
-public class BlockSewing extends BlockContainer {
-    public static int guiID = 1;
+public class BlockScentBurner extends BlockContainer {
 
-    public BlockSewing(int par1, Material par2Material) {
-        super(par1, par2Material);
-        setCreativeTab(Necromancy.tabNecromancy);
-        this.setBlockBounds(0.3F, 0.5F, 0.2F, 0.7F, 0.0F, 0.95F);
+    public static int guiID = 2;
+
+    public BlockScentBurner(int par1) {
+        super(par1, Material.wood);
     }
-
+    
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int idk, float what, float these, float are) {
         TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
@@ -48,4 +47,5 @@ public class BlockSewing extends BlockContainer {
     public TileEntity createNewTileEntity(World var1) {
         return new TileEntitySewing();
     }
+
 }

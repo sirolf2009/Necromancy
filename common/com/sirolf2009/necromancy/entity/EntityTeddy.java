@@ -15,7 +15,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
 import com.sirolf2009.necromancy.core.proxy.ClientProxy;
-import com.sirolf2009.necromancy.lib.Reference;
+import com.sirolf2009.necromancy.lib.ReferenceNecromancy;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
@@ -33,7 +33,7 @@ public class EntityTeddy extends EntityTameable {
         setTamed(true);
         setSitting(true);
         moveSpeed = 0.3F;
-        texture = Reference.LOC_RESOURCES_TEXTURES_ENTITIES + "/teddy.png";
+        texture = ReferenceNecromancy.LOC_RESOURCES_TEXTURES_ENTITIES + "/teddy.png";
         setSize(0.6F, 0.8F);
         setAIMoveSpeed(0.15F);
         entityState = EntityState.WALKING;

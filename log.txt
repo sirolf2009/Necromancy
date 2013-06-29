@@ -1,3 +1,4 @@
+     [echo] Did you set the MCMod.info version?
     [input] Mod version:
     [input] Minecraft version:
 
@@ -7,7 +8,7 @@ clean:
    [delete] Deleting directory C:\Users\Floris\MC mods\forge\mcp\reobf\minecraft
 
 prep:
-     [copy] Copying 102 files to C:\Users\Floris\MC mods\forge\mcp\src\minecraft
+     [copy] Copying 104 files to C:\Users\Floris\MC mods\forge\mcp\src\minecraft
      [copy] Copying 8 files to C:\Users\Floris\MC mods\forge\mcp\src\minecraft
 
 replace_tokens:
@@ -19,7 +20,7 @@ recompile:
      [exec] == Recompiling client ==
      [exec] > Cleaning bin
      [exec] > Recompiling
-     [exec] - Done in 39.58 seconds
+     [exec] - Done in 67.71 seconds
      [exec] !! Can not find server sources, try decompiling !!
      [exec] Druk op een toets om door te gaan. . . 
 
@@ -81,12 +82,15 @@ reobfuscate:
      [exec] > New class found      : com/sirolf2009/necromancy/client/model/ModelScythe
      [exec] > New class found      : com/sirolf2009/necromancy/entity/EntityAIMinion
      [exec] > New class found      : com/sirolf2009/necromancy/entity/necroapi/NecroEntityChicken
+     [exec] > New class found      : com/sirolf2009/necromancy/client/model/ModelScytheBone
      [exec] > New class found      : com/sirolf2009/necromancy/entity/necroapi/NecroEntitySpider
+     [exec] > New class found      : com/sirolf2009/necromancy/client/renderer/ItemScytheBoneRenderer
      [exec] > New class found      : com/sirolf2009/necromancy/client/renderer/RenderTeddy
      [exec] > New class found      : com/sirolf2009/necromancy/tileentity/TileEntityAltar
      [exec] > New class found      : com/sirolf2009/necromancy/generation/villagecomponent/ComponentVillageCemetery
      [exec] > New class found      : com/sirolf2009/necromancy/entity/EntityMinion
      [exec] > New class found      : com/sirolf2009/necromancy/client/renderer/tileentity/TileEntityAltarRenderer
+     [exec] > New inner class found: com/sirolf2009/necromancy/client/renderer/ItemScytheBoneRenderer$1
      [exec] > New class found      : com/sirolf2009/necromancy/block/BlockBloodStationary
      [exec] > New class found      : com/sirolf2009/necromancy/client/model/ModelAltar
      [exec] > New class found      : com/sirolf2009/necromancy/client/renderer/RenderNightCrawler
@@ -195,12 +199,15 @@ reobfuscate:
      [exec] > Outputted com/sirolf2009/necromancy/client/model/ModelScythe to reobf\minecraft as com/sirolf2009/necromancy/client/model/ModelScythe.class
      [exec] > Outputted com/sirolf2009/necromancy/entity/EntityAIMinion to reobf\minecraft as com/sirolf2009/necromancy/entity/EntityAIMinion.class
      [exec] > Outputted com/sirolf2009/necromancy/entity/necroapi/NecroEntityChicken to reobf\minecraft as com/sirolf2009/necromancy/entity/necroapi/NecroEntityChicken.class
+     [exec] > Outputted com/sirolf2009/necromancy/client/model/ModelScytheBone to reobf\minecraft as com/sirolf2009/necromancy/client/model/ModelScytheBone.class
      [exec] > Outputted com/sirolf2009/necromancy/entity/necroapi/NecroEntitySpider to reobf\minecraft as com/sirolf2009/necromancy/entity/necroapi/NecroEntitySpider.class
+     [exec] > Outputted com/sirolf2009/necromancy/client/renderer/ItemScytheBoneRenderer to reobf\minecraft as com/sirolf2009/necromancy/client/renderer/ItemScytheBoneRenderer.class
      [exec] > Outputted com/sirolf2009/necromancy/client/renderer/RenderTeddy to reobf\minecraft as com/sirolf2009/necromancy/client/renderer/RenderTeddy.class
      [exec] > Outputted com/sirolf2009/necromancy/tileentity/TileEntityAltar to reobf\minecraft as com/sirolf2009/necromancy/tileentity/TileEntityAltar.class
      [exec] > Outputted com/sirolf2009/necromancy/generation/villagecomponent/ComponentVillageCemetery to reobf\minecraft as com/sirolf2009/necromancy/generation/villagecomponent/ComponentVillageCemetery.class
      [exec] > Outputted com/sirolf2009/necromancy/entity/EntityMinion to reobf\minecraft as com/sirolf2009/necromancy/entity/EntityMinion.class
      [exec] > Outputted com/sirolf2009/necromancy/client/renderer/tileentity/TileEntityAltarRenderer to reobf\minecraft as com/sirolf2009/necromancy/client/renderer/tileentity/TileEntityAltarRenderer.class
+     [exec] > Outputted com/sirolf2009/necromancy/client/renderer/ItemScytheBoneRenderer$1 to reobf\minecraft as com/sirolf2009/necromancy/client/renderer/ItemScytheBoneRenderer$1.class
      [exec] > Outputted com/sirolf2009/necromancy/block/BlockBloodStationary to reobf\minecraft as com/sirolf2009/necromancy/block/BlockBloodStationary.class
      [exec] > Outputted com/sirolf2009/necromancy/client/model/ModelAltar to reobf\minecraft as com/sirolf2009/necromancy/client/model/ModelAltar.class
      [exec] > Outputted com/sirolf2009/necromancy/client/renderer/RenderNightCrawler to reobf\minecraft as com/sirolf2009/necromancy/client/renderer/RenderNightCrawler.class
@@ -263,18 +270,18 @@ reobfuscate:
      [exec] > Outputted com/sirolf2009/necromancy/entity/necroapi/NecroEntityCaveSpider to reobf\minecraft as com/sirolf2009/necromancy/entity/necroapi/NecroEntityCaveSpider.class
      [exec] > Outputted com/sirolf2009/necromancy/entity/EntityIsaacBody to reobf\minecraft as com/sirolf2009/necromancy/entity/EntityIsaacBody.class
      [exec] > Outputted com/sirolf2009/necromancy/entity/EntityNecroFX to reobf\minecraft as com/sirolf2009/necromancy/entity/EntityNecroFX.class
-     [exec] - Done in 36.04 seconds
+     [exec] - Done in 70.53 seconds
      [exec] !! Can not find server md5s !!
      [exec] Druk op een toets om door te gaan. . . 
-      [jar] Building jar: C:\Users\Floris\Dropbox\Public\necromancy\releases\Necromancy-1.1.2-1.5.2.jar
+      [jar] Building jar: C:\Users\Floris\Dropbox\Public\necromancy\releases\Necromancy-1.3c-1.5.2.jar
 
 sign_jar:
-  [signjar] Signing JAR: C:\Users\Floris\Dropbox\Public\necromancy\releases\Necromancy-1.1.2-1.5.2.jar to C:\Users\Floris\Dropbox\Public\necromancy\releases\Necromancy-1.1.2-1.5.2.jar as ${build.keystore.alias}
+  [signjar] Signing JAR: C:\Users\Floris\Dropbox\Public\necromancy\releases\Necromancy-1.3c-1.5.2.jar to C:\Users\Floris\Dropbox\Public\necromancy\releases\Necromancy-1.3c-1.5.2.jar as ${build.keystore.alias}
   [signjar] jarsigner error: java.lang.RuntimeException: keystore load: C:\Users\Floris\MC mods\source\Necromancy\${build.keystore.location} (Het systeem kan het opgegeven bestand niet vinden)
 
 BUILD FAILED
 
-C:\Users\Floris\MC mods\source\Necromancy\build.xml:88: The following error occurred while executing this line:
+C:\Users\Floris\MC mods\source\Necromancy\build.xml:89: The following error occurred while executing this line:
 C:\Users\Floris\MC mods\source\Necromancy\build.xml:46: jarsigner returned: 1
 	at org.apache.tools.ant.ProjectHelper.addLocationToBuildException(ProjectHelper.java:568)
 	at org.apache.tools.ant.taskdefs.Ant.execute(Ant.java:442)

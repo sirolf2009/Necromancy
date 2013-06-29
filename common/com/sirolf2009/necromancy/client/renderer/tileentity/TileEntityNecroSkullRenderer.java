@@ -78,7 +78,7 @@ public class TileEntityNecroSkullRenderer extends TileEntitySkullRenderer {
             width.put(width2, Height);
             return (ModelSkeletonHead) width.get(width2).get(height2);
         } catch (IOException e) {
-            Necromancy.logger.log(Level.SEVERE, "Skull texture for " + ItemNecroSkull.skullTypes[meta] + " not found");
+            Necromancy.loggerNecromancy.log(Level.SEVERE, "Skull texture for " + ItemNecroSkull.skullTypes[meta] + " not found");
         }
         return null;
     }

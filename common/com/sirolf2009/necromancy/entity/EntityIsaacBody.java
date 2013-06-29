@@ -5,7 +5,7 @@ import net.minecraft.entity.monster.IMob;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
-import com.sirolf2009.necromancy.lib.Reference;
+import com.sirolf2009.necromancy.lib.ReferenceNecromancy;
 
 public class EntityIsaacBody extends EntityMob implements IMob {
 
@@ -14,7 +14,7 @@ public class EntityIsaacBody extends EntityMob implements IMob {
         isImmuneToFire = true;
         setSize(0.6F, 1.8F);
         moveSpeed = 0.3F;
-        texture = Reference.LOC_RESOURCES_TEXTURES_ENTITIES + "/Isaac.png";
+        texture = ReferenceNecromancy.LOC_RESOURCES_TEXTURES_ENTITIES + "/Isaac.png";
     }
 
     @Override

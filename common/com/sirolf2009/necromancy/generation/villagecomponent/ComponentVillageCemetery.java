@@ -14,7 +14,7 @@ import net.minecraft.world.gen.structure.StructureComponent;
 
 import com.sirolf2009.necroapi.NecroEntityBase;
 import com.sirolf2009.necroapi.NecroEntityRegistry;
-import com.sirolf2009.necromancy.Necromancy;
+import com.sirolf2009.necromancy.lib.ConfigurationNecromancy;
 
 public class ComponentVillageCemetery extends ComponentVillage {
 
@@ -242,6 +242,6 @@ public class ComponentVillageCemetery extends ComponentVillage {
      */
     @Override
     protected int getVillagerType(int par1) {
-        return Necromancy.NecroVillagerID;
+        return ConfigurationNecromancy.NecroVillagerID;
     }
 }

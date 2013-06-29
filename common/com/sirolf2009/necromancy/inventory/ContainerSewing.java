@@ -12,9 +12,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-import com.sirolf2009.necromancy.Necromancy;
+import com.sirolf2009.necromancy.block.BlockNecromancy;
 import com.sirolf2009.necromancy.craftingmanager.CraftingManagerSewing;
-import com.sirolf2009.necromancy.item.ItemNecromancy;
+import com.sirolf2009.necromancy.item.ItemGeneric;
 import com.sirolf2009.necromancy.tileentity.TileEntitySewing;
 
 public class ContainerSewing extends Container {
@@ -55,7 +55,7 @@ public class ContainerSewing extends Container {
     @Override
     public void onCraftMatrixChanged(IInventory par1IInventory) {
         super.onCraftMatrixChanged(par1IInventory);
-        if (Sewing.getStackInSlot(0) != null && Sewing.getStackInSlot(0).getItem() == ItemNecromancy.getItemStackFromName("Bone Needle").getItem() && Sewing.getStackInSlot(1) != null && Sewing.getStackInSlot(1).getItem() == Item.silk) {
+        if (Sewing.getStackInSlot(0) != null && Sewing.getStackInSlot(0).getItem() == ItemGeneric.getItemStackFromName("Bone Needle").getItem() && Sewing.getStackInSlot(1) != null && Sewing.getStackInSlot(1).getItem() == Item.silk) {
             craftResult.setInventorySlotContents(0, CraftingManagerSewing.getInstance().findMatchingRecipe(craftMatrix, worldObj));
         }
     }
@@ -80,7 +80,7 @@ public class ContainerSewing extends Container {
 
     @Override
     public boolean canInteractWith(EntityPlayer par1EntityPlayer) {
-        return worldObj.getBlockId(posX, posY, posZ) == Necromancy.sewing.blockID ? par1EntityPlayer.getDistanceSq(posX + 0.5D, posY + 0.5D, posZ + 0.5D) <= 64D : false;
+        return worldObj.getBlockId(posX, posY, posZ) == BlockNecromancy.sewing.blockID ? par1EntityPlayer.getDistanceSq(posX + 0.5D, posY + 0.5D, posZ + 0.5D) <= 64D : false;
     }
 
     @Override

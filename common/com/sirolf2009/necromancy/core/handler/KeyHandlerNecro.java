@@ -6,10 +6,10 @@ import net.minecraft.client.settings.KeyBinding;
 
 import org.lwjgl.input.Keyboard;
 
-import com.sirolf2009.necromancy.Necromancy;
 import com.sirolf2009.necromancy.core.proxy.ClientProxy;
 import com.sirolf2009.necromancy.entity.EntityTear;
 import com.sirolf2009.necromancy.entity.EntityTearBlood;
+import com.sirolf2009.necromancy.item.ItemNecromancy;
 
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.KeyBindingRegistry.KeyHandler;
@@ -38,7 +38,7 @@ public class KeyHandlerNecro extends KeyHandler {
     @Override
     public void keyUp(EnumSet<TickType> types, KeyBinding kb, boolean tickEnd) {
         if (tickEnd) {
-            if (FMLClientHandler.instance().getClient().currentScreen == null && ClientProxy.mc.thePlayer.inventory.armorInventory[3] != null && ClientProxy.mc.thePlayer.inventory.armorInventory[3].getItem() == Necromancy.isaacsHead) {
+            if (FMLClientHandler.instance().getClient().currentScreen == null && ClientProxy.mc.thePlayer.inventory.armorInventory[3] != null && ClientProxy.mc.thePlayer.inventory.armorInventory[3].getItem() == ItemNecromancy.isaacsHead) {
                 if (kb.keyCode == tearNormal.keyCode && lastShotNormal + 1200 < System.currentTimeMillis()) {
                     EntityTear tearNormal = new EntityTear(ClientProxy.mc.thePlayer.worldObj, ClientProxy.mc.thePlayer, 2);
                     ClientProxy.mc.thePlayer.worldObj.spawnEntityInWorld(tearNormal);

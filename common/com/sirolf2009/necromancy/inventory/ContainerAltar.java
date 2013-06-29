@@ -7,8 +7,8 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import com.sirolf2009.necromancy.Necromancy;
-import com.sirolf2009.necromancy.item.ItemNecromancy;
+import com.sirolf2009.necromancy.block.BlockNecromancy;
+import com.sirolf2009.necromancy.item.ItemGeneric;
 import com.sirolf2009.necromancy.tileentity.TileEntityAltar;
 
 public class ContainerAltar extends Container {
@@ -44,7 +44,7 @@ public class ContainerAltar extends Container {
 
     @Override
     public boolean canInteractWith(EntityPlayer par1EntityPlayer) {
-        return worldObj.getBlockId(posX, posY, posZ) == Necromancy.altar.blockID ? par1EntityPlayer.getDistanceSq(posX + 0.5D, posY + 0.5D, posZ + 0.5D) <= 64D : false;
+        return worldObj.getBlockId(posX, posY, posZ) == BlockNecromancy.altar.blockID ? par1EntityPlayer.getDistanceSq(posX + 0.5D, posY + 0.5D, posZ + 0.5D) <= 64D : false;
     }
 
     @Override
@@ -57,10 +57,10 @@ public class ContainerAltar extends Container {
             if (par1 <= 6) {
                 if (!mergeItemStack(var4, 7, 43, false))
                     return null;
-            } else if (var4.getItem() instanceof ItemNecromancy && var4.getItemDamage() == 5) {
+            } else if (var4.getItem() instanceof ItemGeneric && var4.getItemDamage() == 5) {
                 if (!mergeItemStack(var4, 1, 2, true))
                     return null;
-            } else if (var4.getItem() instanceof ItemNecromancy && var4.getItemDamage() == 6)
+            } else if (var4.getItem() instanceof ItemGeneric && var4.getItemDamage() == 6)
                 if (!mergeItemStack(var4, 0, 1, true))
                     return null;
             if (var4.stackSize == 0) {

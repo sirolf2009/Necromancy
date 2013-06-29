@@ -14,7 +14,8 @@ import net.minecraft.world.World;
 
 import com.sirolf2009.necroapi.NecroEntityBase;
 import com.sirolf2009.necroapi.NecroEntityRegistry;
-import com.sirolf2009.necromancy.Necromancy;
+import com.sirolf2009.necromancy.entity.EntityNecromancy;
+import com.sirolf2009.necromancy.item.ItemGeneric;
 import com.sirolf2009.necromancy.item.ItemNecromancy;
 import com.sirolf2009.necromancy.recipes.ShapedRecipes4x4;
 import com.sirolf2009.necromancy.recipes.ShapelessRecipes4x4;
@@ -25,43 +26,47 @@ public class CraftingManagerSewing {
         return instance;
     }
 
+    private static final CraftingManagerSewing instance = new CraftingManagerSewing();
+    private List<IRecipe> recipes;
+
     public CraftingManagerSewing() {
         recipes = new ArrayList<IRecipe>();
         Iterator<?> itr = NecroEntityRegistry.registeredEntities.values().iterator();
         NecroEntityBase mob;
         while (itr.hasNext()) {
-            if ((mob = (NecroEntityBase) itr.next()).hasHead) {
+            mob = (NecroEntityBase) itr.next();
+            if (mob.hasHead && mob.headRecipe != null) {
                 addRecipe(mob.headItem, mob.headRecipe);
             }
-            if ((mob = (NecroEntityBase) itr.next()).hasTorso) {
+            if (mob.hasTorso && mob.torsoRecipe != null) {
                 addRecipe(mob.torsoItem, mob.torsoRecipe);
             }
-            if ((mob = (NecroEntityBase) itr.next()).hasArms) {
+            if (mob.hasArms && mob.armRecipe != null) {
                 addRecipe(mob.armItem, mob.armRecipe);
             }
-            if ((mob = (NecroEntityBase) itr.next()).hasLegs) {
+            if (mob.hasLegs && mob.legRecipe != null) {
                 addRecipe(mob.legItem, mob.legRecipe);
             }
         }
-        addShapelessRecipe(new ItemStack(Necromancy.organs, 8, 4), new Object[] { Item.leather });
-        addShapelessRecipe(new ItemStack(Necromancy.spawner, 1), new Object[] { Item.rottenFlesh, Item.rottenFlesh, Item.rottenFlesh, Item.rottenFlesh, Item.rottenFlesh, Item.ghastTear, Item.ghastTear, ItemNecromancy.getItemStackFromName("Soul in a Jar").getItem(), new ItemStack(Necromancy.organs, 1, 1).getItem() });
-        addRecipe(new ItemStack(Item.monsterPlacer, 1, Necromancy.TeddyID), new Object[] { "LLLL", "LWWL", "LWWL", "LLLL", 'L', Item.leather, 'W', Block.cloth });
+        addShapelessRecipe(new ItemStack(ItemNecromancy.organs, 8, 4), new Object[] { Item.leather });
+        addShapelessRecipe(new ItemStack(ItemNecromancy.spawner, 1), new Object[] { Item.rottenFlesh, Item.rottenFlesh, Item.rottenFlesh, Item.rottenFlesh, Item.rottenFlesh, Item.ghastTear, Item.ghastTear, ItemGeneric.getItemStackFromName("Soul in a Jar").getItem(), new ItemStack(ItemNecromancy.organs, 1, 1).getItem() });
+        addRecipe(new ItemStack(Item.monsterPlacer, 1, EntityNecromancy.TeddyID), new Object[] { "LLLL", "LWWL", "LWWL", "LLLL", 'L', Item.leather, 'W', Block.cloth });
     }
 
     public void addHeadRecipe(ItemStack result, Object essence) {
-        addRecipe(result, new Object[] { "LLLL", "LBXL", "LEEL", Character.valueOf('L'), new ItemStack(Necromancy.necromanticItems, 1, 7), Character.valueOf('E'), Item.spiderEye, Character.valueOf('X'), essence, Character.valueOf('B'), new ItemStack(Necromancy.necromanticItems, 1, 0) });
+        addRecipe(result, new Object[] { "LLLL", "LBXL", "LEEL", Character.valueOf('L'), new ItemStack(ItemNecromancy.genericItems, 1, 7), Character.valueOf('E'), Item.spiderEye, Character.valueOf('X'), essence, Character.valueOf('B'), new ItemStack(ItemNecromancy.genericItems, 1, 0) });
     }
 
     public void addTorsoRecipe(ItemStack result, Object essence) {
-        addRecipe(result, new Object[] { " LL ", "BHUB", "LEEL", "BLLB", 'L', new ItemStack(Necromancy.necromanticItems, 1, 7), 'E', essence, 'H', new ItemStack(Necromancy.necromanticItems, 1, 1), 'U', new ItemStack(Necromancy.necromanticItems, 1, 3), 'B', Item.bone });
+        addRecipe(result, new Object[] { " LL ", "BHUB", "LEEL", "BLLB", 'L', new ItemStack(ItemNecromancy.genericItems, 1, 7), 'E', essence, 'H', new ItemStack(ItemNecromancy.genericItems, 1, 1), 'U', new ItemStack(ItemNecromancy.genericItems, 1, 3), 'B', Item.bone });
     }
 
     public void addArmRecipe(ItemStack result, Object essence) {
-        addRecipe(result, new Object[] { "LLLL", "BMEB", "LLLL", 'L', new ItemStack(Necromancy.necromanticItems, 1, 7), 'E', essence, 'M', ItemNecromancy.getItemStackFromName("Muscle"), 'B', Item.bone });
+        addRecipe(result, new Object[] { "LLLL", "BMEB", "LLLL", 'L', new ItemStack(ItemNecromancy.genericItems, 1, 7), 'E', essence, 'M', ItemGeneric.getItemStackFromName("Muscle"), 'B', Item.bone });
     }
 
     public void addLegRecipe(ItemStack result, Object essence) {
-        addRecipe(result, new Object[] { "LBBL", "LMML", "LEEL", "LBBL", 'L', new ItemStack(Necromancy.necromanticItems, 1, 7), 'E', essence, 'M', ItemNecromancy.getItemStackFromName("Muscle"), 'B', Item.bone });
+        addRecipe(result, new Object[] { "LBBL", "LMML", "LEEL", "LBBL", 'L', new ItemStack(ItemNecromancy.genericItems, 1, 7), 'E', essence, 'M', ItemGeneric.getItemStackFromName("Muscle"), 'B', Item.bone });
     }
 
     public void log(Object obj) {
@@ -180,8 +185,5 @@ public class CraftingManagerSewing {
     public List<IRecipe> getRecipeList() {
         return recipes;
     }
-
-    private static final CraftingManagerSewing instance = new CraftingManagerSewing();
-    private List<IRecipe> recipes;
 
 }

@@ -18,9 +18,10 @@ import com.sirolf2009.necroapi.BodyPart;
 import com.sirolf2009.necroapi.NecroEntityBase;
 import com.sirolf2009.necroapi.NecroEntityRegistry;
 import com.sirolf2009.necromancy.Necromancy;
+import com.sirolf2009.necromancy.achievement.AchievementNecromancy;
 import com.sirolf2009.necromancy.client.model.ModelMinion;
 import com.sirolf2009.necromancy.entity.EntityMinion;
-import com.sirolf2009.necromancy.item.ItemNecromancy;
+import com.sirolf2009.necromancy.item.ItemGeneric;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.FMLLog;
@@ -41,7 +42,6 @@ public class TileEntityAltar extends TileEntity implements IInventory {
 
     public void spawn(EntityPlayer user) {
         lastUser = user;
-        Necromancy.logger.log(Level.SEVERE, Necromancy.maxSpawn + "");
         if (!worldObj.isRemote && Necromancy.maxSpawn != -1 && user.getEntityData().getInteger("minions") >= Necromancy.maxSpawn) {
             if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
                 Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage("<Death> Mortal fool! Thou shan't never grow that strong.");
@@ -83,8 +83,8 @@ public class TileEntityAltar extends TileEntity implements IInventory {
             EntityMinion minionTemp = new EntityMinion(worldObj, types, user.username);
             minionTemp.setPosition(xCoord, yCoord + 1, zCoord);
             worldObj.spawnEntityInWorld(minionTemp);
-            Necromancy.logger.info(minionTemp.toString());
-            user.addStat(Necromancy.SpawnAchieve, 1);
+            Necromancy.loggerNecromancy.info(minionTemp.toString());
+            user.addStat(AchievementNecromancy.SpawnAchieve, 1);
             if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
                 Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage("<Minion> Craft me Thy dark command.");
             }
@@ -97,13 +97,13 @@ public class TileEntityAltar extends TileEntity implements IInventory {
             }
             user.getEntityData().setInteger("minions", user.getEntityData().getInteger("minions") + 1);
             bodyPartsOld = null;
-            user.addStat(Necromancy.SpawnAchieve, 1);
+            user.addStat(AchievementNecromancy.SpawnAchieve, 1);
             log(minionTemp);
         }
     }
 
     public boolean canSpawn() {
-        if (getStackInSlot(0) == null || getStackInSlot(0).getItem() != ItemNecromancy.getItemStackFromName("Jar of Blood").getItem())
+        if (getStackInSlot(0) == null || getStackInSlot(0).getItem() != ItemGeneric.getItemStackFromName("Jar of Blood").getItem())
             return false;
         if (getStackInSlot(1) == null || !soulCheck())
             return false;
@@ -311,7 +311,7 @@ public class TileEntityAltar extends TileEntity implements IInventory {
     }
 
     public boolean soulCheck() {
-        if (getStackInSlot(1).getItem() == ItemNecromancy.getItemStackFromName("Soul in a Jar").getItem() || "item.HSBottledSoul".equals(getStackInSlot(1).getItemName()))
+        if (getStackInSlot(1).getItem() == ItemGeneric.getItemStackFromName("Soul in a Jar").getItem() || "item.HSBottledSoul".equals(getStackInSlot(1).getItemName()))
             return true;
         return false;
     }

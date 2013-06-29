@@ -32,7 +32,7 @@ public class BlockAltar extends BlockContainer {
             tileEntity.spawn(player);
             return true;
         } else {
-            player.openGui(Necromancy.instance, guiID, world, x, y, z);
+            player.openGui(Necromancy.Instance, guiID, world, x, y, z);
             return true;
         }
     }

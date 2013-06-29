@@ -7,10 +7,9 @@ import net.minecraftforge.client.IItemRenderer;
 
 import org.lwjgl.opengl.GL11;
 
-import com.sirolf2009.necromancy.Necromancy;
 import com.sirolf2009.necromancy.client.model.ModelNecronomicon;
 import com.sirolf2009.necromancy.item.ItemNecronomicon;
-import com.sirolf2009.necromancy.lib.Reference;
+import com.sirolf2009.necromancy.lib.ReferenceNecromancy;
 
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.relauncher.Side;
@@ -28,12 +27,12 @@ public class ItemNecronomiconRenderer implements IItemRenderer {
 
     @Override
     public boolean handleRenderType(ItemStack item, ItemRenderType type) {
-        return Necromancy.renderModelNecronomicon;
+        return true;
     }
 
     @Override
     public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item, ItemRendererHelper helper) {
-        return Necromancy.renderModelNecronomicon;
+        return true;
     }
 
     @Override
@@ -57,7 +56,7 @@ public class ItemNecronomiconRenderer implements IItemRenderer {
         GL11.glRotatef(rotY, 0, 1, 0);
         GL11.glRotatef(rotZ, 0, 0, 1);
         GL11.glScalef(scale, scale, scale);
-        FMLClientHandler.instance().getClient().renderEngine.bindTexture(Reference.LOC_RESOURCES_TEXTURES_MODELS + "/necronomicon.png");
+        FMLClientHandler.instance().getClient().renderEngine.bindTexture(ReferenceNecromancy.LOC_RESOURCES_TEXTURES_MODELS + "/necronomicon.png");
         book.page = 0;
         // GL11.glRotatef((float)(book.page/(book.page+1)), 0, -1, 0);
         modelInteractive.render(null, 1, 0, 0, (float) (book.page * 1.6), 1, 1);
@@ -84,7 +83,7 @@ public class ItemNecronomiconRenderer implements IItemRenderer {
         GL11.glRotatef(rotY, 0, 1, 0);
         GL11.glRotatef(rotZ, 0, 0, 1);
         GL11.glScalef(scale, scale, scale);
-        FMLClientHandler.instance().getClient().renderEngine.bindTexture(Reference.LOC_RESOURCES_TEXTURES_MODELS + "/necronomicon.png");
+        FMLClientHandler.instance().getClient().renderEngine.bindTexture(ReferenceNecromancy.LOC_RESOURCES_TEXTURES_MODELS + "/necronomicon.png");
         modelStatic.render(null, 0, 0, 0, 0f, 1, 1);
         GL11.glPopMatrix();// end
     }

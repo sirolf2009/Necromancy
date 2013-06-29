@@ -9,7 +9,8 @@ import org.lwjgl.opengl.GL11;
 import com.sirolf2009.necromancy.Necromancy;
 import com.sirolf2009.necromancy.client.model.ModelScythe;
 import com.sirolf2009.necromancy.client.model.ModelScytheSpecial;
-import com.sirolf2009.necromancy.lib.Reference;
+import com.sirolf2009.necromancy.lib.ConfigurationNecromancy;
+import com.sirolf2009.necromancy.lib.ReferenceNecromancy;
 
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.relauncher.Side;
@@ -24,19 +25,19 @@ public class ItemScytheRenderer implements IItemRenderer {
 
     @Override
     public boolean handleRenderType(ItemStack item, ItemRenderType type) {
-        return Necromancy.renderModelNecronomicon;
+        return true;
     }
 
     @Override
     public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item, ItemRendererHelper helper) {
-        return Necromancy.renderModelNecronomicon;
+        return true;
     }
 
     @Override
     public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
         if (data.length > 1) {
             if (data[1] instanceof EntityPlayer) {
-                if (Necromancy.specialFolk.contains(((EntityPlayer) data[1]).username) && Necromancy.renderSpecialScythe) {
+                if (Necromancy.specialFolk.contains(((EntityPlayer) data[1]).username) && ConfigurationNecromancy.RenderSpecialScythe) {
                     isSpecial = true;
                 }
             }
@@ -70,7 +71,7 @@ public class ItemScytheRenderer implements IItemRenderer {
     }
 
     private void renderScythe(float posX, float posY, float posZ, float rotX, float rotY, float rotZ, float scale) {
-        FMLClientHandler.instance().getClient().renderEngine.bindTexture(Reference.LOC_RESOURCES_TEXTURES_MODELS + "/scythe.png");
+        FMLClientHandler.instance().getClient().renderEngine.bindTexture(ReferenceNecromancy.LOC_RESOURCES_TEXTURES_MODELS + "/scythe.png");
         GL11.glPushMatrix(); // start
         GL11.glTranslatef(posX, posY, posZ); // size
         GL11.glRotatef(rotX, 1, 0, 0);

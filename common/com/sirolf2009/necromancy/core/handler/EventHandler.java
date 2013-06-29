@@ -13,11 +13,12 @@ import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
 
-import com.sirolf2009.necromancy.Necromancy;
+import com.sirolf2009.necromancy.block.BlockNecromancy;
 import com.sirolf2009.necromancy.client.model.ModelMinion;
 import com.sirolf2009.necromancy.command.CommandMinion;
 import com.sirolf2009.necromancy.command.CommandRemodel;
-import com.sirolf2009.necromancy.lib.Reference;
+import com.sirolf2009.necromancy.item.ItemNecromancy;
+import com.sirolf2009.necromancy.lib.ReferenceNecromancy;
 
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.relauncher.Side;
@@ -27,28 +28,28 @@ public class EventHandler {
 
     @ForgeSubscribe
     public void LivingDropsEvent(LivingDeathEvent evt) {
-        if (evt.entity instanceof EntityLiving && !evt.entity.worldObj.isRemote && rand.nextInt(100) <= 6 - 1) {
+        if (evt.entity instanceof EntityLiving && !evt.entity.worldObj.isRemote && rand.nextInt(100) <= 8) {
             switch (rand.nextInt(7)) {
                 case 0:
-                    evt.entity.entityDropItem(new ItemStack(Necromancy.organs, 1, 0), 1);
+                    evt.entity.entityDropItem(new ItemStack(ItemNecromancy.organs, 1, 0), 1);
                     break; // brains
                 case 1:
-                    evt.entity.entityDropItem(new ItemStack(Necromancy.organs, 1, 1), 1);
+                    evt.entity.entityDropItem(new ItemStack(ItemNecromancy.organs, 1, 1), 1);
                     break; // heart
                 case 2:
-                    evt.entity.entityDropItem(new ItemStack(Necromancy.organs, 1, 2), 1);
+                    evt.entity.entityDropItem(new ItemStack(ItemNecromancy.organs, 1, 2), 1);
                     break; // muscle
                 case 3:
-                    evt.entity.entityDropItem(new ItemStack(Necromancy.organs, 1, 2), 1);
+                    evt.entity.entityDropItem(new ItemStack(ItemNecromancy.organs, 1, 2), 1);
                     break; // muscle
                 case 4:
-                    evt.entity.entityDropItem(new ItemStack(Necromancy.organs, 1, 2), 1);
+                    evt.entity.entityDropItem(new ItemStack(ItemNecromancy.organs, 1, 2), 1);
                     break; // muscle
                 case 5:
-                    evt.entity.entityDropItem(new ItemStack(Necromancy.organs, 1, 2), 1);
+                    evt.entity.entityDropItem(new ItemStack(ItemNecromancy.organs, 1, 2), 1);
                     break; // muscle
                 case 6:
-                    evt.entity.entityDropItem(new ItemStack(Necromancy.organs, 1, 3), 1);
+                    evt.entity.entityDropItem(new ItemStack(ItemNecromancy.organs, 1, 3), 1);
                     break; // lungs
             }
         }
@@ -82,11 +83,11 @@ public class EventHandler {
 
         int blockID = world.getBlockId(pos.blockX, pos.blockY, pos.blockZ);
 
-        if ((blockID == Necromancy.bloodStill.blockID || blockID == Necromancy.bloodFlowing.blockID) && world.getBlockMetadata(pos.blockX, pos.blockY, pos.blockZ) == 0) {
+        if ((blockID == BlockNecromancy.bloodStill.blockID || blockID == BlockNecromancy.bloodFlowing.blockID) && world.getBlockMetadata(pos.blockX, pos.blockY, pos.blockZ) == 0) {
 
             world.setBlock(pos.blockX, pos.blockY, pos.blockZ, 0, 0, 0);
 
-            return new ItemStack(Necromancy.bucketBlood);
+            return new ItemStack(ItemNecromancy.bucketBlood);
         } else
             return null;
     }
@@ -95,8 +96,8 @@ public class EventHandler {
     @SideOnly(Side.CLIENT)
     public void onSoundsLoaded(SoundLoadEvent event) {
         SoundManager manager = event.manager;
-        manager.soundPoolSounds.addSound("nightcrawler/scream.ogg", this.getClass().getResource(Reference.LOC_RESOURCES_SOUNDS + "/nightcrawler/scream.ogg"));
-        manager.soundPoolSounds.addSound("nightcrawler/howl.ogg", this.getClass().getResource(Reference.LOC_RESOURCES_SOUNDS + "/nightcrawler/howl.ogg"));
+        manager.soundPoolSounds.addSound("nightcrawler/scream.ogg", this.getClass().getResource(ReferenceNecromancy.LOC_RESOURCES_SOUNDS + "/nightcrawler/scream.ogg"));
+        manager.soundPoolSounds.addSound("nightcrawler/howl.ogg", this.getClass().getResource(ReferenceNecromancy.LOC_RESOURCES_SOUNDS + "/nightcrawler/howl.ogg"));
     }
 
     Random rand = new Random();

@@ -5,18 +5,18 @@ import net.minecraft.item.ItemStack;
 
 import com.sirolf2009.necroapi.BodyPart;
 import com.sirolf2009.necroapi.NecroEntityBiped;
-import com.sirolf2009.necromancy.Necromancy;
-import com.sirolf2009.necromancy.lib.Reference;
+import com.sirolf2009.necromancy.item.ItemNecromancy;
+import com.sirolf2009.necromancy.lib.ReferenceNecromancy;
 
 public class NecroEntityIsaac extends NecroEntityBiped {
 
     public NecroEntityIsaac() {
         super("Isaac");
-        headItem = new ItemStack(Necromancy.isaacsHead, 1);
+        headItem = new ItemStack(ItemNecromancy.isaacsHead, 1);
         hasTorso = false;
         hasArms = false;
         hasLegs = false;
-        texture = Reference.LOC_RESOURCES_TEXTURES_ENTITIES + "/IsaacBlood.png";
+        texture = ReferenceNecromancy.LOC_RESOURCES_TEXTURES_ENTITIES + "/IsaacBlood.png";
     }
 
     @Override

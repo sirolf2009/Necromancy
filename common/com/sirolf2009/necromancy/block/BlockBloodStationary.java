@@ -5,9 +5,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.util.Icon;
 import net.minecraftforge.liquids.ILiquid;
-
-import com.sirolf2009.necromancy.Necromancy;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -44,7 +41,7 @@ public class BlockBloodStationary extends BlockStationary implements ILiquid {
 
     @SideOnly(Side.CLIENT)
     public static Icon func_94424_b(String par0Str) {
-        return par0Str == "blood" ? Necromancy.bloodFlowing.iconForWorldRender[0] : Necromancy.bloodFlowing.iconForWorldRender[1];
+        return par0Str == "blood" ? BlockNecromancy.bloodFlowing.iconForWorldRender[0] : BlockNecromancy.bloodFlowing.iconForWorldRender[1];
     }
 
     public Icon iconForInvRender;

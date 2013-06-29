@@ -8,14 +8,14 @@ import net.minecraft.item.Item;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
-import com.sirolf2009.necromancy.lib.Reference;
+import com.sirolf2009.necromancy.lib.ReferenceNecromancy;
 
 public class EntityNightCrawler extends EntityMob {
 
     public EntityNightCrawler(World par1World) {
         super(par1World);
         setSize(0.6F, 1F);
-        texture = Reference.LOC_RESOURCES_TEXTURES_ENTITIES + "/nightcrawler.png";
+        texture = ReferenceNecromancy.LOC_RESOURCES_TEXTURES_ENTITIES + "/nightcrawler.png";
     }
 
     @Override

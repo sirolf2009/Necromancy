@@ -51,7 +51,7 @@ public class BlockAltarBlock extends BlockContainer {
         if (tileEntity == null || player.isSneaking())
             return false;
         else {
-            player.openGui(Necromancy.instance, 0, world, tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord);
+            player.openGui(Necromancy.Instance, 0, world, tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord);
             return true;
         }
     }

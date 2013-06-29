@@ -17,6 +17,7 @@ import net.minecraft.world.gen.structure.ComponentVillageStartPiece;
 import net.minecraft.world.gen.structure.StructureVillagePieceWeight;
 
 import com.sirolf2009.necromancy.Necromancy;
+import com.sirolf2009.necromancy.achievement.AchievementNecromancy;
 import com.sirolf2009.necromancy.block.BlockAltar;
 import com.sirolf2009.necromancy.block.BlockSewing;
 import com.sirolf2009.necromancy.client.gui.GuiAltar;
@@ -27,6 +28,7 @@ import com.sirolf2009.necromancy.inventory.ContainerAltar;
 import com.sirolf2009.necromancy.inventory.ContainerNecronomiconCrafting;
 import com.sirolf2009.necromancy.inventory.ContainerSewing;
 import com.sirolf2009.necromancy.item.ItemBodyPart;
+import com.sirolf2009.necromancy.item.ItemGeneric;
 import com.sirolf2009.necromancy.item.ItemNecroSkull;
 import com.sirolf2009.necromancy.item.ItemNecromancy;
 import com.sirolf2009.necromancy.tileentity.TileEntityAltar;
@@ -64,19 +66,19 @@ public class PacketHandler implements IPacketHandler, IGuiHandler, ICraftingHand
     @Override
     public void onCrafting(EntityPlayer player, ItemStack item, IInventory craftMatrix) {
         if (item != null && item.getItemName().equals("item.Necronomicon")) {
-            player.addStat(Necromancy.NecronomiconAchieve, 1);
+            player.addStat(AchievementNecromancy.NecronomiconAchieve, 1);
         }
         if (item != null && item.getItemName().equals("tile.Sewing Machine")) {
-            player.addStat(Necromancy.SewingAchieve, 1);
+            player.addStat(AchievementNecromancy.SewingAchieve, 1);
         }
-        if (item != null && item.itemID == new ItemStack(Necromancy.bucketBlood).itemID) {
+        if (item != null && item.itemID == new ItemStack(ItemNecromancy.bucketBlood).itemID) {
             player.inventory.addItemStackToInventory(new ItemStack(net.minecraft.item.Item.glassBottle, 8));
         }
-        if (item != null && item.itemID == ItemNecromancy.getItemStackFromName("Jar of Blood").itemID && item.getItemDamage() == ItemNecromancy.getItemStackFromName("Jar of Blood").getItemDamage()) {
+        if (item != null && item.itemID == ItemGeneric.getItemStackFromName("Jar of Blood").itemID && item.getItemDamage() == ItemGeneric.getItemStackFromName("Jar of Blood").getItemDamage()) {
             player.inventory.addItemStackToInventory(new ItemStack(net.minecraft.item.Item.bucketEmpty));
         }
         if (item != null && item.getItemName().equals("tile.skullWall")) {
-            Necromancy.logger.info(craftMatrix.getStackInSlot(0) + " is in " + craftMatrix.getStackInSlot(0).getItemName());
+            Necromancy.loggerNecromancy.info(craftMatrix.getStackInSlot(0) + " is in " + craftMatrix.getStackInSlot(0).getItemName());
             item.stackTagCompound.setString("Base", craftMatrix.getStackInSlot(1).getItemName());
             item.stackTagCompound.setString("Skull1", ItemNecroSkull.skullTypes[craftMatrix.getStackInSlot(1).getItemDamage()]);
             item.stackTagCompound.setString("Skull2", ItemNecroSkull.skullTypes[craftMatrix.getStackInSlot(4).getItemDamage()]);
@@ -122,9 +124,9 @@ public class PacketHandler implements IPacketHandler, IGuiHandler, ICraftingHand
     @SuppressWarnings("unchecked")
     @Override
     public void manipulateTradesForVillager(EntityVillager villager, MerchantRecipeList recipeList, Random random) {
-        recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, 6), new ItemStack(Item.book), new ItemStack(Necromancy.necronomicon)));
-        recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, new Random().nextInt(3)), null, new ItemStack(Necromancy.bodyparts, 1, random.nextInt(ItemBodyPart.necroEntities.size() - 1))));
-        recipeList.add(new MerchantRecipe(new ItemStack(Necromancy.bodyparts, 1, random.nextInt(ItemBodyPart.necroEntities.size() - 1)), null, new ItemStack(Item.emerald, new Random().nextInt(3))));
-        recipeList.add(new MerchantRecipe(new ItemStack(Necromancy.bodyparts, 1, random.nextInt(ItemBodyPart.necroEntities.size() - 1)), null, new ItemStack(Item.emerald, new Random().nextInt(3))));
+        recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, 6), new ItemStack(Item.book), new ItemStack(ItemNecromancy.necronomicon)));
+        recipeList.add(new MerchantRecipe(new ItemStack(Item.emerald, new Random().nextInt(3)), null, new ItemStack(ItemNecromancy.bodyparts, 1, random.nextInt(ItemBodyPart.necroEntities.size() - 1))));
+        recipeList.add(new MerchantRecipe(new ItemStack(ItemNecromancy.bodyparts, 1, random.nextInt(ItemBodyPart.necroEntities.size() - 1)), null, new ItemStack(Item.emerald, new Random().nextInt(3))));
+        recipeList.add(new MerchantRecipe(new ItemStack(ItemNecromancy.bodyparts, 1, random.nextInt(ItemBodyPart.necroEntities.size() - 1)), null, new ItemStack(Item.emerald, new Random().nextInt(3))));
     }
 }

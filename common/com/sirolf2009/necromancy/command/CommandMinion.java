@@ -6,6 +6,7 @@ import java.util.List;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.packet.Packet250CustomPayload;
@@ -68,6 +69,14 @@ public class CommandMinion extends CommandBase {
             }
         }
         return result;
+    }
+
+    /**
+     * Returns true if the given command sender is allowed to use this command.
+     */
+    @Override
+    public boolean canCommandSenderUseCommand(ICommandSender par1ICommandSender) {
+        return par1ICommandSender instanceof EntityPlayer;
     }
 
     protected String[] getPlayers() {

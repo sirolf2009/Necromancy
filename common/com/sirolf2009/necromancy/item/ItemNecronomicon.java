@@ -8,6 +8,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 import com.sirolf2009.necromancy.Necromancy;
+import com.sirolf2009.necromancy.achievement.AchievementNecromancy;
+import com.sirolf2009.necromancy.block.BlockNecromancy;
 
 public class ItemNecronomicon extends Item {
 
@@ -29,31 +31,31 @@ public class ItemNecronomicon extends Item {
     public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int xPos, int yPos, int zPos, int par7, float par8, float par9, float par10) {
         if (par3World.getBlockId(xPos, yPos, zPos) == Block.planks.blockID) {
             if (par3World.getBlockId(xPos + 1, yPos, zPos) == Block.cobblestone.blockID && par3World.getBlockId(xPos + 2, yPos, zPos) == Block.cobblestone.blockID) {
-                par3World.setBlock(xPos, yPos, zPos, Necromancy.altar.blockID, 3, 0);
-                par3World.setBlock(xPos + 1, yPos, zPos, Necromancy.altarBlock.blockID, 3, 0);
-                par3World.setBlock(xPos + 2, yPos, zPos, Necromancy.altarBlock.blockID, 3, 0);
-                par2EntityPlayer.addStat(Necromancy.AltarAchieve, 1);
+                par3World.setBlock(xPos, yPos, zPos, BlockNecromancy.altar.blockID, 3, 0);
+                par3World.setBlock(xPos + 1, yPos, zPos, BlockNecromancy.altarBlock.blockID, 3, 0);
+                par3World.setBlock(xPos + 2, yPos, zPos, BlockNecromancy.altarBlock.blockID, 3, 0);
+                par2EntityPlayer.addStat(AchievementNecromancy.AltarAchieve, 1);
                 return true;
             }
             if (par3World.getBlockId(xPos - 1, yPos, zPos) == Block.cobblestone.blockID && par3World.getBlockId(xPos - 2, yPos, zPos) == Block.cobblestone.blockID) {
-                par3World.setBlock(xPos, yPos, zPos, Necromancy.altar.blockID, 1, 0);
-                par3World.setBlock(xPos - 1, yPos, zPos, Necromancy.altarBlock.blockID, 1, 0);
-                par3World.setBlock(xPos - 2, yPos, zPos, Necromancy.altarBlock.blockID, 1, 0);
-                par2EntityPlayer.addStat(Necromancy.AltarAchieve, 1);
+                par3World.setBlock(xPos, yPos, zPos, BlockNecromancy.altar.blockID, 1, 0);
+                par3World.setBlock(xPos - 1, yPos, zPos, BlockNecromancy.altarBlock.blockID, 1, 0);
+                par3World.setBlock(xPos - 2, yPos, zPos, BlockNecromancy.altarBlock.blockID, 1, 0);
+                par2EntityPlayer.addStat(AchievementNecromancy.AltarAchieve, 1);
                 return true;
             }
             if (par3World.getBlockId(xPos, yPos, zPos + 1) == Block.cobblestone.blockID && par3World.getBlockId(xPos, yPos, zPos + 2) == Block.cobblestone.blockID) {
-                par3World.setBlock(xPos, yPos, zPos, Necromancy.altar.blockID, 0, 0);
-                par3World.setBlock(xPos, yPos, zPos + 1, Necromancy.altarBlock.blockID, 0, 0);
-                par3World.setBlock(xPos, yPos, zPos + 2, Necromancy.altarBlock.blockID, 0, 0);
-                par2EntityPlayer.addStat(Necromancy.AltarAchieve, 1);
+                par3World.setBlock(xPos, yPos, zPos, BlockNecromancy.altar.blockID, 0, 0);
+                par3World.setBlock(xPos, yPos, zPos + 1, BlockNecromancy.altarBlock.blockID, 0, 0);
+                par3World.setBlock(xPos, yPos, zPos + 2, BlockNecromancy.altarBlock.blockID, 0, 0);
+                par2EntityPlayer.addStat(AchievementNecromancy.AltarAchieve, 1);
                 return true;
             }
             if (par3World.getBlockId(xPos, yPos, zPos - 1) == Block.cobblestone.blockID && par3World.getBlockId(xPos, yPos, zPos - 2) == Block.cobblestone.blockID) {
-                par3World.setBlock(xPos, yPos, zPos, Necromancy.altar.blockID, 2, 0);
-                par3World.setBlock(xPos, yPos, zPos - 1, Necromancy.altarBlock.blockID, 2, 0);
-                par3World.setBlock(xPos, yPos, zPos - 2, Necromancy.altarBlock.blockID, 2, 0);
-                par2EntityPlayer.addStat(Necromancy.AltarAchieve, 1);
+                par3World.setBlock(xPos, yPos, zPos, BlockNecromancy.altar.blockID, 2, 0);
+                par3World.setBlock(xPos, yPos, zPos - 1, BlockNecromancy.altarBlock.blockID, 2, 0);
+                par3World.setBlock(xPos, yPos, zPos - 2, BlockNecromancy.altarBlock.blockID, 2, 0);
+                par2EntityPlayer.addStat(AchievementNecromancy.AltarAchieve, 1);
                 return true;
             }
         }

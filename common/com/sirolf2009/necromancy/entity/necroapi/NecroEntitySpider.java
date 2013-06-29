@@ -9,7 +9,7 @@ import com.sirolf2009.necroapi.BodyPart;
 import com.sirolf2009.necroapi.ISaddleAble;
 import com.sirolf2009.necroapi.NecroEntityBase;
 import com.sirolf2009.necromancy.item.ItemBodyPart;
-import com.sirolf2009.necromancy.lib.Reference;
+import com.sirolf2009.necromancy.lib.ReferenceNecromancy;
 
 public class NecroEntitySpider extends NecroEntityBase implements ISaddleAble {
 
@@ -142,7 +142,7 @@ public class NecroEntitySpider extends NecroEntityBase implements ISaddleAble {
 
     @Override
     public String getSaddleTex() {
-        return Reference.LOC_RESOURCES_TEXTURES_ENTITIES + "/spiderSaddle.png";
+        return ReferenceNecromancy.LOC_RESOURCES_TEXTURES_ENTITIES + "/spiderSaddle.png";
     }
 
     @Override

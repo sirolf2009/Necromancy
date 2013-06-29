@@ -13,10 +13,11 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 import com.sirolf2009.necromancy.Necromancy;
+import com.sirolf2009.necromancy.entity.EntityNecromancy;
 
 public class ItemSpawner extends Item {
 
-    public int[] entityIDs = { Necromancy.IsaacID, Necromancy.TeddyID };
+    public int[] entityIDs = { EntityNecromancy.IsaacID, EntityNecromancy.TeddyID };
 
     public ItemSpawner(int id) {
         super(id);

@@ -6,13 +6,13 @@ import net.minecraft.entity.monster.IMob;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
-import com.sirolf2009.necromancy.lib.Reference;
+import com.sirolf2009.necromancy.lib.ReferenceNecromancy;
 
 public class EntityIsaacBlood extends EntityIsaacNormal implements IRangedAttackMob, IMob {
 
     public EntityIsaacBlood(World par1World) {
         super(par1World);
-        texture = Reference.LOC_RESOURCES_TEXTURES_ENTITIES + "/IsaacBlood.png";
+        texture = ReferenceNecromancy.LOC_RESOURCES_TEXTURES_ENTITIES + "/IsaacBlood.png";
     }
 
     @Override

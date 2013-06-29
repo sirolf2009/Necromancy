@@ -5,7 +5,7 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
 
-import com.sirolf2009.necromancy.lib.Reference;
+import com.sirolf2009.necromancy.lib.ReferenceNecromancy;
 
 import cpw.mods.fml.client.FMLClientHandler;
 
@@ -26,12 +26,12 @@ public class ModelScytheSpecial extends ModelBase {
     }
 
     public void render() {
-        FMLClientHandler.instance().getClient().renderEngine.bindTexture(Reference.LOC_RESOURCES_TEXTURES_MODELS + "/SwordMetal.jpg");
+        FMLClientHandler.instance().getClient().renderEngine.bindTexture(ReferenceNecromancy.LOC_RESOURCES_TEXTURES_MODELS + "/SwordMetal.jpg");
         modelTutBox.renderPart("Blade_Blade_Material");
         FMLClientHandler.instance().getClient().renderEngine.bindTexture("/mods/necromancy/models/cloth.jpg");
         modelTutBox.renderPart("Joint2_Joint2_Material");
         modelTutBox.renderPart("Joint1_Joint1_Material");
-        FMLClientHandler.instance().getClient().renderEngine.bindTexture(Reference.LOC_RESOURCES_TEXTURES_MODELS + "/GunTex.jpg");
+        FMLClientHandler.instance().getClient().renderEngine.bindTexture(ReferenceNecromancy.LOC_RESOURCES_TEXTURES_MODELS + "/GunTex.jpg");
         modelTutBox.renderPart("Handle_Handle_Material");
     }
 }

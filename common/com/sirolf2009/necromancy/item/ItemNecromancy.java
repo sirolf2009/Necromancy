@@ -1,116 +1,61 @@
 package com.sirolf2009.necromancy.item;
 
-import java.util.List;
-
-import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
-import net.minecraft.world.World;
+import net.minecraftforge.common.EnumHelper;
 
 import com.sirolf2009.necromancy.Necromancy;
+import com.sirolf2009.necromancy.lib.ConfigurationNecromancy;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 
-public class ItemNecromancy extends Item {
+public class ItemNecromancy {
 
-    public ItemNecromancy(int par1) {
-        super(par1);
-        icons = new Icon[names.length];
-        setHasSubtypes(true);
-        setMaxDamage(0);
-        setCreativeTab(Necromancy.tabNecromancy);
-    }
+    public static Item apprenticeArmorHead;
+    public static Item apprenticeArmorTorso;
+    public static Item apprenticeArmorLeggings;
+    public static Item apprenticeArmorBoots;
+    public static Item genericItems;
+    public static Item necronomicon;
+    public static Item scythe;
+    public static Item scytheBone;
+    public static Item bucketBlood;
+    public static Item organs;
+    public static Item bodyparts;
+    public static Item spawner;
+    // public static Item skull;
+    public static Item isaacsHead;
 
-    @Override
-    public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
-        if (entity instanceof EntityLiving)
-            if (stack.getItemDamage() == 0)
-                if (player.inventory.consumeInventoryItem(Item.glassBottle.itemID)) {
-                    stack.stackSize--;
-                    if (!player.inventory.addItemStackToInventory(new ItemStack(Necromancy.necromanticItems, 1, 2))) {
-                        player.dropPlayerItem(new ItemStack(Necromancy.necromanticItems, 1, 2));
-                    }
-                    return true;
-                }
-        return false;
-    }
+    public static EnumArmorMaterial isaac = EnumHelper.addArmorMaterial("Isaac", Integer.MAX_VALUE, new int[] { 0, 0, 0, 0 }, 0);
+    public static EnumArmorMaterial apprenticeRobes = EnumHelper.addArmorMaterial("apprenticeRobesNecromancy", Integer.MAX_VALUE, new int[] { 0, 0, 0, 0 }, 100);
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    /**
-     * Returns True is the item is renderer in full 3D when hold.
-     */
-    public boolean isFull3D() {
-        return true;
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    /**
-     * Returns true if this item should be rotated by 180 degrees around the Y axis when being held in an entities
-     * hands.
-     */
-    public boolean shouldRotateAroundWhenRendering() {
-        return true;
-    }
-
-    @Override
-    public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
-        if (par1ItemStack.getItemDamage() > names.length) {
-            par1ItemStack.setItemDamage(2);
+    public static void initItems() {
+        // int skullID = Item.skull.itemID;
+        // Item.itemsList[skullID] = null;
+        genericItems = new ItemGeneric(ConfigurationNecromancy.ItemID).setUnlocalizedName("ItemNecromancy");
+        necronomicon = new ItemNecronomicon(ConfigurationNecromancy.NecronomiconID).setUnlocalizedName("Necronomicon");
+        for (int x = 0; x < ItemGeneric.names.length; x++) {
+            LanguageRegistry.addName(new ItemStack(genericItems, 1, x), ItemGeneric.names[x]);
         }
-    }
-
-    @Override
-    public String getItemDisplayName(ItemStack par1ItemStack) {
-        return new StringBuilder().append("").append(names[par1ItemStack.getItemDamageForDisplay()]).toString();
-    }
-
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-    @Override
-    public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List) {
-        for (int var4 = 0; var4 < names.length; var4++) {
-            par3List.add(new ItemStack(par1, 1, var4));
+        LanguageRegistry.addName(necronomicon, "Necronomicon");
+        scythe = new ItemScythe(ConfigurationNecromancy.ScytheID, ItemScythe.toolScythe).setUnlocalizedName("ItemScythe");
+        LanguageRegistry.addName(scythe, "Blood Scythe");
+        scytheBone = new ItemScythe(ConfigurationNecromancy.ScytheBoneID, ItemScythe.toolScytheBone).setUnlocalizedName("ItemScytheBone");
+        LanguageRegistry.addName(scytheBone, "Bone Scythe");
+        bucketBlood = new ItemBucketBlood(ConfigurationNecromancy.BucketBloodID, ConfigurationNecromancy.BloodFlowingID).setUnlocalizedName("BucketBlood");
+        LanguageRegistry.addName(bucketBlood, "Blood Bucket");
+        organs = new ItemOrgans(ConfigurationNecromancy.OrgansID).setUnlocalizedName("Organs");
+        for (int x = 0; x < ItemOrgans.names.length; x++) {
+            LanguageRegistry.addName(new ItemStack(organs, 1, x), ItemOrgans.names[x]);
         }
+        bodyparts = new ItemBodyPart(ConfigurationNecromancy.BodyPartID).setUnlocalizedName("BodyParts");
+        // skull = new ItemNecroSkull(skullID);
+        isaacsHead = new ItemIsaacsHead(ConfigurationNecromancy.IsaacsHeadID, isaac, Necromancy.Proxy.addArmour("Isaac"), 0);
+        LanguageRegistry.addName(isaacsHead, "Isaac's Severed Head");
+
+        spawner = new ItemSpawner(ConfigurationNecromancy.SpawnerID).setUnlocalizedName("NecroSpawner");
+        LanguageRegistry.addName(new ItemStack(spawner, 1, 0), "Isaac's Soul Heart");
     }
 
-    public static ItemStack getItemStackFromName(String name) {
-        for (int i = 0; i < names.length; i++)
-            if (names[i].equalsIgnoreCase(name))
-                return new ItemStack(Necromancy.necromanticItems, 1, i);
-        return null;
-    }
-
-    public static ItemStack getItemStackFromName(String name, int amount) {
-        for (int i = 0; i < names.length; i++)
-            if (names[i].equalsIgnoreCase(name))
-                return new ItemStack(Necromancy.necromanticItems, amount, i);
-        return null;
-    }
-
-    @Override
-    public void registerIcons(IconRegister iconRegister) {
-        for (int index = 0; index < names.length; index++) {
-            String path = names[index].replace(" ", "");
-            icons[index] = iconRegister.registerIcon("necromancy:" + path);
-        }
-        tearBlood = iconRegister.registerIcon("necromancy:BloodTear");
-        tearNormal = iconRegister.registerIcon("necromancy:Tear");
-    }
-
-    @Override
-    public Icon getIconFromDamage(int par1) {
-        return icons[par1];
-    }
-
-    private Icon[] icons;
-    public static String names[] = { "Bone Needle", "Soul in a Jar", "Jar of Blood", "Brain on a Stick" };
-    public static Icon tearNormal;
-    public static Icon tearBlood;
 }

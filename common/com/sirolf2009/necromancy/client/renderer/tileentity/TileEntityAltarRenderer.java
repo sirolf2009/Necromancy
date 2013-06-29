@@ -19,7 +19,7 @@ import org.lwjgl.opengl.GL12;
 import com.sirolf2009.necromancy.client.model.ModelAltar;
 import com.sirolf2009.necromancy.core.proxy.ClientProxy;
 import com.sirolf2009.necromancy.entity.EntityMinion;
-import com.sirolf2009.necromancy.lib.Reference;
+import com.sirolf2009.necromancy.lib.ReferenceNecromancy;
 import com.sirolf2009.necromancy.tileentity.TileEntityAltar;
 
 import cpw.mods.fml.client.FMLClientHandler;
@@ -99,7 +99,7 @@ public class TileEntityAltarRenderer extends TileEntitySpecialRenderer implement
     }
 
     private void renderAltar(TileEntityAltar entity, double x, double y, double z, float f) {
-        bindTextureByName(Reference.LOC_RESOURCES_TEXTURES_MODELS + "/altarTexture.png");
+        bindTextureByName(ReferenceNecromancy.LOC_RESOURCES_TEXTURES_MODELS + "/altarTexture.png");
         GL11.glPushMatrix();
         GL11.glTranslatef((float) x, (float) y + 2.0F, (float) z + 1.0F);
         GL11.glScalef(1.0F, -1F, -1F);
@@ -232,7 +232,7 @@ public class TileEntityAltarRenderer extends TileEntitySpecialRenderer implement
     }
 
     private void renderAltar(float posX, float posY, float posZ, float rotX, float rotY, float rotZ, float scale) {
-        FMLClientHandler.instance().getClient().renderEngine.bindTexture(Reference.LOC_RESOURCES_TEXTURES_MODELS + "/altarTexture.png");
+        FMLClientHandler.instance().getClient().renderEngine.bindTexture(ReferenceNecromancy.LOC_RESOURCES_TEXTURES_MODELS + "/altarTexture.png");
         GL11.glPushMatrix(); // start
         GL11.glTranslatef(posX, posY, posZ); // size
         GL11.glRotatef(rotX, 1, 0, 0);

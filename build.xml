@@ -68,6 +68,7 @@
 	<target name="release">
 		<!-- Prep for the build -->
        	 	<record name="log.txt" action="start"/>
+       	 	<echo>Did you set the MCMod.info version?</echo>
 		<input message="Mod version:" addproperty="release.mod.version" />
 		<input message="Minecraft version:" addproperty="release.minecraft.version" />
 		<antcall target="clean" />
