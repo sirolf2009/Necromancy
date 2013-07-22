@@ -4,11 +4,10 @@
 
 clean:
    [delete] Deleting: C:\Users\Floris\MC mods\forge\mcp\src\minecraft\mcmod.info
-   [delete] Deleting directory C:\Users\Floris\MC mods\forge\mcp\src\minecraft\com\sirolf2009
    [delete] Deleting directory C:\Users\Floris\MC mods\forge\mcp\reobf\minecraft
 
 prep:
-     [copy] Copying 104 files to C:\Users\Floris\MC mods\forge\mcp\src\minecraft
+     [copy] Copying 110 files to C:\Users\Floris\MC mods\forge\mcp\src\minecraft
      [copy] Copying 8 files to C:\Users\Floris\MC mods\forge\mcp\src\minecraft
 
 replace_tokens:
@@ -20,7 +19,7 @@ recompile:
      [exec] == Recompiling client ==
      [exec] > Cleaning bin
      [exec] > Recompiling
-     [exec] - Done in 67.71 seconds
+     [exec] - Done in 71.32 seconds
      [exec] !! Can not find server sources, try decompiling !!
      [exec] Druk op een toets om door te gaan. . . 
 
@@ -37,6 +36,7 @@ reobfuscate:
      [exec] > Reobfuscating jar
      [exec] > Extracting modified classes
      [exec] > New class found      : com/sirolf2009/necromancy/command/CommandRemodel
+     [exec] > New class found      : com/sirolf2009/necromancy/achievement/AchievementNecromancy
      [exec] > New class found      : com/sirolf2009/necromancy/client/model/ModelIsaacNormal
      [exec] > New inner class found: com/sirolf2009/necromancy/entity/EntityTeddy$EntityState
      [exec] > New class found      : com/sirolf2009/necromancy/inventory/ContainerAltar
@@ -48,6 +48,8 @@ reobfuscate:
      [exec] > New class found      : com/sirolf2009/necromancy/recipes/ShapedRecipes4x4
      [exec] > New class found      : com/sirolf2009/necromancy/client/renderer/RenderTearBlood
      [exec] > New class found      : com/sirolf2009/necromancy/entity/EntityTeddy
+     [exec] > New class found      : com/sirolf2009/necromancy/lib/ConfigurationNecromancy
+     [exec] > New class found      : com/sirolf2009/necromancy/lib/ReferenceNecromancy
      [exec] > New inner class found: com/sirolf2009/necromancy/client/renderer/tileentity/TileEntitySewingRenderer$1
      [exec] > New class found      : com/sirolf2009/necromancy/Necromancy
      [exec] > New class found      : com/sirolf2009/necromancy/block/BlockSewing
@@ -84,10 +86,12 @@ reobfuscate:
      [exec] > New class found      : com/sirolf2009/necromancy/entity/necroapi/NecroEntityChicken
      [exec] > New class found      : com/sirolf2009/necromancy/client/model/ModelScytheBone
      [exec] > New class found      : com/sirolf2009/necromancy/entity/necroapi/NecroEntitySpider
+     [exec] > New class found      : com/sirolf2009/necromancy/entity/EntityNecromancy
      [exec] > New class found      : com/sirolf2009/necromancy/client/renderer/ItemScytheBoneRenderer
      [exec] > New class found      : com/sirolf2009/necromancy/client/renderer/RenderTeddy
      [exec] > New class found      : com/sirolf2009/necromancy/tileentity/TileEntityAltar
      [exec] > New class found      : com/sirolf2009/necromancy/generation/villagecomponent/ComponentVillageCemetery
+     [exec] > New class found      : com/sirolf2009/necromancy/block/BlockScentBurner
      [exec] > New class found      : com/sirolf2009/necromancy/entity/EntityMinion
      [exec] > New class found      : com/sirolf2009/necromancy/client/renderer/tileentity/TileEntityAltarRenderer
      [exec] > New inner class found: com/sirolf2009/necromancy/client/renderer/ItemScytheBoneRenderer$1
@@ -104,8 +108,8 @@ reobfuscate:
      [exec] > New class found      : com/sirolf2009/necromancy/client/model/ModelIsaacHead
      [exec] > New class found      : com/sirolf2009/necromancy/block/BlockSkullWall
      [exec] > New class found      : com/sirolf2009/necromancy/block/BlockAltar
-     [exec] > New class found      : com/sirolf2009/necromancy/lib/Reference
      [exec] > New class found      : com/sirolf2009/necromancy/client/renderer/RenderBoltShadow
+     [exec] > New class found      : com/sirolf2009/necromancy/block/BlockNecromancy
      [exec] > New class found      : com/sirolf2009/necromancy/item/ItemBucketBlood
      [exec] > New class found      : com/sirolf2009/necromancy/core/handler/EventHandler
      [exec] > New class found      : com/sirolf2009/necromancy/entity/necroapi/NecroEntitySlimeSmall
@@ -118,7 +122,7 @@ reobfuscate:
      [exec] > New class found      : com/sirolf2009/necromancy/client/model/ModelScytheSpecial
      [exec] > New class found      : com/sirolf2009/necroapi/NecroEntityRegistry
      [exec] > New class found      : com/sirolf2009/necroapi/ISaddleAble
-     [exec] > New class found      : com/sirolf2009/necromancy/entity/EntityVillagerNecro
+     [exec] > New class found      : com/sirolf2009/necromancy/tileentity/TileEntityScentBurner
      [exec] > New class found      : com/sirolf2009/necromancy/entity/EntityIsaacBlood
      [exec] > New class found      : com/sirolf2009/necromancy/block/BlockAltarBlock
      [exec] > New class found      : com/sirolf2009/necromancy/inventory/SlotSewingRequirements
@@ -132,6 +136,7 @@ reobfuscate:
      [exec] > New class found      : com/sirolf2009/necromancy/item/ItemNecroSkull
      [exec] > New class found      : com/sirolf2009/necromancy/item/ItemOrgans
      [exec] > New class found      : com/sirolf2009/necromancy/generation/WorldGenerator
+     [exec] > New class found      : com/sirolf2009/necromancy/item/ItemGeneric
      [exec] > New class found      : com/sirolf2009/necromancy/client/renderer/ItemScytheRenderer
      [exec] > New class found      : com/sirolf2009/necromancy/client/renderer/tileentity/TileEntitySkullWallRenderer
      [exec] > New class found      : com/sirolf2009/necroapi/BodyPart
@@ -154,6 +159,7 @@ reobfuscate:
      [exec] > New class found      : com/sirolf2009/necromancy/entity/EntityIsaacBody
      [exec] > New class found      : com/sirolf2009/necromancy/entity/EntityNecroFX
      [exec] > Outputted com/sirolf2009/necromancy/command/CommandRemodel to reobf\minecraft as com/sirolf2009/necromancy/command/CommandRemodel.class
+     [exec] > Outputted com/sirolf2009/necromancy/achievement/AchievementNecromancy to reobf\minecraft as com/sirolf2009/necromancy/achievement/AchievementNecromancy.class
      [exec] > Outputted com/sirolf2009/necromancy/client/model/ModelIsaacNormal to reobf\minecraft as com/sirolf2009/necromancy/client/model/ModelIsaacNormal.class
      [exec] > Outputted com/sirolf2009/necromancy/entity/EntityTeddy$EntityState to reobf\minecraft as com/sirolf2009/necromancy/entity/EntityTeddy$EntityState.class
      [exec] > Outputted com/sirolf2009/necromancy/inventory/ContainerAltar to reobf\minecraft as com/sirolf2009/necromancy/inventory/ContainerAltar.class
@@ -165,6 +171,8 @@ reobfuscate:
      [exec] > Outputted com/sirolf2009/necromancy/recipes/ShapedRecipes4x4 to reobf\minecraft as com/sirolf2009/necromancy/recipes/ShapedRecipes4x4.class
      [exec] > Outputted com/sirolf2009/necromancy/client/renderer/RenderTearBlood to reobf\minecraft as com/sirolf2009/necromancy/client/renderer/RenderTearBlood.class
      [exec] > Outputted com/sirolf2009/necromancy/entity/EntityTeddy to reobf\minecraft as com/sirolf2009/necromancy/entity/EntityTeddy.class
+     [exec] > Outputted com/sirolf2009/necromancy/lib/ConfigurationNecromancy to reobf\minecraft as com/sirolf2009/necromancy/lib/ConfigurationNecromancy.class
+     [exec] > Outputted com/sirolf2009/necromancy/lib/ReferenceNecromancy to reobf\minecraft as com/sirolf2009/necromancy/lib/ReferenceNecromancy.class
      [exec] > Outputted com/sirolf2009/necromancy/client/renderer/tileentity/TileEntitySewingRenderer$1 to reobf\minecraft as com/sirolf2009/necromancy/client/renderer/tileentity/TileEntitySewingRenderer$1.class
      [exec] > Outputted com/sirolf2009/necromancy/Necromancy to reobf\minecraft as com/sirolf2009/necromancy/Necromancy.class
      [exec] > Outputted com/sirolf2009/necromancy/block/BlockSewing to reobf\minecraft as com/sirolf2009/necromancy/block/BlockSewing.class
@@ -201,10 +209,12 @@ reobfuscate:
      [exec] > Outputted com/sirolf2009/necromancy/entity/necroapi/NecroEntityChicken to reobf\minecraft as com/sirolf2009/necromancy/entity/necroapi/NecroEntityChicken.class
      [exec] > Outputted com/sirolf2009/necromancy/client/model/ModelScytheBone to reobf\minecraft as com/sirolf2009/necromancy/client/model/ModelScytheBone.class
      [exec] > Outputted com/sirolf2009/necromancy/entity/necroapi/NecroEntitySpider to reobf\minecraft as com/sirolf2009/necromancy/entity/necroapi/NecroEntitySpider.class
+     [exec] > Outputted com/sirolf2009/necromancy/entity/EntityNecromancy to reobf\minecraft as com/sirolf2009/necromancy/entity/EntityNecromancy.class
      [exec] > Outputted com/sirolf2009/necromancy/client/renderer/ItemScytheBoneRenderer to reobf\minecraft as com/sirolf2009/necromancy/client/renderer/ItemScytheBoneRenderer.class
      [exec] > Outputted com/sirolf2009/necromancy/client/renderer/RenderTeddy to reobf\minecraft as com/sirolf2009/necromancy/client/renderer/RenderTeddy.class
      [exec] > Outputted com/sirolf2009/necromancy/tileentity/TileEntityAltar to reobf\minecraft as com/sirolf2009/necromancy/tileentity/TileEntityAltar.class
      [exec] > Outputted com/sirolf2009/necromancy/generation/villagecomponent/ComponentVillageCemetery to reobf\minecraft as com/sirolf2009/necromancy/generation/villagecomponent/ComponentVillageCemetery.class
+     [exec] > Outputted com/sirolf2009/necromancy/block/BlockScentBurner to reobf\minecraft as com/sirolf2009/necromancy/block/BlockScentBurner.class
      [exec] > Outputted com/sirolf2009/necromancy/entity/EntityMinion to reobf\minecraft as com/sirolf2009/necromancy/entity/EntityMinion.class
      [exec] > Outputted com/sirolf2009/necromancy/client/renderer/tileentity/TileEntityAltarRenderer to reobf\minecraft as com/sirolf2009/necromancy/client/renderer/tileentity/TileEntityAltarRenderer.class
      [exec] > Outputted com/sirolf2009/necromancy/client/renderer/ItemScytheBoneRenderer$1 to reobf\minecraft as com/sirolf2009/necromancy/client/renderer/ItemScytheBoneRenderer$1.class
@@ -221,8 +231,8 @@ reobfuscate:
      [exec] > Outputted com/sirolf2009/necromancy/client/model/ModelIsaacHead to reobf\minecraft as com/sirolf2009/necromancy/client/model/ModelIsaacHead.class
      [exec] > Outputted com/sirolf2009/necromancy/block/BlockSkullWall to reobf\minecraft as com/sirolf2009/necromancy/block/BlockSkullWall.class
      [exec] > Outputted com/sirolf2009/necromancy/block/BlockAltar to reobf\minecraft as com/sirolf2009/necromancy/block/BlockAltar.class
-     [exec] > Outputted com/sirolf2009/necromancy/lib/Reference to reobf\minecraft as com/sirolf2009/necromancy/lib/Reference.class
      [exec] > Outputted com/sirolf2009/necromancy/client/renderer/RenderBoltShadow to reobf\minecraft as com/sirolf2009/necromancy/client/renderer/RenderBoltShadow.class
+     [exec] > Outputted com/sirolf2009/necromancy/block/BlockNecromancy to reobf\minecraft as com/sirolf2009/necromancy/block/BlockNecromancy.class
      [exec] > Outputted com/sirolf2009/necromancy/item/ItemBucketBlood to reobf\minecraft as com/sirolf2009/necromancy/item/ItemBucketBlood.class
      [exec] > Outputted com/sirolf2009/necromancy/core/handler/EventHandler to reobf\minecraft as com/sirolf2009/necromancy/core/handler/EventHandler.class
      [exec] > Outputted com/sirolf2009/necromancy/entity/necroapi/NecroEntitySlimeSmall to reobf\minecraft as com/sirolf2009/necromancy/entity/necroapi/NecroEntitySlimeSmall.class
@@ -235,7 +245,7 @@ reobfuscate:
      [exec] > Outputted com/sirolf2009/necromancy/client/model/ModelScytheSpecial to reobf\minecraft as com/sirolf2009/necromancy/client/model/ModelScytheSpecial.class
      [exec] > Outputted com/sirolf2009/necroapi/NecroEntityRegistry to reobf\minecraft as com/sirolf2009/necroapi/NecroEntityRegistry.class
      [exec] > Outputted com/sirolf2009/necroapi/ISaddleAble to reobf\minecraft as com/sirolf2009/necroapi/ISaddleAble.class
-     [exec] > Outputted com/sirolf2009/necromancy/entity/EntityVillagerNecro to reobf\minecraft as com/sirolf2009/necromancy/entity/EntityVillagerNecro.class
+     [exec] > Outputted com/sirolf2009/necromancy/tileentity/TileEntityScentBurner to reobf\minecraft as com/sirolf2009/necromancy/tileentity/TileEntityScentBurner.class
      [exec] > Outputted com/sirolf2009/necromancy/entity/EntityIsaacBlood to reobf\minecraft as com/sirolf2009/necromancy/entity/EntityIsaacBlood.class
      [exec] > Outputted com/sirolf2009/necromancy/block/BlockAltarBlock to reobf\minecraft as com/sirolf2009/necromancy/block/BlockAltarBlock.class
      [exec] > Outputted com/sirolf2009/necromancy/inventory/SlotSewingRequirements to reobf\minecraft as com/sirolf2009/necromancy/inventory/SlotSewingRequirements.class
@@ -249,6 +259,7 @@ reobfuscate:
      [exec] > Outputted com/sirolf2009/necromancy/item/ItemNecroSkull to reobf\minecraft as com/sirolf2009/necromancy/item/ItemNecroSkull.class
      [exec] > Outputted com/sirolf2009/necromancy/item/ItemOrgans to reobf\minecraft as com/sirolf2009/necromancy/item/ItemOrgans.class
      [exec] > Outputted com/sirolf2009/necromancy/generation/WorldGenerator to reobf\minecraft as com/sirolf2009/necromancy/generation/WorldGenerator.class
+     [exec] > Outputted com/sirolf2009/necromancy/item/ItemGeneric to reobf\minecraft as com/sirolf2009/necromancy/item/ItemGeneric.class
      [exec] > Outputted com/sirolf2009/necromancy/client/renderer/ItemScytheRenderer to reobf\minecraft as com/sirolf2009/necromancy/client/renderer/ItemScytheRenderer.class
      [exec] > Outputted com/sirolf2009/necromancy/client/renderer/tileentity/TileEntitySkullWallRenderer to reobf\minecraft as com/sirolf2009/necromancy/client/renderer/tileentity/TileEntitySkullWallRenderer.class
      [exec] > Outputted com/sirolf2009/necroapi/BodyPart    to reobf\minecraft as com/sirolf2009/necroapi/BodyPart.class
@@ -270,13 +281,13 @@ reobfuscate:
      [exec] > Outputted com/sirolf2009/necromancy/entity/necroapi/NecroEntityCaveSpider to reobf\minecraft as com/sirolf2009/necromancy/entity/necroapi/NecroEntityCaveSpider.class
      [exec] > Outputted com/sirolf2009/necromancy/entity/EntityIsaacBody to reobf\minecraft as com/sirolf2009/necromancy/entity/EntityIsaacBody.class
      [exec] > Outputted com/sirolf2009/necromancy/entity/EntityNecroFX to reobf\minecraft as com/sirolf2009/necromancy/entity/EntityNecroFX.class
-     [exec] - Done in 70.53 seconds
+     [exec] - Done in 53.27 seconds
      [exec] !! Can not find server md5s !!
      [exec] Druk op een toets om door te gaan. . . 
-      [jar] Building jar: C:\Users\Floris\Dropbox\Public\necromancy\releases\Necromancy-1.3c-1.5.2.jar
+      [jar] Building jar: C:\Users\Floris\Dropbox\Public\necromancy\releases\Necromancy-1.3d-1.5.2.jar
 
 sign_jar:
-  [signjar] Signing JAR: C:\Users\Floris\Dropbox\Public\necromancy\releases\Necromancy-1.3c-1.5.2.jar to C:\Users\Floris\Dropbox\Public\necromancy\releases\Necromancy-1.3c-1.5.2.jar as ${build.keystore.alias}
+  [signjar] Signing JAR: C:\Users\Floris\Dropbox\Public\necromancy\releases\Necromancy-1.3d-1.5.2.jar to C:\Users\Floris\Dropbox\Public\necromancy\releases\Necromancy-1.3d-1.5.2.jar as ${build.keystore.alias}
   [signjar] jarsigner error: java.lang.RuntimeException: keystore load: C:\Users\Floris\MC mods\source\Necromancy\${build.keystore.location} (Het systeem kan het opgegeven bestand niet vinden)
 
 BUILD FAILED

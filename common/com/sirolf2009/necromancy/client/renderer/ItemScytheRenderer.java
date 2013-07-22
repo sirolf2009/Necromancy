@@ -9,10 +9,10 @@ import org.lwjgl.opengl.GL11;
 import com.sirolf2009.necromancy.Necromancy;
 import com.sirolf2009.necromancy.client.model.ModelScythe;
 import com.sirolf2009.necromancy.client.model.ModelScytheSpecial;
+import com.sirolf2009.necromancy.core.proxy.ClientProxy;
 import com.sirolf2009.necromancy.lib.ConfigurationNecromancy;
 import com.sirolf2009.necromancy.lib.ReferenceNecromancy;
 
-import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -71,7 +71,7 @@ public class ItemScytheRenderer implements IItemRenderer {
     }
 
     private void renderScythe(float posX, float posY, float posZ, float rotX, float rotY, float rotZ, float scale) {
-        FMLClientHandler.instance().getClient().renderEngine.bindTexture(ReferenceNecromancy.LOC_RESOURCES_TEXTURES_MODELS + "/scythe.png");
+        ClientProxy.bindTexture(ReferenceNecromancy.TEXTURES_MODELS_SCYTHE);
         GL11.glPushMatrix(); // start
         GL11.glTranslatef(posX, posY, posZ); // size
         GL11.glRotatef(rotX, 1, 0, 0);

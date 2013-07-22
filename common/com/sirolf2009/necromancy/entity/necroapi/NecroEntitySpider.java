@@ -4,6 +4,7 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.ResourceLocation;
 
 import com.sirolf2009.necroapi.BodyPart;
 import com.sirolf2009.necroapi.ISaddleAble;
@@ -19,7 +20,7 @@ public class NecroEntitySpider extends NecroEntityBase implements ISaddleAble {
         torsoItem = ItemBodyPart.getItemStackFromName("Spider Torso", 1);
         armItem = ItemBodyPart.getItemStackFromName("Spider Arm", 1);
         legItem = ItemBodyPart.getItemStackFromName("Spider Legs", 1);
-        texture = "/mob/spider.png";
+        texture = new ResourceLocation("/mob/spider.png");
         hasArms = false;
     }
 
@@ -141,8 +142,8 @@ public class NecroEntitySpider extends NecroEntityBase implements ISaddleAble {
     }
 
     @Override
-    public String getSaddleTex() {
-        return ReferenceNecromancy.LOC_RESOURCES_TEXTURES_ENTITIES + "/spiderSaddle.png";
+    public ResourceLocation getSaddleTex() {
+        return new ResourceLocation(ReferenceNecromancy.LOC_RESOURCES_TEXTURES_ENTITIES + "/spiderSaddle.png");
     }
 
     @Override

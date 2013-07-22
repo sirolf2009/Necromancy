@@ -4,8 +4,10 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.util.ResourceLocation;
 
 import com.sirolf2009.necromancy.entity.EntityNightCrawler;
+import com.sirolf2009.necromancy.lib.ReferenceNecromancy;
 
 public class RenderNightCrawler extends RenderLiving {
 
@@ -25,5 +27,10 @@ public class RenderNightCrawler extends RenderLiving {
 
     public void renderTeddy(EntityNightCrawler em, double d1, double d2, double d3, float f1, float f2) {
         super.doRenderLiving(em, d1, d2, d3, f1, f2);
+    }
+
+    @Override
+    protected ResourceLocation func_110775_a(Entity entity) {
+        return ReferenceNecromancy.TEXTURES_ENTITIES_NIGHTCRAWLER;
     }
 }

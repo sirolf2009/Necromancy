@@ -30,7 +30,10 @@ import cpw.mods.fml.relauncher.Side;
 public class TileEntityAltar extends TileEntity implements IInventory {
 
     public TileEntityAltar() {
-        setMinion(new EntityMinion(worldObj));
+    	EntityMinion minion = new EntityMinion(worldObj);
+    	minion.setAltarMob(true);
+    	minion.setAltar(this);
+        setMinion(minion);
         bodyPartsNew = new ItemStack[5];
         bodyPartsOld = new ItemStack[5];
     }
@@ -334,7 +337,7 @@ public class TileEntityAltar extends TileEntity implements IInventory {
     }
 
     @Override
-    public boolean isStackValidForSlot(int i, ItemStack itemstack) {
-        return true;
+    public boolean isItemValidForSlot(int i, ItemStack itemstack) {
+        return false;
     }
 }

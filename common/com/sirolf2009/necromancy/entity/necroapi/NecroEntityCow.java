@@ -2,6 +2,7 @@ package com.sirolf2009.necromancy.entity.necroapi;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
 
 import com.sirolf2009.necroapi.BodyPart;
 import com.sirolf2009.necroapi.NecroEntityQuadruped;
@@ -19,7 +20,7 @@ public class NecroEntityCow extends NecroEntityQuadruped {
         torsoItem = ItemBodyPart.getItemStackFromName("Cow Torso", 1);
         armItem = ItemBodyPart.getItemStackFromName("Cow Arm", 1);
         legItem = ItemBodyPart.getItemStackFromName("Cow Legs", 1);
-        texture = "/mob/cow.png";
+        texture = new ResourceLocation("textures/entity/cow/cow.png");
     }
 
     @Override
@@ -30,6 +31,7 @@ public class NecroEntityCow extends NecroEntityQuadruped {
     @Override
     public BodyPart[] initHead(ModelBase model) {
         BodyPart head = new BodyPart(this, model, 0, 0);
+        head.health = 2D;
         head.addBox(-4.0F, -4.0F, -4.0F, 8, 8, 6, 0.0F);
         head.setTextureOffset(22, 0).addBox(-5.0F, -5.0F, -4.0F, 1, 3, 1, 0.0F);
         head.setTextureOffset(22, 0).addBox(4.0F, -5.0F, -4.0F, 1, 3, 1, 0.0F);

@@ -3,6 +3,7 @@ package com.sirolf2009.necromancy.entity.necroapi;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 
 import com.sirolf2009.necroapi.BodyPart;
 import com.sirolf2009.necroapi.ISkull;
@@ -17,7 +18,7 @@ public class NecroEntitySkeleton extends NecroEntityBiped implements ISkull {
         torsoItem = ItemBodyPart.getItemStackFromName("Skeleton Torso", 1);
         armItem = ItemBodyPart.getItemStackFromName("Skeleton Arm", 1);
         legItem = ItemBodyPart.getItemStackFromName("Skeleton Legs", 1);
-        texture = "/mob/skeleton.png";
+        texture = new ResourceLocation("/mob/skeleton.png");
     }
 
     @Override

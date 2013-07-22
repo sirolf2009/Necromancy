@@ -11,6 +11,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.ChatMessageComponent;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class CommandMinion extends CommandBase {
@@ -30,21 +31,21 @@ public class CommandMinion extends CommandBase {
                 if (var2[1].equals("aggressive")) {
                     nbt.setBoolean("aggressive", true);
                     packet = new Packet250CustomPayload("NecromancyMod", new byte[] { 0, 1 });
-                    var1.sendChatToPlayer("Minions are set to aggressive");
+                    var1.sendChatToPlayer(new ChatMessageComponent().func_111072_b("Minions are set to aggressive"));
                 } else if (var2[1].equals("passive")) {
                     nbt.setBoolean("aggressive", false);
                     packet = new Packet250CustomPayload("NecromancyMod", new byte[] { 0, 0 });
-                    var1.sendChatToPlayer("Minions are set to passive");
+                    var1.sendChatToPlayer(new ChatMessageComponent().func_111072_b("Minions are set to passive"));
                 } else
                     throw new WrongUsageException("minion", new Object[0]);
             } else if (var2[0].equals("friend")) {
                 nbt.setString(var2[1], "friend");
                 packet = new Packet250CustomPayload("NecromancyMod", new byte[] { 1, (byte) func_82359_c(var1, var2[1]).entityId });
-                var1.sendChatToPlayer(var2[1] + " is now a friend");
+                var1.sendChatToPlayer(new ChatMessageComponent().func_111072_b(var2[1] + " is now a friend"));
             } else if (var2[0].equals("enemy")) {
                 nbt.setString(var2[1], "enemy");
                 packet = new Packet250CustomPayload("NecromancyMod", new byte[] { 2, (byte) func_82359_c(var1, var2[1]).entityId });
-                var1.sendChatToPlayer(var2[1] + " is now an enemy");
+                var1.sendChatToPlayer(new ChatMessageComponent().func_111072_b(var2[1] + " is now an enemy"));
             } else
                 throw new WrongUsageException("minion", new Object[0]);
             PacketDispatcher.sendPacketToAllPlayers(packet);
@@ -81,6 +82,11 @@ public class CommandMinion extends CommandBase {
 
     protected String[] getPlayers() {
         return MinecraftServer.getServer().getAllUsernames();
+    }
+
+    @Override
+    public String getCommandUsage(ICommandSender icommandsender) {
+        return null;
     }
 
 }

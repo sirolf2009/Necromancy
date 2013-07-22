@@ -1,5 +1,7 @@
 package com.sirolf2009.necromancy.entity.necroapi;
 
+import net.minecraft.util.ResourceLocation;
+
 import com.sirolf2009.necroapi.ISkull;
 import com.sirolf2009.necroapi.NecroEntityBiped;
 import com.sirolf2009.necromancy.item.ItemBodyPart;
@@ -12,7 +14,7 @@ public class NecroEntityWither extends NecroEntityBiped implements ISkull {
         torsoItem = ItemBodyPart.getItemStackFromName("Wither Torso", 1);
         armItem = ItemBodyPart.getItemStackFromName("Wither Arm", 1);
         legItem = ItemBodyPart.getItemStackFromName("Wither Legs", 1);
-        texture = "/mob/wither.png";
+        texture = new ResourceLocation("/mob/wither.png");
     }
 
     @Override

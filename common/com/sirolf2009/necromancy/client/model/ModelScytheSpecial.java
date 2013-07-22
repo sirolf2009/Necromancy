@@ -2,12 +2,13 @@ package com.sirolf2009.necromancy.client.model;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
 
+import com.sirolf2009.necromancy.client.renderer.ItemScytheRenderer;
+import com.sirolf2009.necromancy.core.proxy.ClientProxy;
 import com.sirolf2009.necromancy.lib.ReferenceNecromancy;
-
-import cpw.mods.fml.client.FMLClientHandler;
 
 public class ModelScytheSpecial extends ModelBase {
     // fields
@@ -19,19 +20,24 @@ public class ModelScytheSpecial extends ModelBase {
     ModelRenderer BladeBaseRight;
     ModelRenderer BladeBaseLeft;
 
-    private IModelCustom modelTutBox;
+    private ResourceLocation metal = new ResourceLocation(ReferenceNecromancy.LOC_RESOURCES_TEXTURES_MODELS + "/SwordMetal.jpg");
+    private ResourceLocation cloth = new ResourceLocation(ReferenceNecromancy.LOC_RESOURCES_TEXTURES_MODELS + "/cloth.jpg");
+    private ResourceLocation gun = new ResourceLocation(ReferenceNecromancy.LOC_RESOURCES_TEXTURES_MODELS + "/GunTex.jpg");
+    
+    public ItemScytheRenderer renderer;
+    private IModelCustom scytheSpecial;
 
     public ModelScytheSpecial() {
-        modelTutBox = AdvancedModelLoader.loadModel("/mods/necromancy/models/scythe.obj");
+        scytheSpecial = AdvancedModelLoader.loadModel("/assets/necromancy/models/scythe.obj");
     }
 
     public void render() {
-        FMLClientHandler.instance().getClient().renderEngine.bindTexture(ReferenceNecromancy.LOC_RESOURCES_TEXTURES_MODELS + "/SwordMetal.jpg");
-        modelTutBox.renderPart("Blade_Blade_Material");
-        FMLClientHandler.instance().getClient().renderEngine.bindTexture("/mods/necromancy/models/cloth.jpg");
-        modelTutBox.renderPart("Joint2_Joint2_Material");
-        modelTutBox.renderPart("Joint1_Joint1_Material");
-        FMLClientHandler.instance().getClient().renderEngine.bindTexture(ReferenceNecromancy.LOC_RESOURCES_TEXTURES_MODELS + "/GunTex.jpg");
-        modelTutBox.renderPart("Handle_Handle_Material");
+        ClientProxy.mc.renderEngine.func_110577_a(metal);;
+        scytheSpecial.renderPart("Blade_Blade_Material");
+        ClientProxy.mc.renderEngine.func_110577_a(cloth);
+        scytheSpecial.renderPart("Joint2_Joint2_Material");
+        scytheSpecial.renderPart("Joint1_Joint1_Material");
+        ClientProxy.mc.renderEngine.func_110577_a(gun);
+        scytheSpecial.renderPart("Handle_Handle_Material");
     }
 }

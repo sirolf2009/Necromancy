@@ -3,6 +3,7 @@ package com.sirolf2009.necromancy.entity.necroapi;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
 
 import com.sirolf2009.necroapi.BodyPart;
 import com.sirolf2009.necroapi.NecroEntityBiped;
@@ -16,7 +17,7 @@ public class NecroEntityEnderman extends NecroEntityBiped {
         torsoItem = ItemBodyPart.getItemStackFromName("Enderman Torso", 1);
         armItem = ItemBodyPart.getItemStackFromName("Enderman Arm", 1);
         legItem = ItemBodyPart.getItemStackFromName("Enderman Legs", 1);
-        texture = "/mob/enderman.png";
+        texture = new ResourceLocation("/mob/enderman.png");
     }
 
     @Override

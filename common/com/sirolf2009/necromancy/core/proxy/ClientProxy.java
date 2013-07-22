@@ -1,9 +1,9 @@
 package com.sirolf2009.necromancy.core.proxy;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.MinecraftForgeClient;
-import net.minecraftforge.liquids.LiquidDictionary;
-import net.minecraftforge.liquids.LiquidStack;
+import net.minecraftforge.fluids.FluidRegistry;
 
 import com.sirolf2009.necromancy.block.BlockNecromancy;
 import com.sirolf2009.necromancy.client.model.ModelIsaacHead;
@@ -14,8 +14,8 @@ import com.sirolf2009.necromancy.client.model.ModelTeddy;
 import com.sirolf2009.necromancy.client.renderer.ItemNecronomiconRenderer;
 import com.sirolf2009.necromancy.client.renderer.ItemScytheBoneRenderer;
 import com.sirolf2009.necromancy.client.renderer.ItemScytheRenderer;
-import com.sirolf2009.necromancy.client.renderer.RenderIsaacMelee;
-import com.sirolf2009.necromancy.client.renderer.RenderIsaacRanged;
+import com.sirolf2009.necromancy.client.renderer.RenderIsaac;
+import com.sirolf2009.necromancy.client.renderer.RenderIsaacBlood;
 import com.sirolf2009.necromancy.client.renderer.RenderMinion;
 import com.sirolf2009.necromancy.client.renderer.RenderNightCrawler;
 import com.sirolf2009.necromancy.client.renderer.RenderTear;
@@ -35,7 +35,6 @@ import com.sirolf2009.necromancy.entity.EntityTear;
 import com.sirolf2009.necromancy.entity.EntityTearBlood;
 import com.sirolf2009.necromancy.entity.EntityTeddy;
 import com.sirolf2009.necromancy.item.ItemNecromancy;
-import com.sirolf2009.necromancy.lib.ReferenceNecromancy;
 import com.sirolf2009.necromancy.tileentity.TileEntityAltar;
 import com.sirolf2009.necromancy.tileentity.TileEntitySewing;
 
@@ -57,25 +56,17 @@ public class ClientProxy extends CommonProxy {
         RenderingRegistry.registerEntityRenderingHandler(EntityMinion.class, new RenderMinion());
         RenderingRegistry.registerEntityRenderingHandler(EntityTeddy.class, new RenderTeddy(new ModelTeddy(), 0.3F));
         RenderingRegistry.registerEntityRenderingHandler(EntityNightCrawler.class, new RenderNightCrawler(new ModelNightCrawler(), 0.3F));
-        RenderingRegistry.registerEntityRenderingHandler(EntityIsaacNormal.class, new RenderIsaacRanged(new ModelIsaacNormal(), 0.3F));
-        RenderingRegistry.registerEntityRenderingHandler(EntityIsaacBlood.class, new RenderIsaacRanged(new ModelIsaacNormal(), 0.3F));
-        RenderingRegistry.registerEntityRenderingHandler(EntityIsaacBody.class, new RenderIsaacMelee(new ModelIsaacSevered(), 0.3F));
-        RenderingRegistry.registerEntityRenderingHandler(EntityIsaacHead.class, new RenderIsaacRanged(new ModelIsaacHead(), 0.3F));
+        RenderingRegistry.registerEntityRenderingHandler(EntityIsaacNormal.class, new RenderIsaac(new ModelIsaacNormal(), 0.3F));
+        RenderingRegistry.registerEntityRenderingHandler(EntityIsaacBlood.class, new RenderIsaacBlood(new ModelIsaacNormal(), 0.3F));
+        RenderingRegistry.registerEntityRenderingHandler(EntityIsaacBody.class, new RenderIsaacBlood(new ModelIsaacSevered(), 0.3F));
+        RenderingRegistry.registerEntityRenderingHandler(EntityIsaacHead.class, new RenderIsaacBlood(new ModelIsaacHead(), 0.3F));
         RenderingRegistry.registerEntityRenderingHandler(EntityTear.class, new RenderTear());
         RenderingRegistry.registerEntityRenderingHandler(EntityTearBlood.class, new RenderTearBlood());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityAltar.class, new TileEntityAltarRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySewing.class, new TileEntitySewingRenderer());
-        // ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySkullWall.class,
-        // new TileEntitySkullWallRenderer());
-        // ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySkull.class,
-        // new TileEntityNecroSkullRenderer());
         MinecraftForgeClient.registerItemRenderer(BlockNecromancy.altar.blockID, new TileEntityAltarRenderer());
         MinecraftForgeClient.registerItemRenderer(BlockNecromancy.sewing.blockID, new TileEntitySewingRenderer());
-        // MinecraftForgeClient.registerItemRenderer(Necromancy.SkullWallID, new
-        // TileEntitySkullWallRenderer());
-        LiquidDictionary.getOrCreateLiquid("blood", new LiquidStack(BlockNecromancy.bloodStill, 1))
-        // LiquidDictionary.getCanonicalLiquid("blood")
-        .setRenderingIcon(BlockNecromancy.bloodStill.iconForInvRender).setTextureSheet(ReferenceNecromancy.LOC_RESOURCES_TEXTURES_BLOCKS + "blood_flow.png");
+        FluidRegistry.registerFluid(BlockNecromancy.fluidBlood);
         MinecraftForgeClient.registerItemRenderer(ItemNecromancy.scythe.itemID, new ItemScytheRenderer());
         MinecraftForgeClient.registerItemRenderer(ItemNecromancy.scytheBone.itemID, new ItemScytheBoneRenderer());
         MinecraftForgeClient.registerItemRenderer(ItemNecromancy.necronomicon.itemID, new ItemNecronomiconRenderer());
@@ -89,6 +80,10 @@ public class ClientProxy extends CommonProxy {
             }
         }
     }
+    
+    public static void bindTexture(ResourceLocation par1ResourceLocation) {
+        mc.renderEngine.func_110577_a(par1ResourceLocation);
+    }
 
     @Override
     public int addArmour(String path) {
@@ -97,6 +92,6 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void refreshTextures() {
-        mc.renderEngine.refreshTextures();
+        //mc.renderEngine.refreshTextures(); TODO
     }
 }

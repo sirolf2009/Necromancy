@@ -15,14 +15,15 @@ import com.sirolf2009.necroapi.BodyPart;
 import com.sirolf2009.necroapi.ISaddleAble;
 import com.sirolf2009.necroapi.NecroEntityBase;
 import com.sirolf2009.necroapi.NecroEntityRegistry;
+import com.sirolf2009.necromancy.client.renderer.RenderMinion;
 import com.sirolf2009.necromancy.entity.EntityMinion;
 import com.sirolf2009.necromancy.lib.ConfigurationNecromancy;
-
-import cpw.mods.fml.client.FMLClientHandler;
+import com.sirolf2009.necromancy.lib.ReferenceNecromancy;
 
 public class ModelMinion extends ModelBase {
 
     public static ModelMinion instance;
+    public RenderMinion renderer;
 
     public ModelMinion() {
         instance = this;
@@ -57,7 +58,7 @@ public class ModelMinion extends ModelBase {
                     part.render(par7);
                 }
                 if (mob instanceof ISaddleAble && minion.getSaddled()) {
-                    FMLClientHandler.instance().getClient().renderEngine.bindTexture(((ISaddleAble) mob).getSaddleTex());
+                    renderer.bindTexture(((ISaddleAble)mob).getSaddleTex());
                     for (BodyPart part : torso) {
                         part.render(par7);
                     }
@@ -95,7 +96,7 @@ public class ModelMinion extends ModelBase {
             if (isChristmas() && santahat != null) {
                 textureHeight = 32;
                 textureWidth = 64;
-                FMLClientHandler.instance().getClient().renderEngine.bindTexture("/necromancy/ChristmasHat.png");
+                renderer.bindTexture(ReferenceNecromancy.TEXTURES_MISC_CHRISTMASHAT);
                 santahat.render(par7 + 0.001F);
             }
             bindTexByPart(parts[0]);
@@ -114,7 +115,7 @@ public class ModelMinion extends ModelBase {
         if (mob != null) {
             textureHeight = mob.textureHeight;
             textureWidth = mob.textureWidth;
-            FMLClientHandler.instance().getClient().renderEngine.bindTexture(mob.texture);
+            renderer.bindTexture(mob.texture);
         }
     }
 

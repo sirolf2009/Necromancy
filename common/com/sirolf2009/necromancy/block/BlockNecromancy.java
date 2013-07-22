@@ -2,7 +2,12 @@ package com.sirolf2009.necromancy.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 
+import com.sirolf2009.necromancy.item.ItemGeneric;
 import com.sirolf2009.necromancy.lib.ConfigurationNecromancy;
 import com.sirolf2009.necromancy.tileentity.TileEntityAltar;
 import com.sirolf2009.necromancy.tileentity.TileEntitySewing;
@@ -16,8 +21,9 @@ public class BlockNecromancy {
     public static Block altarBlock;
     public static Block sewing;
     public static Block scentBurner;
-    public static BlockBloodFlowing bloodFlowing;
-    public static BlockBloodStationary bloodStill;
+    public static BlockBlood blood;
+    
+    public static Fluid fluidBlood;
 
     public static void initBlocks() {
         altar = new BlockAltar(ConfigurationNecromancy.AltarID).setHardness(4);
@@ -36,23 +42,21 @@ public class BlockNecromancy {
         GameRegistry.registerBlock(sewing, "Sewing Machine");
         GameRegistry.registerTileEntity(TileEntitySewing.class, "Sewing");
         LanguageRegistry.addName(sewing, "Sewing Machine");
+        
+        fluidBlood = new Fluid("Blood");
+        FluidRegistry.registerFluid(fluidBlood);
+        fluidBlood.setBlockID(ConfigurationNecromancy.BloodID); // Set the fluids block ID to this block.
 
-        bloodFlowing = new BlockBloodFlowing(ConfigurationNecromancy.BloodFlowingID);
-        bloodStill = new BlockBloodStationary(ConfigurationNecromancy.BloodStationaryID);
-        bloodFlowing.setUnlocalizedName("FlowingBlood");
-        bloodStill.setUnlocalizedName("StationaryBlood");
-        GameRegistry.registerBlock(bloodFlowing, "FlowingBlood");
-        GameRegistry.registerBlock(bloodStill, "StationaryBlood");
-        LanguageRegistry.addName(bloodFlowing, "Flowing Blood");
-        LanguageRegistry.addName(bloodStill, "Still Blood");
-
-        /*
-         * skullWall = new BlockSkullWall(SkullWallID);
-         * GameRegistry.registerBlock(skullWall, "skullWall");
-         * LanguageRegistry.addName(skullWall, "Skull Wall");
-         * GameRegistry.registerTileEntity(TileEntitySkullWall.class,
-         * "SkullWall");
-         */
+        blood = new BlockBlood(ConfigurationNecromancy.BloodID, fluidBlood);
+        blood.setUnlocalizedName("FlowingBlood");
+        GameRegistry.registerBlock(blood, "FlowingBlood");
+        LanguageRegistry.addName(blood, "Flowing Blood");
+        
+        initRecipes();
+    }
+    
+    public static void initRecipes() {
+        GameRegistry.addRecipe(new ItemStack(BlockNecromancy.sewing, 1), new Object[] { "III", "ISB", "III", 'I', Item.ingotIron, 'S', Item.silk, 'B', ItemGeneric.getItemStackFromName("Bone Needle") });
     }
 
 }

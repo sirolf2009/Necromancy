@@ -3,14 +3,16 @@ package com.sirolf2009.necromancy.entity.necroapi;
 import net.minecraft.block.Block;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
 import com.sirolf2009.necroapi.BodyPart;
+import com.sirolf2009.necromancy.core.proxy.ClientProxy;
 import com.sirolf2009.necromancy.item.ItemBodyPart;
 
-import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -22,7 +24,7 @@ public class NecroEntityMooshroom extends NecroEntityCow {
         torsoItem = ItemBodyPart.getItemStackFromName("Mooshroom Torso", 1);
         armItem = ItemBodyPart.getItemStackFromName("Mooshroom Arm", 1);
         legItem = ItemBodyPart.getItemStackFromName("Mooshroom Legs", 1);
-        texture = "/mob/redcow.png";
+        texture = new ResourceLocation("/mob/redcow.png");
     }
 
     @Override
@@ -34,7 +36,7 @@ public class NecroEntityMooshroom extends NecroEntityCow {
     @SideOnly(Side.CLIENT)
     public void preRender(Entity entity, BodyPart[] parts, String location, ModelBase model) {
         RenderBlocks renderBlocks = new RenderBlocks();
-        FMLClientHandler.instance().getClient().renderEngine.bindTexture("/terrain.png");
+        ClientProxy.bindTexture(TextureMap.field_110575_b);
         GL11.glEnable(GL11.GL_CULL_FACE);
         if (location.equals("torso")) {
             GL11.glPushMatrix();
@@ -57,7 +59,7 @@ public class NecroEntityMooshroom extends NecroEntityCow {
             GL11.glPopMatrix();
         }
         GL11.glDisable(GL11.GL_CULL_FACE);
-        FMLClientHandler.instance().getClient().renderEngine.bindTexture(texture);
+        ClientProxy.bindTexture(texture);
     }
 
 }

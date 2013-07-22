@@ -18,8 +18,6 @@ import com.sirolf2009.necromancy.client.model.ModelMinion;
 import com.sirolf2009.necromancy.command.CommandMinion;
 import com.sirolf2009.necromancy.command.CommandRemodel;
 import com.sirolf2009.necromancy.item.ItemNecromancy;
-import com.sirolf2009.necromancy.lib.ReferenceNecromancy;
-
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -83,7 +81,7 @@ public class EventHandler {
 
         int blockID = world.getBlockId(pos.blockX, pos.blockY, pos.blockZ);
 
-        if ((blockID == BlockNecromancy.bloodStill.blockID || blockID == BlockNecromancy.bloodFlowing.blockID) && world.getBlockMetadata(pos.blockX, pos.blockY, pos.blockZ) == 0) {
+        if ((blockID == BlockNecromancy.fluidBlood.getBlockID() || blockID == BlockNecromancy.blood.blockID) && world.getBlockMetadata(pos.blockX, pos.blockY, pos.blockZ) == 0) {
 
             world.setBlock(pos.blockX, pos.blockY, pos.blockZ, 0, 0, 0);
 
@@ -96,8 +94,8 @@ public class EventHandler {
     @SideOnly(Side.CLIENT)
     public void onSoundsLoaded(SoundLoadEvent event) {
         SoundManager manager = event.manager;
-        manager.soundPoolSounds.addSound("nightcrawler/scream.ogg", this.getClass().getResource(ReferenceNecromancy.LOC_RESOURCES_SOUNDS + "/nightcrawler/scream.ogg"));
-        manager.soundPoolSounds.addSound("nightcrawler/howl.ogg", this.getClass().getResource(ReferenceNecromancy.LOC_RESOURCES_SOUNDS + "/nightcrawler/howl.ogg"));
+        manager.soundPoolSounds.addSound("necromancy:sounds/nightcrawler/scream.ogg");
+        manager.soundPoolSounds.addSound("necromancy:sounds/nightcrawler/howl.ogg");
     }
 
     Random rand = new Random();

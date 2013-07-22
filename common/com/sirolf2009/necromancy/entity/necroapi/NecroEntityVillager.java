@@ -4,6 +4,7 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.ResourceLocation;
 
 import com.sirolf2009.necroapi.BodyPart;
 import com.sirolf2009.necroapi.NecroEntityBase;
@@ -21,7 +22,7 @@ public class NecroEntityVillager extends NecroEntityBase {
         torsoItem = ItemBodyPart.getItemStackFromName("Villager Torso", 1);
         armItem = ItemBodyPart.getItemStackFromName("Villager Arm", 1);
         legItem = ItemBodyPart.getItemStackFromName("Villager Legs", 1);
-        texture = "/mob/villager/villager.png";
+        texture = new ResourceLocation("/mob/villager/villager.png");
         textureHeight = 64;
     }
 

@@ -1,6 +1,7 @@
 package com.sirolf2009.necromancy.entity.necroapi;
 
 import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
 
 import com.sirolf2009.necroapi.ISkull;
 import com.sirolf2009.necroapi.NecroEntityBiped;
@@ -14,7 +15,7 @@ public class NecroEntityPigZombie extends NecroEntityBiped implements ISkull {
         torsoItem = ItemBodyPart.getItemStackFromName("Pigzombie Torso", 1);
         armItem = ItemBodyPart.getItemStackFromName("Pigzombie Arm", 1);
         legItem = ItemBodyPart.getItemStackFromName("Pigzombie Legs", 1);
-        texture = "/mob/pigzombie.png";
+        texture = new ResourceLocation("/mob/pigzombie.png");
         textureHeight = 64;
     }
 

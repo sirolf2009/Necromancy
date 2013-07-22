@@ -137,11 +137,6 @@ public class TileEntityScentBurner extends TileEntity implements IInventory, ISi
     }
 
     @Override
-    public boolean isStackValidForSlot(int i, ItemStack itemstack) {
-        return true;
-    }
-
-    @Override
     public int[] getAccessibleSlotsFromSide(int var1) {
         return null;
     }
@@ -153,6 +148,11 @@ public class TileEntityScentBurner extends TileEntity implements IInventory, ISi
 
     @Override
     public boolean canExtractItem(int i, ItemStack itemstack, int j) {
+        return false;
+    }
+
+    @Override
+    public boolean isItemValidForSlot(int i, ItemStack itemstack) {
         return false;
     }
 }

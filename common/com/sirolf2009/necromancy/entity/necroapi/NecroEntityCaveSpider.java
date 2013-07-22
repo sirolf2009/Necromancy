@@ -3,6 +3,7 @@ package com.sirolf2009.necromancy.entity.necroapi;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
@@ -20,7 +21,7 @@ public class NecroEntityCaveSpider extends NecroEntitySpider {
         torsoItem = ItemBodyPart.getItemStackFromName("Cave_Spider Torso", 1);
         armItem = ItemBodyPart.getItemStackFromName("Cave_Spider Arm", 1);
         legItem = ItemBodyPart.getItemStackFromName("Cave_Spider Legs", 1);
-        texture = "/mob/cavespider.png";
+        texture = new ResourceLocation("/mob/cavespider.png");
     }
 
     @Override

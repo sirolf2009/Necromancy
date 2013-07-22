@@ -136,7 +136,7 @@ public class TileEntitySewing extends TileEntity implements IInventory {
     }
 
     @Override
-    public boolean isStackValidForSlot(int i, ItemStack itemstack) {
-        return true;
+    public boolean isItemValidForSlot(int i, ItemStack itemstack) {
+        return false;
     }
 }

@@ -3,6 +3,7 @@ package com.sirolf2009.necromancy.entity.necroapi;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 
 import com.sirolf2009.necroapi.BodyPart;
 import com.sirolf2009.necroapi.NecroEntityBase;
@@ -16,7 +17,7 @@ public class NecroEntitySlimeSmall extends NecroEntityBase {
         torsoItem = ItemBodyPart.getItemStackFromName("Small Slime Torso", 1);
         armItem = ItemBodyPart.getItemStackFromName("Small Slime Arm", 1);
         legItem = ItemBodyPart.getItemStackFromName("Small Slime Legs", 1);
-        texture = "/mob/slime.png";
+        texture = new ResourceLocation("/mob/slime.png");
     }
 
     @Override

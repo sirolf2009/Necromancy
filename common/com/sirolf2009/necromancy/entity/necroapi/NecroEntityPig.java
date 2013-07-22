@@ -2,6 +2,7 @@ package com.sirolf2009.necromancy.entity.necroapi;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
 
 import com.sirolf2009.necroapi.BodyPart;
 import com.sirolf2009.necroapi.NecroEntityQuadruped;
@@ -15,7 +16,7 @@ public class NecroEntityPig extends NecroEntityQuadruped {
         torsoItem = ItemBodyPart.getItemStackFromName("Pig Torso", 1);
         armItem = ItemBodyPart.getItemStackFromName("Pig Arm", 1);
         legItem = ItemBodyPart.getItemStackFromName("Pig Legs", 1);
-        texture = "/mob/pig.png";
+        texture = new ResourceLocation("/mob/pig.png");
     }
 
     @Override

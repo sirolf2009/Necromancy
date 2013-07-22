@@ -3,6 +3,7 @@ package com.sirolf2009.necromancy.entity.necroapi;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
 
 import com.sirolf2009.necroapi.BodyPart;
 import com.sirolf2009.necromancy.item.ItemBodyPart;
@@ -15,7 +16,7 @@ public class NecroEntityWitch extends NecroEntityVillager {
         torsoItem = ItemBodyPart.getItemStackFromName("Witch Torso", 1);
         armItem = ItemBodyPart.getItemStackFromName("Witch Arm", 1);
         legItem = ItemBodyPart.getItemStackFromName("Witch Legs", 1);
-        texture = "/mob/villager/witch.png";
+        texture = new ResourceLocation("/mob/villager/witch.png");
         textureHeight = 128;
     }
 

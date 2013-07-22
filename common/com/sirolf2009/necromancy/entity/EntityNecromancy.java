@@ -23,6 +23,7 @@ import com.sirolf2009.necromancy.entity.necroapi.NecroEntitySquid;
 import com.sirolf2009.necromancy.entity.necroapi.NecroEntityVillager;
 import com.sirolf2009.necromancy.entity.necroapi.NecroEntityWitch;
 import com.sirolf2009.necromancy.entity.necroapi.NecroEntityZombie;
+import com.sirolf2009.necromancy.lib.ConfigurationNecromancy;
 import com.sirolf2009.necromancy.lib.ReferenceNecromancy;
 
 import cpw.mods.fml.common.registry.EntityRegistry;
@@ -33,7 +34,6 @@ public class EntityNecromancy {
 
     public static int TeddyID;
     public static int IsaacID;
-    public static int NecroVillagerID;
 
     public static void initEntities() {
         TeddyID = EntityRegistry.findGlobalUniqueEntityId();
@@ -63,9 +63,8 @@ public class EntityNecromancy {
         EntityRegistry.registerModEntity(EntityTear.class, "TearNormal", 6, Necromancy.Instance, 144, 2, true);
         EntityRegistry.registerModEntity(EntityTearBlood.class, "TearBlood", 7, Necromancy.Instance, 144, 2, true);
 
-        NecroVillagerID = EntityRegistry.findGlobalUniqueEntityId();
-        VillagerRegistry.instance().registerVillagerType(NecroVillagerID, ReferenceNecromancy.LOC_RESOURCES_TEXTURES_ENTITIES + "/villagerNecro.png");
-        VillagerRegistry.instance().registerVillageTradeHandler(NecroVillagerID, Necromancy.PacketHandler);
+        VillagerRegistry.instance().registerVillagerSkin(ConfigurationNecromancy.NecroVillagerID, ReferenceNecromancy.TEXTURES_ENTITIES_NECROMANCER);
+        VillagerRegistry.instance().registerVillageTradeHandler(ConfigurationNecromancy.NecroVillagerID, Necromancy.PacketHandler);
 
         NecroEntityRegistry.RegisterEntity(new NecroEntitySkeleton());
         NecroEntityRegistry.RegisterEntity(new NecroEntityZombie());

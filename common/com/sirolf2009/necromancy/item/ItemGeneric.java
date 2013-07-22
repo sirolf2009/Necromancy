@@ -5,7 +5,6 @@ import java.util.List;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -29,14 +28,13 @@ public class ItemGeneric extends Item {
 
     @Override
     public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
-        if (player instanceof EntityLiving)
-            if (stack.getItemDamage() == 0)
-                if (player.inventory.consumeInventoryItem(Item.glassBottle.itemID)) {
-                    stack.stackSize--;
-                    if (!player.inventory.addItemStackToInventory(new ItemStack(ItemNecromancy.genericItems, 1, 2))) {
-                        player.dropPlayerItem(new ItemStack(ItemNecromancy.genericItems, 1, 2));
-                    }
+        if (stack.getItemDamage() == 0)
+            if (player.inventory.consumeInventoryItem(Item.glassBottle.itemID)) {
+                stack.stackSize--;
+                if (!player.inventory.addItemStackToInventory(new ItemStack(ItemNecromancy.genericItems, 1, 2))) {
+                    player.dropPlayerItem(new ItemStack(ItemNecromancy.genericItems, 1, 2));
                 }
+            }
         return false;
     }
 

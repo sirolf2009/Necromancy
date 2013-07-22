@@ -4,6 +4,7 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.ResourceLocation;
 
 import com.sirolf2009.necroapi.BodyPart;
 import com.sirolf2009.necroapi.NecroEntityBase;
@@ -17,7 +18,7 @@ public class NecroEntityChicken extends NecroEntityBase {
         torsoItem = ItemBodyPart.getItemStackFromName("Chicken Torso", 1);
         armItem = ItemBodyPart.getItemStackFromName("Chicken Arm", 1);
         legItem = ItemBodyPart.getItemStackFromName("Chicken Legs", 1);
-        texture = "/mob/chicken.png";
+        texture = new ResourceLocation("/mob/chicken.png");
     }
 
     @Override

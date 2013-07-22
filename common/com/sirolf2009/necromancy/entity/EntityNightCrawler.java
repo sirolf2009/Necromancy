@@ -1,21 +1,30 @@
 package com.sirolf2009.necromancy.entity;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
-
-import com.sirolf2009.necromancy.lib.ReferenceNecromancy;
 
 public class EntityNightCrawler extends EntityMob {
 
     public EntityNightCrawler(World par1World) {
         super(par1World);
         setSize(0.6F, 1F);
-        texture = ReferenceNecromancy.LOC_RESOURCES_TEXTURES_ENTITIES + "/nightcrawler.png";
+    }
+    
+    protected void func_110147_ax() {
+        super.func_110147_ax();
+        // Max Health - default 20.0D - min 0.0D - max Double.MAX_VALUE
+        this.func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(20.0D);
+        // Follow Range - default 32.0D - min 0.0D - max 2048.0D
+        this.func_110148_a(SharedMonsterAttributes.field_111265_b).func_111128_a(32.0D);
+        // Knockback Resistance - default 0.0D - min 0.0D - max 1.0D
+        this.func_110148_a(SharedMonsterAttributes.field_111266_c).func_111128_a(0.0D);
+        // Movement Speed - default 0.699D - min 0.0D - max Double.MAX_VALUE
+        this.func_110148_a(SharedMonsterAttributes.field_111263_d).func_111128_a(0.3D);
+        // Attack Damage - default 2.0D - min 0.0D - max Doubt.MAX_VALUE
+        this.func_110148_a(SharedMonsterAttributes.field_111264_e).func_111128_a(2.0D);
     }
 
     @Override
@@ -43,16 +52,6 @@ public class EntityNightCrawler extends EntityMob {
     }
 
     @Override
-    public boolean attackEntityFrom(DamageSource par1DamageSource, int par2) {
-        super.attackEntityFrom(par1DamageSource, par2);
-        Entity entity = par1DamageSource.getEntity();
-        if (entity instanceof EntityPlayer) {
-            entityToAttack = entity;
-        }
-        return true;
-    }
-
-    @Override
     protected int getDropItemId() {
         return Item.enderPearl.itemID;
     }
@@ -64,10 +63,4 @@ public class EntityNightCrawler extends EntityMob {
     protected String getHurtSound() {
         return "nightcrawler.say1";
     }
-
-    @Override
-    public int getMaxHealth() {
-        return 20;
-    }
-
 }

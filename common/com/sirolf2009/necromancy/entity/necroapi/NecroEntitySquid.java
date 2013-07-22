@@ -4,6 +4,7 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 
 import com.sirolf2009.necroapi.BodyPart;
 import com.sirolf2009.necroapi.NecroEntityBase;
@@ -16,7 +17,7 @@ public class NecroEntitySquid extends NecroEntityBase {
         headItem = ItemBodyPart.getItemStackFromName("Squid Head", 1);
         torsoItem = ItemBodyPart.getItemStackFromName("Squid Torso", 1);
         legItem = ItemBodyPart.getItemStackFromName("Squid Legs", 1);
-        texture = "/mob/squid.png";
+        texture = new ResourceLocation("/mob/squid.png");
         hasArms = false;
     }
 

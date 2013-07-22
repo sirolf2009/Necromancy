@@ -3,6 +3,7 @@ package com.sirolf2009.necromancy.entity.necroapi;
 import net.minecraft.block.Block;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.ResourceLocation;
 
 import com.sirolf2009.necroapi.BodyPart;
 import com.sirolf2009.necroapi.NecroEntityQuadruped;
@@ -16,7 +17,7 @@ public class NecroEntitySheep extends NecroEntityQuadruped {
         torsoItem = ItemBodyPart.getItemStackFromName("Sheep Torso", 1);
         armItem = ItemBodyPart.getItemStackFromName("Sheep Arm", 1);
         legItem = ItemBodyPart.getItemStackFromName("Sheep Legs", 1);
-        texture = "/mob/sheep.png";
+        texture = new ResourceLocation("/mob/sheep.png");
     }
 
     @Override

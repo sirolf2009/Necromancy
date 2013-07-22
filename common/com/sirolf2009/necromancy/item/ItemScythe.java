@@ -2,7 +2,7 @@ package com.sirolf2009.necromancy.item;
 
 import java.util.Random;
 
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.Item;
@@ -26,18 +26,18 @@ public class ItemScythe extends ItemSword {
     }
 
     @Override
-    public boolean hitEntity(ItemStack par1ItemStack, EntityLiving par2EntityLiving, EntityLiving par3EntityLiving) {
-        par1ItemStack.damageItem(1, par3EntityLiving);
-        if (par2EntityLiving.getHealth() <= 0)
-            if (((EntityPlayer) par3EntityLiving).inventory.consumeInventoryItem(Item.glassBottle.itemID)) {
-                ((EntityPlayer) par3EntityLiving).inventory.addItemStackToInventory(ItemGeneric.getItemStackFromName("Soul in a Jar"));
+    public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLivingBase, EntityLivingBase par3EntityLivingBase) {
+        par1ItemStack.damageItem(1, par3EntityLivingBase);
+        if (par2EntityLivingBase.func_110138_aP() <= 0)
+            if (((EntityPlayer) par3EntityLivingBase).inventory.consumeInventoryItem(Item.glassBottle.itemID)) {
+                ((EntityPlayer) par3EntityLivingBase).inventory.addItemStackToInventory(ItemGeneric.getItemStackFromName("Soul in a Jar"));
                 if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
                     Random rand = new Random();
                     for (int i = 0; i < 30; i++) {
-                        ClientProxy.spawnParticle("skull", par2EntityLiving.posX, par2EntityLiving.posY, par2EntityLiving.posZ, rand.nextDouble() / 360 * 10, rand.nextDouble() / 360 * 10, rand.nextDouble() / 360 * 10);
+                        ClientProxy.spawnParticle("skull", par2EntityLivingBase.posX, par2EntityLivingBase.posY, par2EntityLivingBase.posZ, rand.nextDouble() / 360 * 10, rand.nextDouble() / 360 * 10, rand.nextDouble() / 360 * 10);
                     }
                 }
-                par2EntityLiving.motionY = 10000;
+                par2EntityLivingBase.motionY = 10000;
             }
         return true;
     }

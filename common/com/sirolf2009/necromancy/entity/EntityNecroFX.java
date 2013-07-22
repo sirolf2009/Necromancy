@@ -4,9 +4,8 @@ import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.world.World;
 
-import org.lwjgl.opengl.GL11;
-
 import com.sirolf2009.necromancy.core.proxy.ClientProxy;
+import com.sirolf2009.necromancy.lib.ReferenceNecromancy;
 
 public class EntityNecroFX extends EntityFX {
 
@@ -36,7 +35,7 @@ public class EntityNecroFX extends EntityFX {
         Tessellator tessellator1 = new Tessellator();
         tessellator1.startDrawingQuads();
         tessellator1.setBrightness(getBrightnessForRender(par2));
-        GL11.glBindTexture(3553, ClientProxy.mc.renderEngine.getTexture("/necromancy/particles.png"));
+        ClientProxy.mc.renderEngine.func_110577_a(ReferenceNecromancy.TEXTURES_PARTICLES);
         float f = 32F;
         float f1 = f + 0.0624375F;
         float f2 = 32F;
@@ -52,7 +51,7 @@ public class EntityNecroFX extends EntityFX {
         tessellator1.addVertexWithUV(f5 + par3 * f4 + par6 * f4, f6 + par4 * f4, f7 + par5 * f4 + par7 * f4, f, f2);
         tessellator1.addVertexWithUV(f5 + par3 * f4 - par6 * f4, f6 - par4 * f4, f7 + par5 * f4 - par7 * f4, f, f3);
         tessellator1.draw();
-        GL11.glBindTexture(3553, ClientProxy.mc.renderEngine.getTexture("/necromancy/particles.png"));
+        ClientProxy.mc.renderEngine.func_110577_a(ReferenceNecromancy.TEXTURES_PARTICLES);
     }
 
     @Override

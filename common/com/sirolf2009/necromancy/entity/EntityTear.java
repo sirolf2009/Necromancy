@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentThorns;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.player.EntityPlayer;
@@ -60,7 +61,7 @@ public class EntityTear extends Entity implements IProjectile {
         yOffset = 0.0F;
     }
 
-    public EntityTear(World par1World, EntityLiving par2EntityLiving, EntityLiving par3EntityLiving, float par4, float par5) {
+    public EntityTear(World par1World, EntityLivingBase par2EntityLiving, EntityLivingBase par3EntityLiving, float par4, float par5) {
         super(par1World);
         renderDistanceWeight = 10.0D;
         shootingEntity = par2EntityLiving;
@@ -87,7 +88,7 @@ public class EntityTear extends Entity implements IProjectile {
         }
     }
 
-    public EntityTear(World par1World, EntityLiving par2EntityLiving, float par3) {
+    public EntityTear(World par1World, EntityLivingBase par2EntityLiving, float par3) {
         super(par1World);
         renderDistanceWeight = 10.0D;
         shootingEntity = par2EntityLiving;

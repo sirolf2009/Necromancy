@@ -5,6 +5,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.ResourceLocation;
 
 import com.sirolf2009.necroapi.BodyPart;
 import com.sirolf2009.necroapi.NecroEntityBase;
@@ -17,7 +18,7 @@ public class NecroEntityCreeper extends NecroEntityBase {
         headItem = new ItemStack(Item.skull, 1, 4);
         torsoItem = ItemBodyPart.getItemStackFromName("Creeper Torso", 1);
         legItem = ItemBodyPart.getItemStackFromName("Creeper Legs", 1);
-        texture = "/mob/creeper.png";
+        texture = new ResourceLocation("/mob/creeper.png");
         hasArms = false;
     }
 

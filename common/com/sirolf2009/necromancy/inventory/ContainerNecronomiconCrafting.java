@@ -16,9 +16,4 @@ public class ContainerNecronomiconCrafting extends ContainerWorkbench {
         return true;
     }
 
-    @Override
-    public void onCraftGuiClosed(EntityPlayer player) {
-        super.onCraftGuiClosed(player);
-    }
-
 }

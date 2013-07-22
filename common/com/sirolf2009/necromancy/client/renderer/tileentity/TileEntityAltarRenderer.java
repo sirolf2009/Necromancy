@@ -7,9 +7,11 @@ import net.minecraft.client.model.ModelBook;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.IItemRenderer;
 
@@ -22,7 +24,6 @@ import com.sirolf2009.necromancy.entity.EntityMinion;
 import com.sirolf2009.necromancy.lib.ReferenceNecromancy;
 import com.sirolf2009.necromancy.tileentity.TileEntityAltar;
 
-import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -30,7 +31,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class TileEntityAltarRenderer extends TileEntitySpecialRenderer implements IItemRenderer {
 
     RenderBlocks renderBlocks = new RenderBlocks();
-    private ModelBook book = new ModelBook();
+    private ModelBook modelBook = new ModelBook();
+    public ResourceLocation terrain = TextureMap.field_110575_b;
+    public ResourceLocation book = new ResourceLocation("textures/entity/enchanting_table_book.png");
 
     public TileEntityAltarRenderer() {
         entity = null;
@@ -99,7 +102,7 @@ public class TileEntityAltarRenderer extends TileEntitySpecialRenderer implement
     }
 
     private void renderAltar(TileEntityAltar entity, double x, double y, double z, float f) {
-        bindTextureByName(ReferenceNecromancy.LOC_RESOURCES_TEXTURES_MODELS + "/altarTexture.png");
+        ClientProxy.bindTexture(ReferenceNecromancy.TEXTURES_MODELS_ALTAR);
         GL11.glPushMatrix();
         GL11.glTranslatef((float) x, (float) y + 2.0F, (float) z + 1.0F);
         GL11.glScalef(1.0F, -1F, -1F);
@@ -133,14 +136,14 @@ public class TileEntityAltarRenderer extends TileEntitySpecialRenderer implement
             OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, j1 / 1.0F, k / 1.0F);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            bindTextureByName("/terrain.png");
+            ClientProxy.bindTexture(terrain);
             renderBlocks.renderBlockAsItem(Block.torchWood, 0, 1.0F);
-            bindTextureByName("/item/book.png");
+            ClientProxy.bindTexture(book);
             GL11.glScalef(0.1F, 0.1F, 0.1F);
             GL11.glRotatef(90, 0, 0, 1);
             GL11.glTranslatef(-4F, -8F, 8F);
             GL11.glColor3f(0.9F, 0.9F, 0.9F);
-            book.render(null, 1F, 0F, 0F, 1.22F, 0F, 1F);
+            modelBook.render(null, 1F, 0F, 0F, 1.22F, 0F, 1F);
             if (rand.nextInt(100) == 0) {
                 randomDisplayTick(ClientProxy.mc.theWorld, entity.xCoord, entity.yCoord + 1, entity.zCoord, rand, i);
             }
@@ -232,7 +235,7 @@ public class TileEntityAltarRenderer extends TileEntitySpecialRenderer implement
     }
 
     private void renderAltar(float posX, float posY, float posZ, float rotX, float rotY, float rotZ, float scale) {
-        FMLClientHandler.instance().getClient().renderEngine.bindTexture(ReferenceNecromancy.LOC_RESOURCES_TEXTURES_MODELS + "/altarTexture.png");
+        ClientProxy.bindTexture(ReferenceNecromancy.TEXTURES_MODELS_ALTAR);
         GL11.glPushMatrix(); // start
         GL11.glTranslatef(posX, posY, posZ); // size
         GL11.glRotatef(rotX, 1, 0, 0);

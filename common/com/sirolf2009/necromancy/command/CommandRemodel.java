@@ -17,4 +17,9 @@ public class CommandRemodel extends CommandBase {
         ModelMinion.remodelCommand = true;
     }
 
+    @Override
+    public String getCommandUsage(ICommandSender icommandsender) {
+        return "remodel usage";
+    }
+
 }

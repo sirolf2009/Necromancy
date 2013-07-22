@@ -2,6 +2,7 @@ package com.sirolf2009.necromancy.entity;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIFollowOwner;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
@@ -15,7 +16,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
 import com.sirolf2009.necromancy.core.proxy.ClientProxy;
-import com.sirolf2009.necromancy.lib.ReferenceNecromancy;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
@@ -27,13 +27,13 @@ public class EntityTeddy extends EntityTameable {
     };
 
     EntityState entityState;
+    protected float moveSpeed;
 
     public EntityTeddy(World par1World) {
         super(par1World);
         setTamed(true);
         setSitting(true);
         moveSpeed = 0.3F;
-        texture = ReferenceNecromancy.LOC_RESOURCES_TEXTURES_ENTITIES + "/teddy.png";
         setSize(0.6F, 0.8F);
         setAIMoveSpeed(0.15F);
         entityState = EntityState.WALKING;
@@ -43,6 +43,20 @@ public class EntityTeddy extends EntityTameable {
         tasks.addTask(3, new EntityAIFollowOwner(this, 0.3F, 8F, 5F));
         tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 10F));
         tasks.addTask(6, new EntityAIScareEntities(this, 10F, 7F, moveSpeed, EntityMob.class));
+    }
+    
+    protected void func_110147_ax() {
+        super.func_110147_ax();
+        // Max Health - default 20.0D - min 0.0D - max Double.MAX_VALUE
+        this.func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(8.0D);
+        // Follow Range - default 32.0D - min 0.0D - max 2048.0D
+        this.func_110148_a(SharedMonsterAttributes.field_111265_b).func_111128_a(32.0D);
+        // Knockback Resistance - default 0.0D - min 0.0D - max 1.0D
+        this.func_110148_a(SharedMonsterAttributes.field_111266_c).func_111128_a(0.0D);
+        // Movement Speed - default 0.699D - min 0.0D - max Double.MAX_VALUE
+        this.func_110148_a(SharedMonsterAttributes.field_111263_d).func_111128_a(moveSpeed);
+        // Attack Damage - default 2.0D - min 0.0D - max Doubt.MAX_VALUE
+        this.func_110148_a(SharedMonsterAttributes.field_111264_e).func_111128_a(2.0D);
     }
 
     @Override
@@ -88,11 +102,6 @@ public class EntityTeddy extends EntityTameable {
     @Override
     public boolean isAIEnabled() {
         return true;
-    }
-
-    @Override
-    public int getMaxHealth() {
-        return 8;
     }
 
     @Override
