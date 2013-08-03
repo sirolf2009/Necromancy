@@ -1,5 +1,6 @@
 package com.sirolf2009.necromancy.entity;
 
+import java.lang.reflect.Field;
 import java.util.Iterator;
 import java.util.List;
 
@@ -12,6 +13,14 @@ import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAIOwnerHurtByTarget;
 import net.minecraft.entity.ai.EntityAIOwnerHurtTarget;
 import net.minecraft.entity.ai.EntityAITempt;
+import net.minecraft.entity.ai.attributes.Attribute;
+import net.minecraft.entity.ai.attributes.AttributeInstance;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.BaseAttribute;
+import net.minecraft.entity.ai.attributes.BaseAttributeMap;
+import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
+import net.minecraft.entity.ai.attributes.RangedAttribute;
+import net.minecraft.entity.ai.attributes.ServersideAttributeMap;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,6 +32,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
 import com.sirolf2009.necroapi.BodyPart;
+import com.sirolf2009.necroapi.BodyPartLocation;
 import com.sirolf2009.necroapi.ISaddleAble;
 import com.sirolf2009.necroapi.NecroEntityBase;
 import com.sirolf2009.necroapi.NecroEntityRegistry;
@@ -36,6 +46,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 public class EntityMinion extends EntityTameable {
 
 	private boolean isAgressive;
+	private BaseAttributeMap attributeMap;
 
 	public EntityMinion(World par1World, BodyPart[][] bodypart, String owner) {
 		this(par1World);
@@ -63,26 +74,69 @@ public class EntityMinion extends EntityTameable {
 		dataWatcher.addObject(23, "UNDEFINED");
 		dataWatcher.addObject(24, "UNDEFINED");
 		dataWatcher.addObject(25, Byte.valueOf((byte) 0));
+		dataWatcher.addObject(26, Byte.valueOf((byte) 0));
 		onBodyChange();
 	}
 
 	protected void func_110147_ax() {
 		super.func_110147_ax();
-		if(!this.isAltarMob)
-			updateBodyParts();
+		func_110140_aT().func_111151_a(SharedMonsterAttributes.field_111267_a).func_111128_a(Double.MAX_VALUE);
+		func_110140_aT().func_111150_b(SharedMonsterAttributes.field_111264_e);
 	}
 
-	protected void updateAttributes() {
-		double health = (head != null && head[0] != null ? head[0].health : 0) + (torso != null && torso[0] != null ? torso[0].health : 0) + (armLeft != null && armLeft[0] != null ? armLeft[0].health : 0) + (armRight != null && armRight[0] != null ? armRight[0].health : 0) + (leg != null && leg[0] != null ? leg[0].health : 0);
-		double followRange = (head != null && head[0] != null ? head[0].followRange : 0) + (torso != null && torso[0] != null ? torso[0].followRange : 0) + (armLeft != null && armLeft[0] != null ? armLeft[0].followRange : 0) + (armRight != null && armRight[0] != null ? armRight[0].followRange : 0) + (leg != null && leg[0] != null ? leg[0].followRange : 0);
-		double knockbackResistance = (head != null && head[0] != null ? head[0].knockbackResistance : 0) + (torso != null && torso[0] != null ? torso[0].knockbackResistance : 0) + (armLeft != null && armLeft[0] != null ? armLeft[0].knockbackResistance : 0) + (armRight != null && armRight[0] != null ? armRight[0].knockbackResistance : 0) + (leg != null && leg[0] != null ? leg[0].knockbackResistance : 0);
-		double moveSpeed = (head != null && head[0] != null ? head[0].moveSpeed : 0) + (torso != null && torso[0] != null ? torso[0].moveSpeed : 0) + (armLeft != null && armLeft[0] != null ? armLeft[0].moveSpeed : 0) + (armRight != null && armRight[0] != null ? armRight[0].moveSpeed : 0) + (leg != null && leg[0] != null ? leg[0].moveSpeed : 0);
-		double attackStrength = (head != null && head[0] != null ? head[0].attackStrength : 0) + (torso != null && torso[0] != null ? torso[0].attackStrength : 0) + (armLeft != null && armLeft[0] != null ? armLeft[0].attackStrength : 0) + (armRight != null && armRight[0] != null ? armRight[0].attackStrength : 0) + (leg != null && leg[0] != null ? leg[0].attackStrength : 0);
-		this.func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(health > Double.MAX_VALUE ? Double.MAX_VALUE : health);
-		this.func_110148_a(SharedMonsterAttributes.field_111265_b).func_111128_a(followRange > 2048.0D ? 2048.0D : followRange);
-		this.func_110148_a(SharedMonsterAttributes.field_111266_c).func_111128_a(knockbackResistance > 1.0D ? 1.0D : knockbackResistance);
-		this.func_110148_a(SharedMonsterAttributes.field_111263_d).func_111128_a(moveSpeed > Double.MAX_VALUE ? Double.MAX_VALUE : moveSpeed);
-		//this.func_110148_a(SharedMonsterAttributes.field_111264_e).func_111128_a(attackStrength > Double.MAX_VALUE ? Double.MAX_VALUE : attackStrength);
+	public void updateAttributes() {
+		if(getBodyParts().length > 0) {
+			attributeMap = new ServersideAttributeMap();
+			attributeMap.func_111150_b(SharedMonsterAttributes.field_111267_a);
+			attributeMap.func_111150_b(SharedMonsterAttributes.field_111265_b);
+			attributeMap.func_111150_b(SharedMonsterAttributes.field_111266_c);
+			attributeMap.func_111150_b(SharedMonsterAttributes.field_111263_d);
+			attributeMap.func_111150_b(SharedMonsterAttributes.field_111264_e);
+			if(head != null && head.length > 0  && head[0] != null) {
+				head[0].attributes = new ServersideAttributeMap();
+				head[0].entity.setAttributes(this, BodyPartLocation.Head);
+				combineAttributes(head[0].attributes);
+			}
+			if(torso != null && torso.length > 0  && torso[0] != null) {
+				torso[0].attributes = new ServersideAttributeMap();
+				torso[0].entity.setAttributes(this, BodyPartLocation.Torso);
+				combineAttributes(torso[0].attributes);
+			}
+			if(armLeft != null && armLeft.length > 0 && armLeft[0] != null) {
+				armLeft[0].attributes = new ServersideAttributeMap();
+				armLeft[0].entity.setAttributes(this, BodyPartLocation.ArmLeft);
+				combineAttributes(armLeft[0].attributes);
+			}
+			if(armRight != null && armRight.length > 0  && armRight[0] != null) {
+				armRight[0].attributes = new ServersideAttributeMap();
+				armRight[0].entity.setAttributes(this, BodyPartLocation.ArmRight);
+				combineAttributes(armRight[0].attributes);
+			}
+			if(leg != null && leg.length > 0  && leg[0] != null) {
+				leg[0].attributes = new ServersideAttributeMap();
+				leg[0].entity.setAttributes(this, BodyPartLocation.Legs);
+				combineAttributes(leg[0].attributes);
+			}
+			setEntityHealth((float) (func_110143_aJ() > func_110148_a(SharedMonsterAttributes.field_111267_a).func_111125_b() ? func_110148_a(SharedMonsterAttributes.field_111267_a).func_111125_b() : func_110143_aJ()));
+		}
+	}
+
+	public void combineAttributes(BaseAttributeMap map) {
+		Iterator<ModifiableAttributeInstance> itr = map.func_111146_a().iterator();
+		while(itr.hasNext()) {
+			ModifiableAttributeInstance incrementAttribute = itr.next();
+			double oldValue = func_110140_aT().func_111152_a(incrementAttribute.func_111123_a().func_111108_a()).func_111125_b();
+			double increment = incrementAttribute.func_111125_b();
+			func_110140_aT().func_111152_a(incrementAttribute.func_111123_a().func_111108_a()).func_111128_a(oldValue + increment);
+		}
+	}
+
+	@Override
+	public BaseAttributeMap func_110140_aT() {
+		if (this.attributeMap == null) {
+			this.attributeMap = new ServersideAttributeMap();
+		}
+		return this.attributeMap;
 	}
 
 	public void dataWatcherUpdate() {
@@ -102,15 +156,15 @@ public class EntityMinion extends EntityTameable {
 			dataWatcher.updateObject(24, getBodyPartsNames()[4]);
 		}
 		setSaddled(getSaddled());
+		setAltarMob(isAltarMob());
 	}
 
 	private void updateBodyParts() {
-		head = getBodyPartFromlocationName("head", dataWatcher.getWatchableObjectString(20));
-		torso = getBodyPartFromlocationName("torso", dataWatcher.getWatchableObjectString(21));
-		armLeft = getBodyPartFromlocationName("armLeft", dataWatcher.getWatchableObjectString(22));
-		armRight = getBodyPartFromlocationName("armRight", dataWatcher.getWatchableObjectString(23));
-		leg = getBodyPartFromlocationName("legs", legType = dataWatcher.getWatchableObjectString(24));
-		updateAttributes();
+		head = getBodyPartFromlocation(BodyPartLocation.Head, dataWatcher.getWatchableObjectString(20));
+		torso = getBodyPartFromlocation(BodyPartLocation.Torso, dataWatcher.getWatchableObjectString(21));
+		armLeft = getBodyPartFromlocation(BodyPartLocation.ArmLeft, dataWatcher.getWatchableObjectString(22));
+		armRight = getBodyPartFromlocation(BodyPartLocation.ArmRight, dataWatcher.getWatchableObjectString(23));
+		leg = getBodyPartFromlocation(BodyPartLocation.Legs, legType = dataWatcher.getWatchableObjectString(24));
 	}
 
 	@Override
@@ -128,13 +182,14 @@ public class EntityMinion extends EntityTameable {
 	@Override
 	public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound) {
 		super.readEntityFromNBT(par1NBTTagCompound);
-		head = getBodyPartFromlocationName("head", par1NBTTagCompound.getString("head"));
-		torso = getBodyPartFromlocationName("torso", par1NBTTagCompound.getString("body"));
-		armLeft = getBodyPartFromlocationName("armLeft", par1NBTTagCompound.getString("armLeft"));
-		armRight = getBodyPartFromlocationName("armRight", par1NBTTagCompound.getString("armRight"));
-		leg = getBodyPartFromlocationName("legs", par1NBTTagCompound.getString("leg"));
+		head = getBodyPartFromlocation(BodyPartLocation.Head, par1NBTTagCompound.getString("head"));
+		torso = getBodyPartFromlocation(BodyPartLocation.Torso, par1NBTTagCompound.getString("body"));
+		armLeft = getBodyPartFromlocation(BodyPartLocation.ArmLeft, par1NBTTagCompound.getString("armLeft"));
+		armRight = getBodyPartFromlocation(BodyPartLocation.ArmRight, par1NBTTagCompound.getString("armRight"));
+		leg = getBodyPartFromlocation(BodyPartLocation.Legs, par1NBTTagCompound.getString("leg"));
 		setSaddled(par1NBTTagCompound.getBoolean("Saddle"));
 		dataWatcherUpdate();
+		updateAttributes();
 	}
 
 	@Override
@@ -175,14 +230,14 @@ public class EntityMinion extends EntityTameable {
 				}
 			}
 		}
-		if (rand.nextInt(100) == 0 || ticksExisted < 10) {
+		if (rand.nextInt(1000) == 0 || ticksExisted == 1) {
 			if (!worldObj.isRemote) {
 				dataWatcherUpdate();
 			} else {
 				updateBodyParts();
 			}
 		}
-		if (ticksExisted < 10) {
+		if (ticksExisted == 1) {
 			model.updateModel(this, true);
 		}
 		if (head == null) {
@@ -190,20 +245,20 @@ public class EntityMinion extends EntityTameable {
 		}
 	}
 
-	public static BodyPart[] getBodyPartFromlocationName(String location, String name) {
+	public static BodyPart[] getBodyPartFromlocation(BodyPartLocation location, String name) {
 		NecroEntityBase mob;
 		if ((mob = NecroEntityRegistry.registeredEntities.get(name)) != null) {
-			if (location.equals("head"))
+			if (location == BodyPartLocation.Head)
 				return mob.head == null ? mob.updateParts(ModelMinion.instance).head : mob.head;
-				if (location.equals("torso"))
+				if (location == BodyPartLocation.Torso)
 					return mob.torso == null ? mob.updateParts(ModelMinion.instance).torso : mob.torso;
-					if (location.equals("armLeft"))
+					if (location == BodyPartLocation.ArmLeft)
 						return mob.armLeft == null ? mob.updateParts(ModelMinion.instance).armLeft : mob.armLeft;
-						if (location.equals("armRight"))
+						if (location == BodyPartLocation.ArmRight)
 							return mob.armRight == null ? mob.updateParts(ModelMinion.instance).armRight : mob.armRight;
-							if (location.equals("legs"))
+							if (location == BodyPartLocation.Legs)
 								return mob.legs == null ? mob.updateParts(ModelMinion.instance).legs : mob.legs;
-		} else {
+		} else if(name != "UNDEFINED") {
 			System.err.println(location + " " + name + " not found!");
 		}
 		return null;
@@ -271,17 +326,17 @@ public class EntityMinion extends EntityTameable {
 		return true;
 	}
 
-	public void setBodyPart(String location, BodyPart[] bodypart) {
-		if (location.equals("head")) {
+	public void setBodyPart(BodyPartLocation location, BodyPart[] bodypart) {
+		if (location == BodyPartLocation.Head) {
 			head = bodypart;
-		} else if (location.equals("torso")) {
+		} else if (location == BodyPartLocation.Torso) {
 			torso = bodypart;
-		} else if (location.equals("leg")) {
-			leg = bodypart;
-		} else if (location.equals("armLeft")) {
+		} else if (location == BodyPartLocation.ArmLeft) {
 			armLeft = bodypart;
-		} else if (location.equals("armRight")) {
+		} else if (location == BodyPartLocation.ArmRight) {
 			armRight = bodypart;
+		} else if (location == BodyPartLocation.Legs) {
+			leg = bodypart;
 		} else {
 			System.err.println("Trying to set an impossible body part!");
 		}
@@ -327,6 +382,11 @@ public class EntityMinion extends EntityTameable {
 
 	public void setAltarMob(boolean isAltarMob) {
 		this.isAltarMob = isAltarMob;
+		if (isAltarMob) {
+			dataWatcher.updateObject(26, Byte.valueOf((byte) 1));
+		} else {
+			dataWatcher.updateObject(26, Byte.valueOf((byte) 0));
+		}
 	}
 
 	public void setBodyParts(BodyPart[][] bodypart) {
@@ -370,7 +430,7 @@ public class EntityMinion extends EntityTameable {
 	protected String legType = "";
 	protected BodyPart[] head, torso, armLeft, armRight, leg;
 	protected ModelMinion model = new ModelMinion();
-	private boolean isAltarMob = true;
+	private boolean isAltarMob = false;
 	private EntityAIMinion aiMinion = new EntityAIMinion(this);
 	private final EntityAIControlledByPlayer aiControlledByPlayer = new EntityAIControlledByPlayer(this, 0.8F);
 	public TileEntityAltar altar;

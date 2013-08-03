@@ -2,11 +2,14 @@ package com.sirolf2009.necromancy.entity.necroapi;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.item.Item;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
 import com.sirolf2009.necroapi.BodyPart;
+import com.sirolf2009.necroapi.BodyPartLocation;
 import com.sirolf2009.necroapi.ISaddleAble;
 import com.sirolf2009.necroapi.NecroEntityBase;
 import com.sirolf2009.necromancy.item.ItemBodyPart;
@@ -20,7 +23,7 @@ public class NecroEntitySpider extends NecroEntityBase implements ISaddleAble {
         torsoItem = ItemBodyPart.getItemStackFromName("Spider Torso", 1);
         armItem = ItemBodyPart.getItemStackFromName("Spider Arm", 1);
         legItem = ItemBodyPart.getItemStackFromName("Spider Legs", 1);
-        texture = new ResourceLocation("/mob/spider.png");
+        texture = new ResourceLocation("textures/entity/spider/spider.png");
         hasArms = false;
     }
 
@@ -93,8 +96,8 @@ public class NecroEntitySpider extends NecroEntityBase implements ISaddleAble {
     }
 
     @Override
-    public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity entity, BodyPart[] part, String location) {
-        if (location.equals("legs")) {
+    public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity entity, BodyPart[] part, BodyPartLocation location) {
+        if (location == BodyPartLocation.Legs) {
             float var8 = (float) Math.PI / 4F;
             part[0].rotateAngleZ = -var8;
             part[1].rotateAngleZ = var8;
@@ -150,4 +153,27 @@ public class NecroEntitySpider extends NecroEntityBase implements ISaddleAble {
     public int riderHeight() {
         return 0;
     }
+    
+    @Override
+	public void setAttributes(EntityLivingBase minion, BodyPartLocation location) {
+		if(location == BodyPartLocation.Head) {
+			head[0].attributes.func_111150_b(SharedMonsterAttributes.field_111267_a).func_111128_a(2.0D); //health
+			head[0].attributes.func_111150_b(SharedMonsterAttributes.field_111265_b).func_111128_a(16.0D); //followrange
+			head[0].attributes.func_111150_b(SharedMonsterAttributes.field_111266_c).func_111128_a(0.0D); //knockback res
+			head[0].attributes.func_111150_b(SharedMonsterAttributes.field_111263_d).func_111128_a(0.0D); //speed
+			head[0].attributes.func_111150_b(SharedMonsterAttributes.field_111264_e).func_111128_a(2.0D); //damage
+		} else if(location == BodyPartLocation.Torso) {
+			torso[0].attributes.func_111150_b(SharedMonsterAttributes.field_111267_a).func_111128_a(12.0D); //health
+			torso[0].attributes.func_111150_b(SharedMonsterAttributes.field_111265_b).func_111128_a(0.0D); //followrange
+			torso[0].attributes.func_111150_b(SharedMonsterAttributes.field_111266_c).func_111128_a(0.0D); //knockback res
+			torso[0].attributes.func_111150_b(SharedMonsterAttributes.field_111263_d).func_111128_a(0.0D); //speed
+			torso[0].attributes.func_111150_b(SharedMonsterAttributes.field_111264_e).func_111128_a(0.0D); //damage
+		} else if(location == BodyPartLocation.Legs) {
+			legs[0].attributes.func_111150_b(SharedMonsterAttributes.field_111267_a).func_111128_a(2.0D); //health
+			legs[0].attributes.func_111150_b(SharedMonsterAttributes.field_111265_b).func_111128_a(0.0D); //followrange
+			legs[0].attributes.func_111150_b(SharedMonsterAttributes.field_111266_c).func_111128_a(0.0D); //knockback res
+			legs[0].attributes.func_111150_b(SharedMonsterAttributes.field_111263_d).func_111128_a(0.8D); //speed
+			legs[0].attributes.func_111150_b(SharedMonsterAttributes.field_111264_e).func_111128_a(0.0D); //damage
+		}
+	}
 }

@@ -12,6 +12,7 @@ import net.minecraft.entity.Entity;
 import org.lwjgl.opengl.GL11;
 
 import com.sirolf2009.necroapi.BodyPart;
+import com.sirolf2009.necroapi.BodyPartLocation;
 import com.sirolf2009.necroapi.ISaddleAble;
 import com.sirolf2009.necroapi.NecroEntityBase;
 import com.sirolf2009.necroapi.NecroEntityRegistry;
@@ -41,11 +42,11 @@ public class ModelMinion extends ModelBase {
             GL11.glPushMatrix();
             bindTexByPart(parts[4]);
             NecroEntityBase mob = NecroEntityRegistry.registeredEntities.get(legs[0].name);
-            mob.preRender(minion, legs, "legs", this);
+            mob.preRender(minion, legs, BodyPartLocation.Legs, this);
             for (BodyPart part : legs) {
                 part.render(par7);
             }
-            mob.postRender(minion, legs, "legs", this);
+            mob.postRender(minion, legs, BodyPartLocation.Legs, this);
             GL11.glPopMatrix();
         }
         if (torso != null) {
@@ -53,7 +54,7 @@ public class ModelMinion extends ModelBase {
             if (torso[0] != null) {
                 GL11.glTranslatef(torsoPos[0] / 16, torsoPos[1] / 16, torsoPos[2] / 16);
                 NecroEntityBase mob = NecroEntityRegistry.registeredEntities.get(torso[0].name);
-                mob.preRender(minion, torso, "torso", this);
+                mob.preRender(minion, torso, BodyPartLocation.Torso, this);
                 for (BodyPart part : torso) {
                     part.render(par7);
                 }
@@ -63,7 +64,7 @@ public class ModelMinion extends ModelBase {
                         part.render(par7);
                     }
                 }
-                mob.postRender(minion, torso, "torso", this);
+                mob.postRender(minion, torso, BodyPartLocation.Torso, this);
             }
         }
         if (armLeft != null) {
@@ -71,11 +72,11 @@ public class ModelMinion extends ModelBase {
             bindTexByPart(parts[2]);
             GL11.glTranslatef(armLeftPos[0] / 16, armLeftPos[1] / 16, armLeftPos[2] / 16);
             NecroEntityBase mob = NecroEntityRegistry.registeredEntities.get(armLeft[0].name);
-            mob.preRender(minion, armLeft, "armLeft", this);
+            mob.preRender(minion, armLeft, BodyPartLocation.ArmLeft, this);
             for (BodyPart part : armLeft) {
                 part.render(par7);
             }
-            mob.postRender(minion, armLeft, "armLeft", this);
+            mob.postRender(minion, armLeft, BodyPartLocation.ArmLeft, this);
             GL11.glPopMatrix();
         }
         if (armRight != null) {
@@ -83,11 +84,11 @@ public class ModelMinion extends ModelBase {
             GL11.glTranslatef(armRightPos[0] / 16, armRightPos[1] / 16, armRightPos[2] / 16);
             bindTexByPart(parts[3]);
             NecroEntityBase mob = NecroEntityRegistry.registeredEntities.get(armRight[0].name);
-            mob.preRender(minion, armLeft, "armRight", this);
+            mob.preRender(minion, armLeft, BodyPartLocation.ArmRight, this);
             for (BodyPart part : armRight) {
                 part.render(par7);
             }
-            mob.postRender(minion, armRight, "armRight", this);
+            mob.postRender(minion, armRight, BodyPartLocation.ArmRight, this);
             GL11.glPopMatrix();
         }
         if (head != null) {
@@ -101,11 +102,11 @@ public class ModelMinion extends ModelBase {
             }
             bindTexByPart(parts[0]);
             NecroEntityBase mob = NecroEntityRegistry.registeredEntities.get(head[0].name);
-            mob.preRender(minion, head, "head", this);
+            mob.preRender(minion, head, BodyPartLocation.Head, this);
             for (BodyPart part : head) {
                 part.render(par7);
             }
-            mob.postRender(minion, head, "head", this);
+            mob.postRender(minion, head, BodyPartLocation.Head, this);
             GL11.glPopMatrix();
         }
     }
@@ -185,19 +186,19 @@ public class ModelMinion extends ModelBase {
         NecroEntityBase mob;
         String[] parts = ((EntityMinion) par7Entity).getBodyPartsNames();
         if ((mob = NecroEntityRegistry.registeredEntities.get(parts[0])) != null) {
-            mob.setRotationAngles(par1, par2, par3, par4, par5, par6, par7Entity, head, "head");
+            mob.setRotationAngles(par1, par2, par3, par4, par5, par6, par7Entity, head, BodyPartLocation.Head);
         }
         if ((mob = NecroEntityRegistry.registeredEntities.get(parts[1])) != null) {
-            mob.setRotationAngles(par1, par2, par3, par4, par5, par6, par7Entity, torso, "torso");
+            mob.setRotationAngles(par1, par2, par3, par4, par5, par6, par7Entity, torso, BodyPartLocation.Torso);
         }
         if ((mob = NecroEntityRegistry.registeredEntities.get(parts[2])) != null) {
-            mob.setRotationAngles(par1, par2, par3, par4, par5, par6, par7Entity, armLeft, "armLeft");
+            mob.setRotationAngles(par1, par2, par3, par4, par5, par6, par7Entity, armLeft, BodyPartLocation.ArmLeft);
         }
         if ((mob = NecroEntityRegistry.registeredEntities.get(parts[3])) != null) {
-            mob.setRotationAngles(par1, par2, par3, par4, par5, par6, par7Entity, armRight, "armRight");
+            mob.setRotationAngles(par1, par2, par3, par4, par5, par6, par7Entity, armRight, BodyPartLocation.ArmRight);
         }
         if ((mob = NecroEntityRegistry.registeredEntities.get(parts[4])) != null) {
-            mob.setRotationAngles(par1, par2, par3, par4, par5, par6, par7Entity, legs, "legs");
+            mob.setRotationAngles(par1, par2, par3, par4, par5, par6, par7Entity, legs, BodyPartLocation.Legs);
         }
     }
 

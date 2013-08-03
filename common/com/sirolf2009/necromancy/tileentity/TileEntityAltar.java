@@ -15,6 +15,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 
 import com.sirolf2009.necroapi.BodyPart;
+import com.sirolf2009.necroapi.BodyPartLocation;
 import com.sirolf2009.necroapi.NecroEntityBase;
 import com.sirolf2009.necroapi.NecroEntityRegistry;
 import com.sirolf2009.necromancy.Necromancy;
@@ -68,11 +69,6 @@ public class TileEntityAltar extends TileEntity implements IInventory {
             } else {
                 types[1] = new BodyPart[] {};
             }
-            if (leg != null) {
-                types[4] = getBodyPart(leg, false);
-            } else {
-                types[4] = new BodyPart[] {};
-            }
             if (armLeft != null) {
                 types[2] = getBodyPart(armLeft, false);
             } else {
@@ -83,8 +79,14 @@ public class TileEntityAltar extends TileEntity implements IInventory {
             } else {
                 types[3] = new BodyPart[] {};
             }
+            if (leg != null) {
+                types[4] = getBodyPart(leg, false);
+            } else {
+                types[4] = new BodyPart[] {};
+            }
             EntityMinion minionTemp = new EntityMinion(worldObj, types, user.username);
             minionTemp.setPosition(xCoord, yCoord + 1, zCoord);
+            minionTemp.updateAttributes();
             worldObj.spawnEntityInWorld(minionTemp);
             Necromancy.loggerNecromancy.info(minionTemp.toString());
             user.addStat(AchievementNecromancy.SpawnAchieve, 1);
@@ -161,49 +163,49 @@ public class TileEntityAltar extends TileEntity implements IInventory {
         ItemStack armRight = getStackInSlot(5);
         ItemStack armLeft = getStackInSlot(6);
         if (head != null && head.getItem() != null && isLegalCombo("head", head)) {
-            getMinion().setBodyPart("head", getBodyPart(head, false));
+            getMinion().setBodyPart(BodyPartLocation.Head, getBodyPart(head, false));
         } else {
-            getMinion().setBodyPart("head", new BodyPart[] {});
+            getMinion().setBodyPart(BodyPartLocation.Head, new BodyPart[] {});
         }
         if (body != null && isLegalCombo("body", body)) {
-            getMinion().setBodyPart("torso", getBodyPart(body, false));
+            getMinion().setBodyPart(BodyPartLocation.Torso, getBodyPart(body, false));
         } else {
-            getMinion().setBodyPart("torso", new BodyPart[] {});
+            getMinion().setBodyPart(BodyPartLocation.Torso, new BodyPart[] {});
         }
         if (leg != null && isLegalCombo("leg", leg)) {
-            getMinion().setBodyPart("leg", getBodyPart(leg, false));
+            getMinion().setBodyPart(BodyPartLocation.Legs, getBodyPart(leg, false));
         } else {
-            getMinion().setBodyPart("leg", new BodyPart[] {});
+            getMinion().setBodyPart(BodyPartLocation.Legs, new BodyPart[] {});
         }
         if (armLeft != null && isLegalCombo("arm", armLeft)) {
-            getMinion().setBodyPart("armLeft", getBodyPart(armLeft, false));
+            getMinion().setBodyPart(BodyPartLocation.ArmLeft, getBodyPart(armLeft, false));
         } else {
-            getMinion().setBodyPart("armLeft", new BodyPart[] {});
+            getMinion().setBodyPart(BodyPartLocation.ArmLeft, new BodyPart[] {});
         }
         if (armRight != null && isLegalCombo("arm", armRight)) {
-            getMinion().setBodyPart("armRight", getBodyPart(armRight, true));
+            getMinion().setBodyPart(BodyPartLocation.ArmRight, getBodyPart(armRight, true));
         } else {
-            getMinion().setBodyPart("armRight", new BodyPart[] {});
+            getMinion().setBodyPart(BodyPartLocation.ArmRight, new BodyPart[] {});
         }
         getMinion().setAltarMob(true);
         getMinion().setAltar(this);
         return getMinion();
     }
 
-    public boolean isLegalCombo(String string, ItemStack stack) {
+    public boolean isLegalCombo(String location, ItemStack stack) {
         Iterator<NecroEntityBase> itr = NecroEntityRegistry.registeredEntities.values().iterator();
         while (itr.hasNext() && stack != null) {
             NecroEntityBase mob = itr.next();
-            if (string.equals("head") && mob.hasHead && stack.isItemEqual(mob.headItem))
+            if (location.equals("head") && mob.hasHead && stack.isItemEqual(mob.headItem))
                 return true;
-            if (string.equals("body") && mob.hasTorso && stack.isItemEqual(mob.torsoItem))
+            if (location.equals("body") && mob.hasTorso && stack.isItemEqual(mob.torsoItem))
                 return true;
-            if (string.equals("arm") && mob.hasArms && stack.isItemEqual(mob.armItem))
+            if (location.equals("arm") && mob.hasArms && stack.isItemEqual(mob.armItem))
                 return true;
-            if (string.equals("leg") && mob.hasLegs && stack.isItemEqual(mob.legItem))
+            if (location.equals("leg") && mob.hasLegs && stack.isItemEqual(mob.legItem))
                 return true;
         }
-        log(stack.getDisplayName() + " is not a " + string + " item");
+        log(stack.getDisplayName() + " is not a " + location + " item");
         return false;
     }
 

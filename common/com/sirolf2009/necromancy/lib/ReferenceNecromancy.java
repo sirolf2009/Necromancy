@@ -29,6 +29,9 @@ public class ReferenceNecromancy {
     public static final ResourceLocation TEXTURES_MODELS_NECRONOMICON = new ResourceLocation("necromancy:"+LOC_RESOURCES_TEXTURES_MODELS+"/necronomicon.png");
     public static final ResourceLocation TEXTURES_MODELS_ALTAR = new ResourceLocation("necromancy:"+LOC_RESOURCES_TEXTURES_MODELS+"/altarTexture.png");
     public static final ResourceLocation TEXTURES_MODELS_SEWING = new ResourceLocation("necromancy:"+LOC_RESOURCES_TEXTURES_MODELS+"/sewingTexture.png");
+
+    public static final ResourceLocation TEXTURES_GUI_ALTAR = new ResourceLocation("necromancy:"+LOC_RESOURCES_TEXTURES_GUIS+"/altarGui.png");
+    public static final ResourceLocation TEXTURES_GUI_SEWING = new ResourceLocation("necromancy:"+LOC_RESOURCES_TEXTURES_GUIS+"/sewingGui.png");
     
     public static final ResourceLocation TEXTURES_PARTICLES = new ResourceLocation("necromancy:"+LOC_RESOURCES_TEXTURES+"/particles.png");
     

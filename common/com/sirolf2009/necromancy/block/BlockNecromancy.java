@@ -29,7 +29,7 @@ public class BlockNecromancy {
         altar = new BlockAltar(ConfigurationNecromancy.AltarID).setHardness(4);
         altar.setUnlocalizedName("Summoning Altar");
         GameRegistry.registerBlock(altar, "Summoning Altar");
-        GameRegistry.registerTileEntity(TileEntityAltar.class, "Altar");
+        GameRegistry.registerTileEntity(TileEntityAltar.class, "Summoning Altar");
         LanguageRegistry.addName(altar, "Summoning Altar");
 
         altarBlock = new BlockAltarBlock(ConfigurationNecromancy.AltarBlockID).setHardness(4);
@@ -45,7 +45,7 @@ public class BlockNecromancy {
         
         fluidBlood = new Fluid("Blood");
         FluidRegistry.registerFluid(fluidBlood);
-        fluidBlood.setBlockID(ConfigurationNecromancy.BloodID); // Set the fluids block ID to this block.
+        fluidBlood.setBlockID(ConfigurationNecromancy.BloodID);
 
         blood = new BlockBlood(ConfigurationNecromancy.BloodID, fluidBlood);
         blood.setUnlocalizedName("FlowingBlood");
