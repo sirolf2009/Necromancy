@@ -29,6 +29,8 @@ import com.sirolf2009.necromancy.lib.ReferenceNecromancy;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.common.registry.VillagerRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class EntityNecromancy {
 
@@ -62,9 +64,6 @@ public class EntityNecromancy {
 
         EntityRegistry.registerModEntity(EntityTear.class, "TearNormal", 6, Necromancy.Instance, 144, 2, true);
         EntityRegistry.registerModEntity(EntityTearBlood.class, "TearBlood", 7, Necromancy.Instance, 144, 2, true);
-
-        VillagerRegistry.instance().registerVillagerSkin(ConfigurationNecromancy.NecroVillagerID, ReferenceNecromancy.TEXTURES_ENTITIES_NECROMANCER);
-        VillagerRegistry.instance().registerVillageTradeHandler(ConfigurationNecromancy.NecroVillagerID, Necromancy.PacketHandler);
 
         NecroEntityRegistry.RegisterEntity(new NecroEntitySkeleton());
         NecroEntityRegistry.RegisterEntity(new NecroEntityZombie());

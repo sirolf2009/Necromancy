@@ -5,6 +5,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.fluids.FluidRegistry;
 
+import com.sirolf2009.necromancy.Necromancy;
 import com.sirolf2009.necromancy.block.BlockNecromancy;
 import com.sirolf2009.necromancy.client.model.ModelIsaacHead;
 import com.sirolf2009.necromancy.client.model.ModelIsaacNormal;
@@ -35,6 +36,8 @@ import com.sirolf2009.necromancy.entity.EntityTear;
 import com.sirolf2009.necromancy.entity.EntityTearBlood;
 import com.sirolf2009.necromancy.entity.EntityTeddy;
 import com.sirolf2009.necromancy.item.ItemNecromancy;
+import com.sirolf2009.necromancy.lib.ConfigurationNecromancy;
+import com.sirolf2009.necromancy.lib.ReferenceNecromancy;
 import com.sirolf2009.necromancy.tileentity.TileEntityAltar;
 import com.sirolf2009.necromancy.tileentity.TileEntitySewing;
 
@@ -42,6 +45,7 @@ import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.KeyBindingRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.registry.VillagerRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -53,6 +57,7 @@ public class ClientProxy extends CommonProxy {
     public void init() {
         super.init();
         mc = FMLClientHandler.instance().getClient();
+        
         RenderingRegistry.registerEntityRenderingHandler(EntityMinion.class, new RenderMinion());
         RenderingRegistry.registerEntityRenderingHandler(EntityTeddy.class, new RenderTeddy(new ModelTeddy(), 0.3F));
         RenderingRegistry.registerEntityRenderingHandler(EntityNightCrawler.class, new RenderNightCrawler(new ModelNightCrawler(), 0.3F));
@@ -62,14 +67,21 @@ public class ClientProxy extends CommonProxy {
         RenderingRegistry.registerEntityRenderingHandler(EntityIsaacHead.class, new RenderIsaacBlood(new ModelIsaacHead(), 0.3F));
         RenderingRegistry.registerEntityRenderingHandler(EntityTear.class, new RenderTear());
         RenderingRegistry.registerEntityRenderingHandler(EntityTearBlood.class, new RenderTearBlood());
+        
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityAltar.class, new TileEntityAltarRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySewing.class, new TileEntitySewingRenderer());
+        
         MinecraftForgeClient.registerItemRenderer(BlockNecromancy.altar.blockID, new TileEntityAltarRenderer());
         MinecraftForgeClient.registerItemRenderer(BlockNecromancy.sewing.blockID, new TileEntitySewingRenderer());
-        FluidRegistry.registerFluid(BlockNecromancy.fluidBlood);
         MinecraftForgeClient.registerItemRenderer(ItemNecromancy.scythe.itemID, new ItemScytheRenderer());
         MinecraftForgeClient.registerItemRenderer(ItemNecromancy.scytheBone.itemID, new ItemScytheBoneRenderer());
         MinecraftForgeClient.registerItemRenderer(ItemNecromancy.necronomicon.itemID, new ItemNecronomiconRenderer());
+        
+        VillagerRegistry.instance().registerVillagerSkin(ConfigurationNecromancy.NecroVillagerID, ReferenceNecromancy.TEXTURES_ENTITIES_NECROMANCER);
+        VillagerRegistry.instance().registerVillageTradeHandler(ConfigurationNecromancy.NecroVillagerID, Necromancy.PacketHandler);
+        
+        FluidRegistry.registerFluid(BlockNecromancy.fluidBlood);
+        
         KeyBindingRegistry.registerKeyBinding(new KeyHandlerNecro());
     }
 

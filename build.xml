@@ -15,6 +15,9 @@
 					<fileset dir="${build.dir.development}\source\Necromancy\common\" />
 		</copy>
 		<copy todir="${build.dir.development}\forge\mcp\src\minecraft">
+					<fileset dir="${build.dir.development}\source\Necromancy\resources\" />
+		</copy>
+		<copy todir="${build.dir.development}\forge\mcp\src\minecraft">
 			<fileset dir="${build.dir.development}\source\NecroAPI\common\" />
 		</copy>
 	</target>

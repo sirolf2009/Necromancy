@@ -94,8 +94,8 @@ public class ItemGeneric extends Item {
     @Override
     public void registerIcons(IconRegister iconRegister) {
         for (int index = 0; index < names.length; index++) {
-            String path = names[index].replace(" ", "");
-            icons[index] = iconRegister.registerIcon("necromancy:" + path);
+            String path = names[index].replace(" ", "").toLowerCase();
+            icons[index] = iconRegister.registerIcon("necromancy:"+path.toLowerCase());
         }
         tearBlood = iconRegister.registerIcon("necromancy:BloodTear");
         tearNormal = iconRegister.registerIcon("necromancy:Tear");
