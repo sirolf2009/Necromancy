@@ -40,7 +40,7 @@ public class ItemOrgans extends ItemFood {
     @Override
     public void registerIcons(IconRegister iconRegister) {
         for (int index = 0; index < names.length; index++) {
-            icons[index] = iconRegister.registerIcon("necromancy:" + names[index]);
+            icons[index] = iconRegister.registerIcon("necromancy:" + names[index].toLowerCase());
         }
     }
 

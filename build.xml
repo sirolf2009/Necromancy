@@ -88,9 +88,6 @@
 			<fileset dir="${build.dir.development}\source\Necromancy\resources" excludes="**/xcf/**" />
 		</jar>
 
-		<!-- Sign the finished jar -->
-		<antcall target="sign_jar" />
-
 		<!-- Clean up the MCP source now that we are done -->
 		<antcall target="clean" />
         	<record name="log.txt" action="stop"/>

@@ -52,7 +52,7 @@ public class ConfigurationNecromancy {
         AltarBlockID = config.getBlock("Altar Building Block", 2622).getInt();
         SewingID = config.getBlock("Sewing", 2623).getInt();
         BloodID = config.getBlock("Blood", 2625).getInt();
-        ScentBurnerID = config.getBlock("BloodStationary", 2626).getInt();
+        ScentBurnerID = config.getBlock("Scent Burner", 2626).getInt();
 
         BucketBloodID = config.getItem("BloodStationary", 2621).getInt();
         ScytheID = config.getItem("Scythe", 2622).getInt();

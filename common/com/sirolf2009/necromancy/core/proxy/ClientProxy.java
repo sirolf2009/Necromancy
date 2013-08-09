@@ -23,6 +23,7 @@ import com.sirolf2009.necromancy.client.renderer.RenderTear;
 import com.sirolf2009.necromancy.client.renderer.RenderTearBlood;
 import com.sirolf2009.necromancy.client.renderer.RenderTeddy;
 import com.sirolf2009.necromancy.client.renderer.tileentity.TileEntityAltarRenderer;
+import com.sirolf2009.necromancy.client.renderer.tileentity.TileEntityScentBurnerRenderer;
 import com.sirolf2009.necromancy.client.renderer.tileentity.TileEntitySewingRenderer;
 import com.sirolf2009.necromancy.core.handler.KeyHandlerNecro;
 import com.sirolf2009.necromancy.entity.EntityIsaacBlood;
@@ -39,6 +40,7 @@ import com.sirolf2009.necromancy.item.ItemNecromancy;
 import com.sirolf2009.necromancy.lib.ConfigurationNecromancy;
 import com.sirolf2009.necromancy.lib.ReferenceNecromancy;
 import com.sirolf2009.necromancy.tileentity.TileEntityAltar;
+import com.sirolf2009.necromancy.tileentity.TileEntityScentBurner;
 import com.sirolf2009.necromancy.tileentity.TileEntitySewing;
 
 import cpw.mods.fml.client.FMLClientHandler;
@@ -70,15 +72,14 @@ public class ClientProxy extends CommonProxy {
         
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityAltar.class, new TileEntityAltarRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySewing.class, new TileEntitySewingRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityScentBurner.class, new TileEntityScentBurnerRenderer());
         
         MinecraftForgeClient.registerItemRenderer(BlockNecromancy.altar.blockID, new TileEntityAltarRenderer());
         MinecraftForgeClient.registerItemRenderer(BlockNecromancy.sewing.blockID, new TileEntitySewingRenderer());
+        MinecraftForgeClient.registerItemRenderer(BlockNecromancy.scentBurner.blockID, new TileEntityScentBurnerRenderer());
         MinecraftForgeClient.registerItemRenderer(ItemNecromancy.scythe.itemID, new ItemScytheRenderer());
         MinecraftForgeClient.registerItemRenderer(ItemNecromancy.scytheBone.itemID, new ItemScytheBoneRenderer());
         MinecraftForgeClient.registerItemRenderer(ItemNecromancy.necronomicon.itemID, new ItemNecronomiconRenderer());
-        
-        VillagerRegistry.instance().registerVillagerSkin(ConfigurationNecromancy.NecroVillagerID, ReferenceNecromancy.TEXTURES_ENTITIES_NECROMANCER);
-        VillagerRegistry.instance().registerVillageTradeHandler(ConfigurationNecromancy.NecroVillagerID, Necromancy.PacketHandler);
         
         FluidRegistry.registerFluid(BlockNecromancy.fluidBlood);
         

@@ -23,7 +23,7 @@ public class ItemIsaacsHead extends ItemArmor {
 
     @Override
     public void registerIcons(IconRegister iconRegister) {
-        itemIcon = iconRegister.registerIcon("necromancy:IsaacsSeveredHead");
+        itemIcon = iconRegister.registerIcon("necromancy:isaacsseveredhead");
     }
 
 }

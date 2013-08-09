@@ -10,6 +10,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import com.sirolf2009.necromancy.item.ItemGeneric;
 import com.sirolf2009.necromancy.lib.ConfigurationNecromancy;
 import com.sirolf2009.necromancy.tileentity.TileEntityAltar;
+import com.sirolf2009.necromancy.tileentity.TileEntityScentBurner;
 import com.sirolf2009.necromancy.tileentity.TileEntitySewing;
 
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -42,6 +43,12 @@ public class BlockNecromancy {
         GameRegistry.registerBlock(sewing, "Sewing Machine");
         GameRegistry.registerTileEntity(TileEntitySewing.class, "Sewing");
         LanguageRegistry.addName(sewing, "Sewing Machine");
+        
+        scentBurner = new BlockScentBurner(ConfigurationNecromancy.ScentBurnerID).setHardness(4);
+        sewing.setUnlocalizedName("Scent Burner");
+        GameRegistry.registerBlock(scentBurner, "Scent Burner");
+        GameRegistry.registerTileEntity(TileEntityScentBurner.class, "Scent Burner");
+        LanguageRegistry.addName(scentBurner, "Scent Burner [WIP]");
         
         fluidBlood = new Fluid("Blood");
         FluidRegistry.registerFluid(fluidBlood);

@@ -3,11 +3,9 @@
     [input] Minecraft version:
 
 clean:
-   [delete] Deleting: C:\Users\Floris\MC mods\forge\mcp\src\minecraft\mcmod.info
-   [delete] Deleting directory C:\Users\Floris\MC mods\forge\mcp\reobf\minecraft
 
 prep:
-     [copy] Copying 104 files to C:\Users\Floris\MC mods\forge\mcp\src\minecraft
+     [copy] Copying 108 files to C:\Users\Floris\MC mods\forge\mcp\src\minecraft
      [copy] Copying 9 files to C:\Users\Floris\MC mods\forge\mcp\src\minecraft
 
 replace_tokens:
@@ -19,7 +17,7 @@ recompile:
      [exec] == Recompiling client ==
      [exec] > Cleaning bin
      [exec] > Recompiling
-     [exec] - Done in 29.26 seconds
+     [exec] - Done in 43.14 seconds
      [exec] !! Can not find server sources, try decompiling !!
      [exec] Druk op een toets om door te gaan. . . 
 
@@ -96,6 +94,8 @@ reobfuscate:
      [exec] > New class found      : com/sirolf2009/necromancy/client/model/ModelScytheBone
      [exec] > New class found      : com/sirolf2009/necromancy/entity/necroapi/NecroEntitySpider
      [exec] > New class found      : com/sirolf2009/necromancy/entity/EntityNecromancy
+     [exec] > New class found      : com/sirolf2009/necromancy/inventory/ContainerScentBurner
+     [exec] > New class found      : com/sirolf2009/necromancy/client/model/ModelScentBurner
      [exec] > New class found      : com/sirolf2009/necromancy/client/renderer/RenderIsaacBlood
      [exec] > New class found      : thaumcraft/api/crafting/ShapelessInfusionCraftingRecipes
      [exec] > New class found      : com/sirolf2009/necromancy/client/renderer/ItemScytheBoneRenderer
@@ -106,6 +106,7 @@ reobfuscate:
      [exec] > New class found      : com/sirolf2009/necromancy/entity/EntityMinion
      [exec] > New class found      : com/sirolf2009/necromancy/client/renderer/tileentity/TileEntityAltarRenderer
      [exec] > New inner class found: com/sirolf2009/necromancy/client/renderer/ItemScytheBoneRenderer$1
+     [exec] > New class found      : com/sirolf2009/necromancy/client/gui/GuiScentBurner
      [exec] > New class found      : com/sirolf2009/necromancy/client/model/ModelAltar
      [exec] > New class found      : com/sirolf2009/necromancy/client/renderer/RenderNightCrawler
      [exec] > New class found      : com/sirolf2009/necromancy/core/handler/KeyHandlerNecro
@@ -117,6 +118,7 @@ reobfuscate:
      [exec] > New class found      : com/sirolf2009/necroapi/NecroEntityZombie
      [exec] > New class found      : com/sirolf2009/necromancy/creativetab/CreativeTabNecro
      [exec] > New class found      : com/sirolf2009/necromancy/client/model/ModelIsaacHead
+     [exec] > New inner class found: com/sirolf2009/necromancy/client/renderer/tileentity/TileEntityScentBurnerRenderer$1
      [exec] > New class found      : com/sirolf2009/necromancy/block/BlockSkullWall
      [exec] > New class found      : com/sirolf2009/necromancy/block/BlockAltar
      [exec] > New class found      : thaumcraft/api/crafting/ShapedArcaneCraftingRecipes
@@ -158,6 +160,7 @@ reobfuscate:
      [exec] > New class found      : com/sirolf2009/necromancy/generation/WorldGenerator
      [exec] > New class found      : com/sirolf2009/necromancy/item/ItemGeneric
      [exec] > New class found      : com/sirolf2009/necromancy/client/renderer/ItemScytheRenderer
+     [exec] > New class found      : com/sirolf2009/necromancy/client/renderer/tileentity/TileEntityScentBurnerRenderer
      [exec] > New class found      : com/sirolf2009/necroapi/BodyPart
      [exec] > New class found      : com/sirolf2009/necromancy/entity/necroapi/NecroEntitySheep
      [exec] > New class found      : com/sirolf2009/necromancy/entity/EntityAIScareEntities
@@ -238,6 +241,8 @@ reobfuscate:
      [exec] > Outputted com/sirolf2009/necromancy/client/model/ModelScytheBone to reobf\minecraft as com/sirolf2009/necromancy/client/model/ModelScytheBone.class
      [exec] > Outputted com/sirolf2009/necromancy/entity/necroapi/NecroEntitySpider to reobf\minecraft as com/sirolf2009/necromancy/entity/necroapi/NecroEntitySpider.class
      [exec] > Outputted com/sirolf2009/necromancy/entity/EntityNecromancy to reobf\minecraft as com/sirolf2009/necromancy/entity/EntityNecromancy.class
+     [exec] > Outputted com/sirolf2009/necromancy/inventory/ContainerScentBurner to reobf\minecraft as com/sirolf2009/necromancy/inventory/ContainerScentBurner.class
+     [exec] > Outputted com/sirolf2009/necromancy/client/model/ModelScentBurner to reobf\minecraft as com/sirolf2009/necromancy/client/model/ModelScentBurner.class
      [exec] > Outputted com/sirolf2009/necromancy/client/renderer/RenderIsaacBlood to reobf\minecraft as com/sirolf2009/necromancy/client/renderer/RenderIsaacBlood.class
      [exec] > Outputted thaumcraft/api/crafting/ShapelessInfusionCraftingRecipes to reobf\minecraft as thaumcraft/api/crafting/ShapelessInfusionCraftingRecipes.class
      [exec] > Outputted com/sirolf2009/necromancy/client/renderer/ItemScytheBoneRenderer to reobf\minecraft as com/sirolf2009/necromancy/client/renderer/ItemScytheBoneRenderer.class
@@ -248,6 +253,7 @@ reobfuscate:
      [exec] > Outputted com/sirolf2009/necromancy/entity/EntityMinion to reobf\minecraft as com/sirolf2009/necromancy/entity/EntityMinion.class
      [exec] > Outputted com/sirolf2009/necromancy/client/renderer/tileentity/TileEntityAltarRenderer to reobf\minecraft as com/sirolf2009/necromancy/client/renderer/tileentity/TileEntityAltarRenderer.class
      [exec] > Outputted com/sirolf2009/necromancy/client/renderer/ItemScytheBoneRenderer$1 to reobf\minecraft as com/sirolf2009/necromancy/client/renderer/ItemScytheBoneRenderer$1.class
+     [exec] > Outputted com/sirolf2009/necromancy/client/gui/GuiScentBurner to reobf\minecraft as com/sirolf2009/necromancy/client/gui/GuiScentBurner.class
      [exec] > Outputted com/sirolf2009/necromancy/client/model/ModelAltar to reobf\minecraft as com/sirolf2009/necromancy/client/model/ModelAltar.class
      [exec] > Outputted com/sirolf2009/necromancy/client/renderer/RenderNightCrawler to reobf\minecraft as com/sirolf2009/necromancy/client/renderer/RenderNightCrawler.class
      [exec] > Outputted com/sirolf2009/necromancy/core/handler/KeyHandlerNecro to reobf\minecraft as com/sirolf2009/necromancy/core/handler/KeyHandlerNecro.class
@@ -259,6 +265,7 @@ reobfuscate:
      [exec] > Outputted com/sirolf2009/necroapi/NecroEntityZombie to reobf\minecraft as com/sirolf2009/necroapi/NecroEntityZombie.class
      [exec] > Outputted com/sirolf2009/necromancy/creativetab/CreativeTabNecro to reobf\minecraft as com/sirolf2009/necromancy/creativetab/CreativeTabNecro.class
      [exec] > Outputted com/sirolf2009/necromancy/client/model/ModelIsaacHead to reobf\minecraft as com/sirolf2009/necromancy/client/model/ModelIsaacHead.class
+     [exec] > Outputted com/sirolf2009/necromancy/client/renderer/tileentity/TileEntityScentBurnerRenderer$1 to reobf\minecraft as com/sirolf2009/necromancy/client/renderer/tileentity/TileEntityScentBurnerRenderer$1.class
      [exec] > Outputted com/sirolf2009/necromancy/block/BlockSkullWall to reobf\minecraft as com/sirolf2009/necromancy/block/BlockSkullWall.class
      [exec] > Outputted com/sirolf2009/necromancy/block/BlockAltar to reobf\minecraft as com/sirolf2009/necromancy/block/BlockAltar.class
      [exec] > Outputted thaumcraft/api/crafting/ShapedArcaneCraftingRecipes to reobf\minecraft as thaumcraft/api/crafting/ShapedArcaneCraftingRecipes.class
@@ -300,6 +307,7 @@ reobfuscate:
      [exec] > Outputted com/sirolf2009/necromancy/generation/WorldGenerator to reobf\minecraft as com/sirolf2009/necromancy/generation/WorldGenerator.class
      [exec] > Outputted com/sirolf2009/necromancy/item/ItemGeneric to reobf\minecraft as com/sirolf2009/necromancy/item/ItemGeneric.class
      [exec] > Outputted com/sirolf2009/necromancy/client/renderer/ItemScytheRenderer to reobf\minecraft as com/sirolf2009/necromancy/client/renderer/ItemScytheRenderer.class
+     [exec] > Outputted com/sirolf2009/necromancy/client/renderer/tileentity/TileEntityScentBurnerRenderer to reobf\minecraft as com/sirolf2009/necromancy/client/renderer/tileentity/TileEntityScentBurnerRenderer.class
      [exec] > Outputted com/sirolf2009/necroapi/BodyPart    to reobf\minecraft as com/sirolf2009/necroapi/BodyPart.class
      [exec] > Outputted com/sirolf2009/necromancy/entity/necroapi/NecroEntitySheep to reobf\minecraft as com/sirolf2009/necromancy/entity/necroapi/NecroEntitySheep.class
      [exec] > Outputted com/sirolf2009/necromancy/entity/EntityAIScareEntities to reobf\minecraft as com/sirolf2009/necromancy/entity/EntityAIScareEntities.class
@@ -319,54 +327,12 @@ reobfuscate:
      [exec] > Outputted com/sirolf2009/necromancy/entity/necroapi/NecroEntityCaveSpider to reobf\minecraft as com/sirolf2009/necromancy/entity/necroapi/NecroEntityCaveSpider.class
      [exec] > Outputted com/sirolf2009/necromancy/entity/EntityIsaacBody to reobf\minecraft as com/sirolf2009/necromancy/entity/EntityIsaacBody.class
      [exec] > Outputted com/sirolf2009/necromancy/entity/EntityNecroFX to reobf\minecraft as com/sirolf2009/necromancy/entity/EntityNecroFX.class
-     [exec] - Done in 14.11 seconds
+     [exec] - Done in 26.86 seconds
      [exec] !! Can not find server md5s !!
      [exec] Druk op een toets om door te gaan. . . 
-      [jar] Building jar: C:\Users\Floris\Dropbox\Public\necromancy\releases\Necromancy-test-test.jar
+      [jar] Building jar: C:\Users\Floris\Dropbox\Public\necromancy\releases\Necromancy-1.4b-1.6.2.jar
 
-sign_jar:
-  [signjar] Signing JAR: C:\Users\Floris\Dropbox\Public\necromancy\releases\Necromancy-test-test.jar to C:\Users\Floris\Dropbox\Public\necromancy\releases\Necromancy-test-test.jar as ${build.keystore.alias}
-  [signjar] jarsigner error: java.lang.RuntimeException: keystore load: C:\Users\Floris\MC mods\source\Necromancy\${build.keystore.location} (Het systeem kan het opgegeven bestand niet vinden)
-
-BUILD FAILED
-
-C:\Users\Floris\MC mods\source\Necromancy\build.xml:92: The following error occurred while executing this line:
-C:\Users\Floris\MC mods\source\Necromancy\build.xml:49: jarsigner returned: 1
-	at org.apache.tools.ant.ProjectHelper.addLocationToBuildException(ProjectHelper.java:568)
-	at org.apache.tools.ant.taskdefs.Ant.execute(Ant.java:442)
-	at org.apache.tools.ant.taskdefs.CallTarget.execute(CallTarget.java:105)
-	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:292)
-	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:601)
-	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:106)
-	at org.apache.tools.ant.Task.perform(Task.java:348)
-	at org.apache.tools.ant.Target.execute(Target.java:435)
-	at org.apache.tools.ant.Target.performTasks(Target.java:456)
-	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1393)
-	at org.apache.tools.ant.Project.executeTarget(Project.java:1364)
-	at org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)
-	at org.apache.tools.ant.Project.executeTargets(Project.java:1248)
-	at org.apache.tools.ant.Main.runBuild(Main.java:851)
-	at org.apache.tools.ant.Main.startAnt(Main.java:235)
-	at org.apache.tools.ant.launch.Launcher.run(Launcher.java:280)
-	at org.apache.tools.ant.launch.Launcher.main(Launcher.java:109)
-Caused by: C:\Users\Floris\MC mods\source\Necromancy\build.xml:49: jarsigner returned: 1
-	at org.apache.tools.ant.taskdefs.ExecTask.runExecute(ExecTask.java:643)
-	at org.apache.tools.ant.taskdefs.ExecTask.runExec(ExecTask.java:669)
-	at org.apache.tools.ant.taskdefs.ExecTask.execute(ExecTask.java:495)
-	at org.apache.tools.ant.taskdefs.SignJar.signOneJar(SignJar.java:488)
-	at org.apache.tools.ant.taskdefs.SignJar.execute(SignJar.java:403)
-	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:292)
-	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:601)
-	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:106)
-	at org.apache.tools.ant.Task.perform(Task.java:348)
-	at org.apache.tools.ant.Target.execute(Target.java:435)
-	at org.apache.tools.ant.Target.performTasks(Target.java:456)
-	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1393)
-	at org.apache.tools.ant.helper.SingleCheckExecutor.executeTargets(SingleCheckExecutor.java:38)
-	at org.apache.tools.ant.Project.executeTargets(Project.java:1248)
-	at org.apache.tools.ant.taskdefs.Ant.execute(Ant.java:440)
-	... 17 more
+clean:
+   [delete] Deleting: C:\Users\Floris\MC mods\forge\mcp\src\minecraft\mcmod.info
+   [delete] Deleting directory C:\Users\Floris\MC mods\forge\mcp\src\minecraft\com\sirolf2009
+   [delete] Deleting directory C:\Users\Floris\MC mods\forge\mcp\reobf\minecraft

@@ -56,7 +56,7 @@ public class EntityTeddy extends EntityTameable {
         // Movement Speed - default 0.699D - min 0.0D - max Double.MAX_VALUE
         this.func_110148_a(SharedMonsterAttributes.field_111263_d).func_111128_a(moveSpeed);
         // Attack Damage - default 2.0D - min 0.0D - max Doubt.MAX_VALUE
-        this.func_110148_a(SharedMonsterAttributes.field_111264_e).func_111128_a(2.0D);
+        //this.func_110148_a(SharedMonsterAttributes.field_111264_e).func_111128_a(2.0D);
     }
 
     @Override

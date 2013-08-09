@@ -19,19 +19,23 @@ import net.minecraft.world.gen.structure.StructureVillagePieceWeight;
 import com.sirolf2009.necromancy.Necromancy;
 import com.sirolf2009.necromancy.achievement.AchievementNecromancy;
 import com.sirolf2009.necromancy.block.BlockAltar;
+import com.sirolf2009.necromancy.block.BlockScentBurner;
 import com.sirolf2009.necromancy.block.BlockSewing;
 import com.sirolf2009.necromancy.client.gui.GuiAltar;
+import com.sirolf2009.necromancy.client.gui.GuiScentBurner;
 import com.sirolf2009.necromancy.client.gui.GuiSewing;
 import com.sirolf2009.necromancy.core.proxy.ClientProxy;
 import com.sirolf2009.necromancy.generation.villagecomponent.ComponentVillageCemetery;
 import com.sirolf2009.necromancy.inventory.ContainerAltar;
 import com.sirolf2009.necromancy.inventory.ContainerNecronomiconCrafting;
+import com.sirolf2009.necromancy.inventory.ContainerScentBurner;
 import com.sirolf2009.necromancy.inventory.ContainerSewing;
 import com.sirolf2009.necromancy.item.ItemBodyPart;
 import com.sirolf2009.necromancy.item.ItemGeneric;
 import com.sirolf2009.necromancy.item.ItemNecroSkull;
 import com.sirolf2009.necromancy.item.ItemNecromancy;
 import com.sirolf2009.necromancy.tileentity.TileEntityAltar;
+import com.sirolf2009.necromancy.tileentity.TileEntityScentBurner;
 import com.sirolf2009.necromancy.tileentity.TileEntitySewing;
 
 import cpw.mods.fml.common.ICraftingHandler;
@@ -49,8 +53,8 @@ public class PacketHandler implements IPacketHandler, IGuiHandler, ICraftingHand
             return new ContainerAltar(player.inventory, (TileEntityAltar) player.worldObj.getBlockTileEntity(x, y, z));
         if (ID == BlockSewing.guiID)
             return new ContainerSewing(player.inventory, player.worldObj.getBlockTileEntity(x, y, z));
-        if (ID == 2)
-            return new ContainerNecronomiconCrafting(player.inventory, world, x, y, z);
+        if (ID == BlockScentBurner.guiID)
+            return new ContainerScentBurner(player.inventory, player.worldObj.getBlockTileEntity(x, y, z));
         return null;
     }
 
@@ -60,6 +64,8 @@ public class PacketHandler implements IPacketHandler, IGuiHandler, ICraftingHand
             return new GuiAltar(player.inventory, (TileEntityAltar) player.worldObj.getBlockTileEntity(x, y, z));
         if (ID == BlockSewing.guiID)
             return new GuiSewing(player.inventory, (TileEntitySewing) player.worldObj.getBlockTileEntity(x, y, z));
+        if (ID == BlockScentBurner.guiID)
+            return new GuiScentBurner(player.inventory, (TileEntityScentBurner) player.worldObj.getBlockTileEntity(x, y, z));
         return null;
     }
 

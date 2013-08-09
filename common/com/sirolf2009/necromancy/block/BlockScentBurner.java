@@ -7,6 +7,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 import com.sirolf2009.necromancy.Necromancy;
+import com.sirolf2009.necromancy.tileentity.TileEntityScentBurner;
 import com.sirolf2009.necromancy.tileentity.TileEntitySewing;
 
 public class BlockScentBurner extends BlockContainer {
@@ -15,6 +16,7 @@ public class BlockScentBurner extends BlockContainer {
 
     public BlockScentBurner(int par1) {
         super(par1, Material.wood);
+        setCreativeTab(Necromancy.tabNecromancy);
     }
     
     @Override
@@ -45,7 +47,7 @@ public class BlockScentBurner extends BlockContainer {
 
     @Override
     public TileEntity createNewTileEntity(World var1) {
-        return new TileEntitySewing();
+        return new TileEntityScentBurner();
     }
 
 }

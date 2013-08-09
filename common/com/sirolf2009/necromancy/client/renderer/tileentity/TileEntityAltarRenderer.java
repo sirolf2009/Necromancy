@@ -225,6 +225,9 @@ public class TileEntityAltarRenderer extends TileEntitySpecialRenderer implement
             case EQUIPPED:
                 renderAltar(0.5F, 1F, 0.5F, 1F, 250F, 180F, 1);
                 break;
+            case EQUIPPED_FIRST_PERSON:
+                renderAltar(0.5F, 1F, 0.5F, 1F, 250F, 180F, 1);
+                break;
             case INVENTORY:
                 renderAltar(-0.5F, 0.5F, 0, 1F, -180F, 180F, 0.55F);
                 break;

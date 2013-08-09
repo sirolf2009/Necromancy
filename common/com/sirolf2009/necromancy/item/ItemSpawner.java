@@ -77,7 +77,7 @@ public class ItemSpawner extends Item {
 
     @Override
     public void registerIcons(IconRegister iconRegister) {
-        itemIcon = iconRegister.registerIcon("necromancy:soulHeart");
+        itemIcon = iconRegister.registerIcon("necromancy:soulheart");
     }
 
 }
