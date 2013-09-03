@@ -10,6 +10,7 @@ public class ConfigurationNecromancy {
     public static int AltarBlockID;
     public static int SewingID;
     public static int ScentBurnerID;
+    public static int ScentID;
 
     public static int BloodID;
     public static int BucketBloodID;
@@ -53,6 +54,7 @@ public class ConfigurationNecromancy {
         SewingID = config.getBlock("Sewing", 2623).getInt();
         BloodID = config.getBlock("Blood", 2625).getInt();
         ScentBurnerID = config.getBlock("Scent Burner", 2626).getInt();
+        ScentID = config.getBlock("Scent", 2627).getInt();
 
         BucketBloodID = config.getItem("BloodStationary", 2621).getInt();
         ScytheID = config.getItem("Scythe", 2622).getInt();

@@ -10,6 +10,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import com.sirolf2009.necromancy.item.ItemGeneric;
 import com.sirolf2009.necromancy.lib.ConfigurationNecromancy;
 import com.sirolf2009.necromancy.tileentity.TileEntityAltar;
+import com.sirolf2009.necromancy.tileentity.TileEntityScent;
 import com.sirolf2009.necromancy.tileentity.TileEntityScentBurner;
 import com.sirolf2009.necromancy.tileentity.TileEntitySewing;
 
@@ -22,6 +23,7 @@ public class BlockNecromancy {
     public static Block altarBlock;
     public static Block sewing;
     public static Block scentBurner;
+    public static Block scent;
     public static BlockBlood blood;
     
     public static Fluid fluidBlood;
@@ -43,12 +45,18 @@ public class BlockNecromancy {
         GameRegistry.registerBlock(sewing, "Sewing Machine");
         GameRegistry.registerTileEntity(TileEntitySewing.class, "Sewing");
         LanguageRegistry.addName(sewing, "Sewing Machine");
-        
+
         scentBurner = new BlockScentBurner(ConfigurationNecromancy.ScentBurnerID).setHardness(4);
-        sewing.setUnlocalizedName("Scent Burner");
+        scentBurner.setUnlocalizedName("Scent Burner");
         GameRegistry.registerBlock(scentBurner, "Scent Burner");
         GameRegistry.registerTileEntity(TileEntityScentBurner.class, "Scent Burner");
         LanguageRegistry.addName(scentBurner, "Scent Burner [WIP]");
+        
+        scent = new BlockScent(ConfigurationNecromancy.ScentID);
+        scent.setUnlocalizedName("Scent");
+        GameRegistry.registerBlock(scent, "Scent");
+        GameRegistry.registerTileEntity(TileEntityScent.class, "Scent");
+        LanguageRegistry.addName(scent, "Scent");
         
         fluidBlood = new Fluid("Blood");
         FluidRegistry.registerFluid(fluidBlood);

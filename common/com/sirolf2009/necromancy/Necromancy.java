@@ -1,12 +1,23 @@
 package com.sirolf2009.necromancy;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
+
+import org.lwjgl.opengl.ARBFragmentShader;
+import org.lwjgl.opengl.ARBShaderObjects;
+import org.lwjgl.opengl.ARBVertexShader;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL20;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.server.dedicated.PropertyManager;
@@ -47,6 +58,8 @@ public class Necromancy {
     public static final CreativeTabs tabNecromancy = new CreativeTabNecro(CreativeTabs.getNextID(), "Necromancy", 1).setBackgroundImageName("necro_gui.png");
     public static final CreativeTabs tabNecromancyBodyParts = new CreativeTabNecro(CreativeTabs.getNextID(), "BodyParts", 2).setBackgroundImageName("necro_gui.png");
     
+    public int scentProgram;
+    
     public static List<String> specialFolk = new ArrayList<String>();
 
     public static int maxSpawn = -1;
@@ -66,6 +79,19 @@ public class Necromancy {
     public void preInit(FMLPreInitializationEvent event) {
         loggerNecromancy = Logger.getLogger("necromancy");
         loggerNecromancy.setParent(FMLLog.getLogger());
+        
+        try {
+        	int vertShader = loadShader("assets/necromancy/shaders/scent/scentFragment.shader",GL20.GL_VERTEX_SHADER);
+			int fragShader = loadShader("assets/necromancy/shaders/scent/scentVertex.shader",GL20.GL_FRAGMENT_SHADER);
+			int scentProgram = GL20.glCreateProgram();
+			GL20.glAttachShader(scentProgram, vertShader);
+			GL20.glAttachShader(scentProgram, fragShader);
+			GL20.glLinkProgram(scentProgram);
+			GL20.glValidateProgram(scentProgram);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+    		System.exit(-1);
+		}
 
         ConfigurationNecromancy.initProperties(event);
 
@@ -128,5 +154,111 @@ public class Necromancy {
         villageComponentsList.add(PacketHandler.class);
 
         GameRegistry.registerWorldGenerator(new WorldGenerator());
+    }
+    
+    public int loadShader(String filename, int type) {
+    	StringBuilder shaderSource = new StringBuilder();
+    	int shaderID = 0;
+    	
+    	try {
+    		BufferedReader reader = new BufferedReader(new FileReader(getClass().getClassLoader().getResource(filename).toURI().getPath()));
+    		String line;
+    		while ((line = reader.readLine()) != null) {
+    			shaderSource.append(line).append("\n");
+    		}
+    		reader.close();
+    	} catch (IOException e) {
+    		System.err.println("Could not read file.");
+    		e.printStackTrace();
+    		System.exit(-1);
+    	} catch (URISyntaxException e) {
+    		System.err.println("Could not read file.");
+    		e.printStackTrace();
+    		System.exit(-1);
+		}
+    	
+    	shaderID = GL20.glCreateShader(type);
+    	GL20.glShaderSource(shaderID, shaderSource);
+    	GL20.glCompileShader(shaderID);
+    	
+    	return shaderID;
+    }
+    
+    private int createShader(String filename, int shaderType) throws Exception {
+    	int shader = 0;
+    	try {
+	        shader = ARBShaderObjects.glCreateShaderObjectARB(shaderType);
+	        
+	        if(shader == 0)
+	        	return 0;
+	        
+	        ARBShaderObjects.glShaderSourceARB(shader, readFileAsString(filename));
+	        ARBShaderObjects.glCompileShaderARB(shader);
+	        
+	        if (ARBShaderObjects.glGetObjectParameteriARB(shader, ARBShaderObjects.GL_OBJECT_COMPILE_STATUS_ARB) == GL11.GL_FALSE)
+	            throw new RuntimeException("Error creating shader: " + ARBShaderObjects.glGetInfoLogARB(shader, ARBShaderObjects.glGetObjectParameteriARB(shader, ARBShaderObjects.GL_OBJECT_INFO_LOG_LENGTH_ARB)));
+	        
+	        return shader;
+    	}
+    	catch(Exception exc) {
+    		ARBShaderObjects.glDeleteObjectARB(shader);
+    		throw exc;
+    	}
+    }
+    
+    private String readFileAsString(String filename) throws Exception {
+        StringBuilder source = new StringBuilder();
+        
+        FileInputStream in = new FileInputStream(getClass().getClassLoader().getResource(filename).toURI().getPath());
+        
+        Exception exception = null;
+        
+        BufferedReader reader;
+        try{
+            reader = new BufferedReader(new InputStreamReader(in,"UTF-8"));
+            
+            Exception innerExc= null;
+            try {
+            	String line;
+                while((line = reader.readLine()) != null)
+                    source.append(line).append('\n');
+            }
+            catch(Exception exc) {
+            	exception = exc;
+            }
+            finally {
+            	try {
+            		reader.close();
+            	}
+            	catch(Exception exc) {
+            		if(innerExc == null)
+            			innerExc = exc;
+            		else
+            			exc.printStackTrace();
+            	}
+            }
+            
+            if(innerExc != null)
+            	throw innerExc;
+        }
+        catch(Exception exc) {
+        	exception = exc;
+        }
+        finally {
+        	try {
+        		in.close();
+        	}
+        	catch(Exception exc) {
+        		if(exception == null)
+        			exception = exc;
+        		else
+					exc.printStackTrace();
+        	}
+        	
+        	if(exception != null)
+        		throw exception;
+        }
+        
+        return source.toString();
     }
 }

@@ -5,8 +5,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.client.IItemRenderer;
 
+import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL20;
 
+import com.sirolf2009.necromancy.Necromancy;
 import com.sirolf2009.necromancy.client.model.ModelScentBurner;
 import com.sirolf2009.necromancy.client.model.ModelSewing;
 import com.sirolf2009.necromancy.core.proxy.ClientProxy;
@@ -95,6 +98,7 @@ public class TileEntityScentBurnerRenderer extends TileEntitySpecialRenderer imp
                 j = 180;
             }
             GL11.glRotatef(j, 0.0F, 1.0F, 0.0F);
+    		GL20.glUseProgram(Necromancy.Instance.scentProgram);
             model.render();
             GL11.glDisable(32826);
             GL11.glPopMatrix();

@@ -21,6 +21,8 @@ public class ReferenceNecromancy {
     public static final ResourceLocation TEXTURES_ENTITIES_NECROMANCER = new ResourceLocation(MOD_ID, LOC_RESOURCES_TEXTURES_ENTITIES+"/villagernecro.png");
     public static final ResourceLocation TEXTURES_ENTITIES_NIGHTCRAWLER = new ResourceLocation(MOD_ID,LOC_RESOURCES_TEXTURES_ENTITIES+"/nightcrawler.png");
     public static final ResourceLocation TEXTURES_ENTITIES_TEDDY = new ResourceLocation(MOD_ID, LOC_RESOURCES_TEXTURES_ENTITIES+"/teddy.png");
+    public static final ResourceLocation TEXTURES_ENTITIES_ISAAC = new ResourceLocation(MOD_ID, LOC_RESOURCES_TEXTURES_ENTITIES+"/isaac.png");
+    public static final ResourceLocation TEXTURES_ENTITIES_ISAACBLOOD = new ResourceLocation(MOD_ID, LOC_RESOURCES_TEXTURES_ENTITIES+"/isaacblood.png");
     public static final ResourceLocation TEXTURES_ENTITIES_TEAR = new ResourceLocation(MOD_ID, LOC_RESOURCES_TEXTURES_ENTITIES+"/tearblood.png");
     public static final ResourceLocation TEXTURES_ENTITIES_TEARBLOOD = new ResourceLocation(MOD_ID, LOC_RESOURCES_TEXTURES_ENTITIES+"/tear.png");
 

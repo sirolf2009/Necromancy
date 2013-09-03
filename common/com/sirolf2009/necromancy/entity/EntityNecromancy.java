@@ -64,9 +64,6 @@ public class EntityNecromancy {
 
         EntityRegistry.registerModEntity(EntityTear.class, "TearNormal", 6, Necromancy.Instance, 144, 2, true);
         EntityRegistry.registerModEntity(EntityTearBlood.class, "TearBlood", 7, Necromancy.Instance, 144, 2, true);
-        
-        VillagerRegistry.instance().registerVillagerSkin(ConfigurationNecromancy.NecroVillagerID, ReferenceNecromancy.TEXTURES_ENTITIES_NECROMANCER);
-        VillagerRegistry.instance().registerVillageTradeHandler(ConfigurationNecromancy.NecroVillagerID, Necromancy.PacketHandler);
 
         NecroEntityRegistry.RegisterEntity(new NecroEntitySkeleton());
         NecroEntityRegistry.RegisterEntity(new NecroEntityZombie());

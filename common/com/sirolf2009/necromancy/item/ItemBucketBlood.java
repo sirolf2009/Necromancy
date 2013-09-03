@@ -89,7 +89,7 @@ public class ItemBucketBlood extends ItemBucket {
 
     @Override
     public void registerIcons(IconRegister iconRegister) {
-        itemIcon = iconRegister.registerIcon("necromancy:bucketBlood");
+        itemIcon = iconRegister.registerIcon("necromancy:bucketblood");
     }
 
 }

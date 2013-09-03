@@ -8,9 +8,12 @@ import net.minecraft.inventory.InventoryCraftResult;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.inventory.SlotCrafting;
+import net.minecraft.inventory.SlotFurnace;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.world.World;
 
 import com.sirolf2009.necromancy.block.BlockNecromancy;
@@ -21,99 +24,113 @@ import com.sirolf2009.necromancy.tileentity.TileEntitySewing;
 
 public class ContainerScentBurner extends Container {
 
-    public ContainerScentBurner(InventoryPlayer inventory, TileEntity sewing) {
-        burner = (TileEntityScentBurner) sewing;
-        craftMatrix = new InventoryCrafting(this, 4, 4);
-        craftResult = new InventoryCraftResult();
-        worldObj = sewing.worldObj;
-        posX = sewing.xCoord;
-        posY = sewing.yCoord;
-        posZ = sewing.zCoord;
-        int var3;
-        for (var3 = 0; var3 < 3; ++var3) {
-            for (int var4 = 0; var4 < 9; ++var4) {
-                this.addSlotToContainer(new Slot(inventory, var4 + var3 * 9 + 9, 8 + var4 * 18, 84 + var3 * 18));
-            }
-        }
-        for (var3 = 0; var3 < 9; ++var3) {
-            this.addSlotToContainer(new Slot(inventory, var3, 8 + var3 * 18, 142));
-        }
-        for (int x = 0; x < 4; x++) {
-            for (int y = 0; y < 4; y++) {
-                addSlotToContainer(new Slot(craftMatrix, y + x * 4, 8 + y * 18, 8 + x * 18));
-            }
-        }
-        //addSlotToContainer(new SlotSewingRequirements(burner, 0, 95, 17, this)); // needle
-        //addSlotToContainer(new SlotSewingRequirements(burner, 1, 95, 54, this)); // string
-        this.addSlotToContainer(new SlotCrafting(inventory.player, this.craftMatrix, this.craftResult, 0, 124, 35));
-        onCraftMatrixChanged(craftMatrix);
-    }
+	public ContainerScentBurner(InventoryPlayer inventory, TileEntity tileEntityBurner) {
+		this.burner = (TileEntityScentBurner) tileEntityBurner;
+		craftMatrix = new InventoryCrafting(this, 4, 4);
+		craftResult = new InventoryCraftResult();
+		worldObj = burner.worldObj;
+		posX = burner.xCoord;
+		posY = burner.yCoord;
+		posZ = burner.zCoord;
+		this.addSlotToContainer(new Slot(burner, 0, 80, 17));
+		this.addSlotToContainer(new Slot(burner, 1, 80, 53));
+		int i;
 
-    public void onInventoryChanged() {
-        craftResult.setInventorySlotContents(0, null);
-        onCraftMatrixChanged(craftMatrix);
-    }
+		for (i = 0; i < 3; ++i)
+		{
+			for (int j = 0; j < 9; ++j)
+			{
+				this.addSlotToContainer(new Slot(inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+			}
+		}
 
-    @Override
-    public void onCraftMatrixChanged(IInventory par1IInventory) {
-        super.onCraftMatrixChanged(par1IInventory);
-        if (burner.getStackInSlot(0) != null && burner.getStackInSlot(0).getItem() == ItemGeneric.getItemStackFromName("Bone Needle").getItem() && burner.getStackInSlot(1) != null && burner.getStackInSlot(1).getItem() == Item.silk) {
-            craftResult.setInventorySlotContents(0, CraftingManagerSewing.getInstance().findMatchingRecipe(craftMatrix, worldObj));
-        }
-    }
+		for (i = 0; i < 9; ++i)
+		{
+			this.addSlotToContainer(new Slot(inventory, i, 8 + i * 18, 142));
+		}
+	}
 
-    public void log(Object obj) {
-        System.out.println(ContainerScentBurner.class + "	" + obj);
-    }
+	public void log(Object obj) {
+		System.out.println(ContainerScentBurner.class + "	" + obj);
+	}
 
-    @Override
-    public void onContainerClosed(EntityPlayer par1EntityPlayer) {
-        super.onContainerClosed(par1EntityPlayer);
-        if (!worldObj.isRemote) {
-            for (int var2 = 0; var2 < 16; var2++) {
-                ItemStack var3 = craftMatrix.getStackInSlotOnClosing(var2);
-                if (var3 != null) {
-                    par1EntityPlayer.dropPlayerItem(var3);
-                }
-            }
+	@Override
+	public void onContainerClosed(EntityPlayer par1EntityPlayer) {
+		super.onContainerClosed(par1EntityPlayer);
+		if (!worldObj.isRemote) {
+			for (int var2 = 0; var2 < 16; var2++) {
+				ItemStack var3 = craftMatrix.getStackInSlotOnClosing(var2);
+				if (var3 != null) {
+					par1EntityPlayer.dropPlayerItem(var3);
+				}
+			}
 
-        }
-    }
+		}
+	}
 
-    @Override
-    public boolean canInteractWith(EntityPlayer par1EntityPlayer) {
-        return worldObj.getBlockId(posX, posY, posZ) == BlockNecromancy.sewing.blockID ? par1EntityPlayer.getDistanceSq(posX + 0.5D, posY + 0.5D, posZ + 0.5D) <= 64D : false;
-    }
+	@Override
+	public boolean canInteractWith(EntityPlayer par1EntityPlayer) {
+		return worldObj.getBlockId(posX, posY, posZ) == BlockNecromancy.scentBurner.blockID ? par1EntityPlayer.getDistanceSq(posX + 0.5D, posY + 0.5D, posZ + 0.5D) <= 64D : false;
+	}
 
-    @Override
-    public ItemStack transferStackInSlot(EntityPlayer player, int par1) {
-        ItemStack var2 = null;
-        Slot var3 = (Slot) inventorySlots.get(par1);
-        if (var3 != null && var3.getHasStack()) {
-            ItemStack var4 = var3.getStack();
-            var2 = var4.copy();
-            if (par1 >= 36 && par1 <= 54) {
-                if (!mergeItemStack(var4, 0, 35, false))
+	@Override
+	public ItemStack transferStackInSlot(EntityPlayer player, int slotIndex) {
+		ItemStack itemstack = null;
+        Slot slot = (Slot)this.inventorySlots.get(slotIndex);
+
+        if (slot != null && slot.getHasStack())
+        {
+            ItemStack itemstack1 = slot.getStack();
+            itemstack = itemstack1.copy();
+
+            if (slotIndex == 0 || slotIndex == 1) {
+                if (!this.mergeItemStack(itemstack1, 2, 38, true)) {
                     return null;
-            } else if (par1 >= 0 && par1 < 36 && !mergeItemStack(var4, 36, 51, false))
-                return null;
-            if (var4.stackSize == 0) {
-                var3.putStack((ItemStack) null);
-            } else {
-                var3.onSlotChanged();
-            }
-            if (var4.stackSize == var2.stackSize)
-                return null;
-            var3.onPickupFromSlot(player, var4);
-        }
-        return var2;
-    }
+                }
 
-    private TileEntityScentBurner burner;
-    public InventoryCrafting craftMatrix;
-    public IInventory craftResult;
-    private World worldObj;
-    private int posX;
-    private int posY;
-    private int posZ;
+                slot.onSlotChange(itemstack1, itemstack);
+            } else if (slotIndex != 1 && slotIndex != 0) {
+                if (FurnaceRecipes.smelting().getSmeltingResult(itemstack1) != null) {
+                    if (!this.mergeItemStack(itemstack1, 0, 1, false))  {
+                        return null;
+                    }
+                } else if (TileEntityFurnace.isItemFuel(itemstack1)) {
+                    if (!this.mergeItemStack(itemstack1, 1, 2, false)) {
+                        return null;
+                    }
+                } else if (slotIndex >= 3 && slotIndex < 30) {
+                    if (!this.mergeItemStack(itemstack1, 30, 39, false))
+                    {
+                        return null;
+                    }
+                } else if (slotIndex >= 30 && slotIndex < 39 && !this.mergeItemStack(itemstack1, 3, 30, false)) {
+                    return null;
+                }
+            } else if (!this.mergeItemStack(itemstack1, 3, 39, false)) {
+                return null;
+            }
+
+            if (itemstack1.stackSize == 0) {
+                slot.putStack((ItemStack)null);
+            } else {
+                slot.onSlotChanged();
+            }
+
+            if (itemstack1.stackSize == itemstack.stackSize) {
+                return null;
+            }
+
+            slot.onPickupFromSlot(player, itemstack1);
+        }
+
+        return itemstack;
+	}
+
+	private TileEntityScentBurner burner;
+	public InventoryCrafting craftMatrix;
+	public IInventory craftResult;
+	private World worldObj;
+	private int posX;
+	private int posY;
+	private int posZ;
 }

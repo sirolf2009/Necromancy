@@ -8,6 +8,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 
 import com.sirolf2009.necromancy.entity.EntityIsaacBody;
+import com.sirolf2009.necromancy.lib.ReferenceNecromancy;
 
 public class RenderIsaac extends RenderLiving {
 
@@ -31,6 +32,6 @@ public class RenderIsaac extends RenderLiving {
 
     @Override
     protected ResourceLocation func_110775_a(Entity entity) {
-        return new ResourceLocation("necromancy:textures/entities/Isaac.png");
+        return ReferenceNecromancy.TEXTURES_ENTITIES_ISAAC;
     }
 }

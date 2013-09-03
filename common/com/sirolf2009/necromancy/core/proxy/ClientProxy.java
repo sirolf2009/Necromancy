@@ -19,6 +19,7 @@ import com.sirolf2009.necromancy.client.renderer.RenderIsaac;
 import com.sirolf2009.necromancy.client.renderer.RenderIsaacBlood;
 import com.sirolf2009.necromancy.client.renderer.RenderMinion;
 import com.sirolf2009.necromancy.client.renderer.RenderNightCrawler;
+import com.sirolf2009.necromancy.client.renderer.RenderScent;
 import com.sirolf2009.necromancy.client.renderer.RenderTear;
 import com.sirolf2009.necromancy.client.renderer.RenderTearBlood;
 import com.sirolf2009.necromancy.client.renderer.RenderTeddy;
@@ -40,6 +41,7 @@ import com.sirolf2009.necromancy.item.ItemNecromancy;
 import com.sirolf2009.necromancy.lib.ConfigurationNecromancy;
 import com.sirolf2009.necromancy.lib.ReferenceNecromancy;
 import com.sirolf2009.necromancy.tileentity.TileEntityAltar;
+import com.sirolf2009.necromancy.tileentity.TileEntityScent;
 import com.sirolf2009.necromancy.tileentity.TileEntityScentBurner;
 import com.sirolf2009.necromancy.tileentity.TileEntitySewing;
 
@@ -73,6 +75,9 @@ public class ClientProxy extends CommonProxy {
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityAltar.class, new TileEntityAltarRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySewing.class, new TileEntitySewingRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityScentBurner.class, new TileEntityScentBurnerRenderer());
+        //ClientRegistry.bindTileEntitySpecialRenderer(TileEntityScent.class, new RenderScent());
+        
+        RenderingRegistry.registerBlockHandler(new RenderScent());
         
         MinecraftForgeClient.registerItemRenderer(BlockNecromancy.altar.blockID, new TileEntityAltarRenderer());
         MinecraftForgeClient.registerItemRenderer(BlockNecromancy.sewing.blockID, new TileEntitySewingRenderer());
@@ -84,6 +89,9 @@ public class ClientProxy extends CommonProxy {
         FluidRegistry.registerFluid(BlockNecromancy.fluidBlood);
         
         KeyBindingRegistry.registerKeyBinding(new KeyHandlerNecro());
+        
+        VillagerRegistry.instance().registerVillagerSkin(ConfigurationNecromancy.NecroVillagerID, ReferenceNecromancy.TEXTURES_ENTITIES_NECROMANCER);
+        VillagerRegistry.instance().registerVillageTradeHandler(ConfigurationNecromancy.NecroVillagerID, Necromancy.PacketHandler);
     }
 
     public static void spawnParticle(String name, double posX, double posY, double posZ, double motionX, double motionY, double motionZ) {

@@ -22,12 +22,12 @@ public class BlockScentBurner extends BlockContainer {
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int idk, float what, float these, float are) {
         TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
-        if (tileEntity == null || player.isSneaking())
-            return false;
-        else {
+        if (tileEntity != null && !player.isSneaking()) {
             player.openGui(Necromancy.Instance, guiID, world, x, y, z);
             return true;
         }
+        super.onBlockActivated(world, x, y, z, player, idk, what, these, are);
+        return false;
     }
 
     @Override

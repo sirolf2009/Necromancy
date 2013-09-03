@@ -3,9 +3,11 @@
     [input] Minecraft version:
 
 clean:
+   [delete] Deleting: C:\Users\Floris\MC mods\forge\mcp\src\minecraft\mcmod.info
+   [delete] Deleting directory C:\Users\Floris\MC mods\forge\mcp\src\minecraft\com\sirolf2009
 
 prep:
-     [copy] Copying 108 files to C:\Users\Floris\MC mods\forge\mcp\src\minecraft
+     [copy] Copying 111 files to C:\Users\Floris\MC mods\forge\mcp\src\minecraft
      [copy] Copying 9 files to C:\Users\Floris\MC mods\forge\mcp\src\minecraft
 
 replace_tokens:
@@ -17,7 +19,7 @@ recompile:
      [exec] == Recompiling client ==
      [exec] > Cleaning bin
      [exec] > Recompiling
-     [exec] - Done in 43.14 seconds
+     [exec] - Done in 56.91 seconds
      [exec] !! Can not find server sources, try decompiling !!
      [exec] Druk op een toets om door te gaan. . . 
 
@@ -160,8 +162,11 @@ reobfuscate:
      [exec] > New class found      : com/sirolf2009/necromancy/generation/WorldGenerator
      [exec] > New class found      : com/sirolf2009/necromancy/item/ItemGeneric
      [exec] > New class found      : com/sirolf2009/necromancy/client/renderer/ItemScytheRenderer
+     [exec] > New class found      : com/sirolf2009/necromancy/block/BlockScent
      [exec] > New class found      : com/sirolf2009/necromancy/client/renderer/tileentity/TileEntityScentBurnerRenderer
      [exec] > New class found      : com/sirolf2009/necroapi/BodyPart
+     [exec] > New class found      : com/sirolf2009/necromancy/client/renderer/RenderScent
+     [exec] > New class found      : com/sirolf2009/necromancy/tileentity/TileEntityScent
      [exec] > New class found      : com/sirolf2009/necromancy/entity/necroapi/NecroEntitySheep
      [exec] > New class found      : com/sirolf2009/necromancy/entity/EntityAIScareEntities
      [exec] > New class found      : com/sirolf2009/necromancy/entity/necroapi/NecroEntitySquid
@@ -307,8 +312,11 @@ reobfuscate:
      [exec] > Outputted com/sirolf2009/necromancy/generation/WorldGenerator to reobf\minecraft as com/sirolf2009/necromancy/generation/WorldGenerator.class
      [exec] > Outputted com/sirolf2009/necromancy/item/ItemGeneric to reobf\minecraft as com/sirolf2009/necromancy/item/ItemGeneric.class
      [exec] > Outputted com/sirolf2009/necromancy/client/renderer/ItemScytheRenderer to reobf\minecraft as com/sirolf2009/necromancy/client/renderer/ItemScytheRenderer.class
+     [exec] > Outputted com/sirolf2009/necromancy/block/BlockScent to reobf\minecraft as com/sirolf2009/necromancy/block/BlockScent.class
      [exec] > Outputted com/sirolf2009/necromancy/client/renderer/tileentity/TileEntityScentBurnerRenderer to reobf\minecraft as com/sirolf2009/necromancy/client/renderer/tileentity/TileEntityScentBurnerRenderer.class
      [exec] > Outputted com/sirolf2009/necroapi/BodyPart    to reobf\minecraft as com/sirolf2009/necroapi/BodyPart.class
+     [exec] > Outputted com/sirolf2009/necromancy/client/renderer/RenderScent to reobf\minecraft as com/sirolf2009/necromancy/client/renderer/RenderScent.class
+     [exec] > Outputted com/sirolf2009/necromancy/tileentity/TileEntityScent to reobf\minecraft as com/sirolf2009/necromancy/tileentity/TileEntityScent.class
      [exec] > Outputted com/sirolf2009/necromancy/entity/necroapi/NecroEntitySheep to reobf\minecraft as com/sirolf2009/necromancy/entity/necroapi/NecroEntitySheep.class
      [exec] > Outputted com/sirolf2009/necromancy/entity/EntityAIScareEntities to reobf\minecraft as com/sirolf2009/necromancy/entity/EntityAIScareEntities.class
      [exec] > Outputted com/sirolf2009/necromancy/entity/necroapi/NecroEntitySquid to reobf\minecraft as com/sirolf2009/necromancy/entity/necroapi/NecroEntitySquid.class
@@ -327,10 +335,10 @@ reobfuscate:
      [exec] > Outputted com/sirolf2009/necromancy/entity/necroapi/NecroEntityCaveSpider to reobf\minecraft as com/sirolf2009/necromancy/entity/necroapi/NecroEntityCaveSpider.class
      [exec] > Outputted com/sirolf2009/necromancy/entity/EntityIsaacBody to reobf\minecraft as com/sirolf2009/necromancy/entity/EntityIsaacBody.class
      [exec] > Outputted com/sirolf2009/necromancy/entity/EntityNecroFX to reobf\minecraft as com/sirolf2009/necromancy/entity/EntityNecroFX.class
-     [exec] - Done in 26.86 seconds
+     [exec] - Done in 16.42 seconds
      [exec] !! Can not find server md5s !!
      [exec] Druk op een toets om door te gaan. . . 
-      [jar] Building jar: C:\Users\Floris\Dropbox\Public\necromancy\releases\Necromancy-1.4b-1.6.2.jar
+      [jar] Building jar: C:\Users\Floris\Dropbox\Public\necromancy\releases\Necromancy-1.4c-1.6.2.jar
 
 clean:
    [delete] Deleting: C:\Users\Floris\MC mods\forge\mcp\src\minecraft\mcmod.info

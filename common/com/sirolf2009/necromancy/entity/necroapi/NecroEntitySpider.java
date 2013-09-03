@@ -146,7 +146,7 @@ public class NecroEntitySpider extends NecroEntityBase implements ISaddleAble {
 
     @Override
     public ResourceLocation getSaddleTex() {
-        return new ResourceLocation(ReferenceNecromancy.LOC_RESOURCES_TEXTURES_ENTITIES + "/spiderSaddle.png");
+        return new ResourceLocation(ReferenceNecromancy.LOC_RESOURCES_TEXTURES_ENTITIES + "/spidersaddle.png");
     }
 
     @Override
