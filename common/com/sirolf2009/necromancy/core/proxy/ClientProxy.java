@@ -49,9 +49,16 @@ import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.KeyBindingRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.registry.VillagerRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URISyntaxException;
+import org.lwjgl.opengl.GL20;
 
 public class ClientProxy extends CommonProxy {
     static public Minecraft mc;
@@ -92,8 +99,46 @@ public class ClientProxy extends CommonProxy {
         
         VillagerRegistry.instance().registerVillagerSkin(ConfigurationNecromancy.NecroVillagerID, ReferenceNecromancy.TEXTURES_ENTITIES_NECROMANCER);
         VillagerRegistry.instance().registerVillageTradeHandler(ConfigurationNecromancy.NecroVillagerID, Necromancy.PacketHandler);
+            
+        try {
+            int vertShader = loadShader("/assets/necromancy/shaders/scent/scentFragment.shader",GL20.GL_VERTEX_SHADER);
+            int fragShader = loadShader("/assets/necromancy/shaders/scent/scentVertex.shader",GL20.GL_FRAGMENT_SHADER);
+            int scentProgram = GL20.glCreateProgram();
+            GL20.glAttachShader(scentProgram, vertShader);
+            GL20.glAttachShader(scentProgram, fragShader);
+            GL20.glLinkProgram(scentProgram);
+            GL20.glValidateProgram(scentProgram);
+        } catch (Exception e1) {
+            e1.printStackTrace();
+            System.exit(-1);
+        }
     }
 
+    @SideOnly(Side.CLIENT)
+    public int loadShader(String filename, int type) {
+    	StringBuilder shaderSource = new StringBuilder();
+    	int shaderID = 0;
+    	
+    	try {
+    		BufferedReader reader = new BufferedReader(new InputStreamReader(Necromancy.class.getResourceAsStream(filename)));
+    		String line;
+    		while ((line = reader.readLine()) != null) {
+    			shaderSource.append(line).append("\n");
+    		}
+    		reader.close();
+    	} catch (IOException e) {
+    		System.err.println("Could not read file.");
+    		e.printStackTrace();
+    		System.exit(-1);
+    	} 
+    	
+    	shaderID = GL20.glCreateShader(type);
+    	GL20.glShaderSource(shaderID, shaderSource);
+    	GL20.glCompileShader(shaderID);
+    	
+    	return shaderID;
+    }
+    
     public static void spawnParticle(String name, double posX, double posY, double posZ, double motionX, double motionY, double motionZ) {
         if (mc != null && mc.renderViewEntity != null && mc.effectRenderer != null) {
             if (name.equals("skull")) {
